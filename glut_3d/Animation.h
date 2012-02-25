@@ -18,21 +18,17 @@ typedef struct _animationscene AnimScene;
 
 struct _moveinfo
 {
-	//Start
-	Vector3D start_pos;
-	Quat start_rot;
-
-	//After
-	Vector3D end_pos;
-	Quat end_rot;
+	Vector3D pos;
+	Quat rot;
+	int time;
 };
 
 struct _animation //time in ms
 {
 	Object * obj;
-	MoveInfo mv_info;
-	int start_time; 
-	int time, t;
+	MoveInfo mv_info[256];
+	int mv_size;
+	int t;
 	void (*update)(Animation*,int);
 
 };
@@ -42,7 +38,7 @@ struct _animationscene
 	ListCh* l_anim;
 	int t;
 	int start;
-	void(*update)(AnimScene*,int);
+	void(*update)(AnimScene*,int, int);
 	void (*reset)(AnimScene*);
 };
 
@@ -52,15 +48,16 @@ void deleteAnim(Animation*);
 
 void update(Animation*,int);
 
-void setStart(Animation*,Quat);
-void setEnd(Animation*, Quat);
-
+void addMoveInfo(Animation*,Quat,int time);
+void remMoveInfo(Animation*,int time);
+void orderMoveInfo(Animation*);
+int compareMoveInfo(const void *Param1, const void *Param2);
 
 AnimScene* newAnimScene(AnimScene*);
 void deleteAnimScene(AnimScene*);
 void addAnim(AnimScene*,Animation*);
 void delAnim(AnimScene*,Animation*);
-void updateAll(AnimScene*, int);
+void updateAll(AnimScene*, int, int);
 void reset(AnimScene*);
 
 #endif

@@ -338,34 +338,40 @@ void onkey(unsigned char key,int x, int y)
 		if(!anim && selected_obj)
 		{
 			anim = newAnim(NULL,selected_obj);
+			addAnim(Objmgr->scene->anim,anim);
 		}else if(!anim && !selected_obj)
 			break;
 
-		setStart(anim,anim->obj->qtrot);
-		anim->start_time = time_scene*1000;
+		addMoveInfo(anim,anim->obj->qtrot,time_scene*1000);
+
+		
 		break;
 	case '9':
-		if(!anim)
-			break;
-		setEnd(anim,anim->obj->qtrot);
-		anim->time = time_scene*1000 - anim->start_time;
-		addAnim(Objmgr->scene->anim,anim);
 		anim = NULL;
 		break;
 	case 'r':
 		Objmgr->scene->anim->reset(Objmgr->scene->anim);
 		break;
 	case 't':
+		Objmgr->scene->anim->reset(Objmgr->scene->anim);
 		Objmgr->scene->anim->start = 1;
 		break;
 	case '+':
+		if(Objmgr->scene->anim->start)
+			break;
 		time_scene += 1.0f;
 		printf("Temps scene : %f \n",time_scene);
+		Objmgr->scene->anim->reset(Objmgr->scene->anim);
+		Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
 		break;
 	case '-':
+		if(Objmgr->scene->anim->start)
+			break;
 		time_scene -= 1.0f;
 		if(time_scene < 0.0f)
 			time_scene = 0.0f;
+		Objmgr->scene->anim->reset(Objmgr->scene->anim);
+		Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
 		printf("Temps scene : %f \n",time_scene);
 		break;
 	}
@@ -388,7 +394,7 @@ void idle()
 	if(timer <= diff)
 	{
 
-		Objmgr->scene->anim->update(Objmgr->scene->anim,TIMER+diff-timer);
+		Objmgr->scene->anim->update(Objmgr->scene->anim,TIMER+diff-timer,0);
 
 		timer = TIMER;
 		glutPostRedisplay();
