@@ -27,6 +27,13 @@ void deleteQuat(Quat* qt)
 	free(qt);
 }
 
+Quat quatAdd(Quat q1,Quat q2)
+{
+	q1.a += q2.a;
+	q1.vector = vectorAdd(q1.vector,q2.vector);
+	return q1;
+}
+
 Quat quatConj(Quat qt)
 {
 
@@ -50,13 +57,13 @@ void quatNormalize(Quat* qt)
 Quat quatProdD(Quat qt,double a)
 {
 	qt.a *= a;
-	vectorMutl(qt.vector,a);
+	qt.vector = vectorMutl(qt.vector,a);
 	return qt;
 }
 Quat quatDivD(Quat qt,double a)
 {
 	qt.a /= a;
-	vectorDiv(qt.vector,a);
+	qt.vector = vectorDiv(qt.vector,a);
 	return qt;
 }
 Quat quatInv(Quat qt)
@@ -195,5 +202,17 @@ Quat toRot(Quat qt)
 	qt.a = acos(qt.a) * 2;
 
 	qt.vector = normalize(&qt.vector);
+	return qt;
+}
+
+Quat interpolQuat(Quat q1,Quat q2, double t)
+{
+	Quat qt;
+	double sin1,sin2;
+	double a = quatScaleProd(q1,q2);
+	a = acos(a);
+	sin1 = sin((1-t)*a)/sin(a);
+	sin2 = sin(t*a)/sin(a);
+	qt = quatAdd(quatProdD(q1,sin1),quatProdD(q2,sin2));
 	return qt;
 }

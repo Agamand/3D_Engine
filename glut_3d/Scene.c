@@ -13,12 +13,23 @@ Scene * newScene(Scene* sc)
 	sc->option = NOTHING_OPTION;
 	sc->showAllObject = showAllObject;
 	sc->showObject = showObject;
+	sc->anim = newAnimScene(NULL);
 	return sc;
 }
 void deleteScene(Scene*sc )
 {
 	deleteListCh(sc->object_list);
+	deleteAnimScene(sc->anim);
 	free(sc);
+}
+
+Scene* cpyScene(Scene*sc)
+{
+	Scene* nsc;
+
+	nsc = newScene(NULL);
+	nsc->option = sc->option;
+
 }
 
 //Function

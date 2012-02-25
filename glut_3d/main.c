@@ -7,6 +7,7 @@
 #include "Camera\Camera.h"
 #include "Camera\Vector.h"
 #include "Shader.h"
+#include "Animation.h"
 
 #include "ObjectAccessor\ObjectAccessor.h"
 #include "Other.h"
@@ -14,6 +15,7 @@
 #define X_2 400
 #define Y_2 300
 #define BLANC 0xffffff
+#define TIMER 1000/60
 
 
 enum click
@@ -37,14 +39,15 @@ enum Mode
 int click_pressed = NO_CLICK;
 int mode = 0;
 Object* selected_obj = NULL;
+Animation *anim = NULL;
 Camera* cam = NULL;
-
-//TEST
+double time_scene = 0.0f; //in sec
 clock_t last_time = 0;
 int timer = 10;
-float angle = 0.0f;
-float angle_1 = 0.0f;
-float angle_2 = 0.0f;
+
+//TEST
+Animation* testanim = NULL;
+
 int light[] = {0,0,0,1};
 GLuint shader[] = {0,0};
 GLuint program;
@@ -85,6 +88,7 @@ void passivemotion(int x, int y);
 void onkey(unsigned char key,int x, int y);
 void reshape(int w, int h);
 void idle();
+void mainUpdate(int value);
 
 void showGrid();
 
@@ -159,20 +163,23 @@ int main(int argc, char ** argv)
 	Objmgr->scene =  newScene(NULL);
 	//selected_obj = newSphere(NULL,&p,2.0f,"earthmap1k_24.bmp",255 +(255 << 8) + (255 << 16));
 	//Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-	selected_obj = corps(&c);
+	selected_obj = doigt(1.0f);//corps(&c);
 	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
 
 
-	rot(c.bras[0].bras[0],45.0f,0,1.0,0.0);
-	rot(c.bras[1].bras[0],45.0f,0,1.0,0.0);
+	//rot(c.bras[0].bras[0],45.0f,0,1.0,0.0);
+	//rot(c.bras[1].bras[0],45.0f,0,1.0,0.0);
 
 
-	selected_obj = c.bras[0].bras[0];
+	//selected_obj = c.bras[0].bras[0];
 
-	
+
+	testanim = newAnim(NULL,selected_obj);
+
     glutMainLoop();
     return 0;
 }
+
 
 void reshape(int w, int h)
 {
@@ -327,9 +334,41 @@ void onkey(unsigned char key,int x, int y)
 	case '3':
 		mode = SELECT_ROT_3;
 		break;
+	case '7':
+		if(!anim && selected_obj)
+		{
+			anim = newAnim(NULL,selected_obj);
+		}else if(!anim && !selected_obj)
+			break;
+
+		setStart(anim,anim->obj->qtrot);
+		anim->start_time = time_scene*1000;
+		break;
+	case '9':
+		if(!anim)
+			break;
+		setEnd(anim,anim->obj->qtrot);
+		anim->time = time_scene*1000 - anim->start_time;
+		addAnim(Objmgr->scene->anim,anim);
+		anim = NULL;
+		break;
+	case 'r':
+		Objmgr->scene->anim->reset(Objmgr->scene->anim);
+		break;
+	case 't':
+		Objmgr->scene->anim->start = 1;
+		break;
+	case '+':
+		time_scene += 1.0f;
+		printf("Temps scene : %f \n",time_scene);
+		break;
+	case '-':
+		time_scene -= 1.0f;
+		if(time_scene < 0.0f)
+			time_scene = 0.0f;
+		printf("Temps scene : %f \n",time_scene);
+		break;
 	}
-
-
 	glutPostRedisplay();
 }
 
@@ -342,47 +381,16 @@ void idle()
 	int i;
 	clock_t time = clock();
 	diff = time - last_time;
+	if(diff == 0)
+		return;
 	last_time = time;
 	
 	if(timer <= diff)
 	{
 
+		Objmgr->scene->anim->update(Objmgr->scene->anim,TIMER+diff-timer);
 
-
-		//if(!selected_obj)
-			//return;
-
-		angle +=3.14/60;
-
-		//((Container*)selected_obj)->angle[1] = _angle;
-	/*setRot(c.bras[0].main.doigt[0].doigt[0],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[0].doigt[1],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[0].doigt[2],0,_angle/2,0.0,1.0,0.0);
-
-	setRot(c.bras[0].main.doigt[1].doigt[0],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[1].doigt[1],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[1].doigt[2],0,_angle/2,0.0,1.0,0.0);
-
-	setRot(c.bras[0].main.doigt[2].doigt[0],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[2].doigt[1],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[2].doigt[2],0,_angle/2,0.0,1.0,0.0);
-
-	setRot(c.bras[0].main.doigt[3].doigt[0],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[3].doigt[1],0,_angle,0.0,1.0,0.0);
-	setRot(c.bras[0].main.doigt[3].doigt[2],0,_angle/2,0.0,1.0,0.0);*/
-
-
-
-		//((Container*)selected_obj)->center.x = 20*cos(angle);
-		//((Container*)selected_obj)->center.y = 20*sin(angle);
-		/*cam->_position.x = ((Sphere*)selected_obj)->center.x;
-		cam->_position.y = ((Sphere*)selected_obj)->center.y;
-		cam->_position.z = ((Sphere*)selected_obj)->r+0.5;
-
-
-		/*angle_1 += 4.0f/30;
-		angle_2 -= 30.0f/30;*/
-		timer = 1000/60;
+		timer = TIMER;
 		glutPostRedisplay();
 	}
 	else timer -= diff;
@@ -408,46 +416,6 @@ void showGrid()
 	}
 }
 
-/*void test_3ds(obj_type object)
-{
-
-	int l_index;
-	glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, object.id_texture); // We set the active texture 
-
-    glBegin(GL_TRIANGLES); // glBegin and glEnd delimit the vertices that define a primitive (in our case triangles)
-	glColor3ub(255,255,255);
-    for (l_index=0;l_index<object.polygons_qty;l_index++)
-    {
-        //----------------- FIRST VERTEX -----------------
-        // Texture coordinates of the first vertexdds
-        glTexCoord2f( object.mapcoord[ object.polygon[l_index].a ].u,
-                      object.mapcoord[ object.polygon[l_index].a ].v);
-        // Coordinates of the first vertex
-        glVertex3f( object.vertex[ object.polygon[l_index].a ].x,
-                    object.vertex[ object.polygon[l_index].a ].y,
-                    object.vertex[ object.polygon[l_index].a ].z); //Vertex definition
-
-        //----------------- SECOND VERTEX -----------------
-        // Texture coordinates of the second vertex
-        glTexCoord2f( object.mapcoord[ object.polygon[l_index].b ].u,
-                      object.mapcoord[ object.polygon[l_index].b ].v);
-        // Coordinates of the second vertex
-        glVertex3f( object.vertex[ object.polygon[l_index].b ].x,
-                    object.vertex[ object.polygon[l_index].b ].y,
-                    object.vertex[ object.polygon[l_index].b ].z);
-        
-        //----------------- THIRD VERTEX -----------------
-        // Texture coordinates of the third vertex
-        glTexCoord2f( object.mapcoord[ object.polygon[l_index].c ].u,
-                      object.mapcoord[ object.polygon[l_index].c ].v);
-        // Coordinates of the Third vertex
-        glVertex3f( object.vertex[ object.polygon[l_index].c ].x,
-                    object.vertex[ object.polygon[l_index].c ].y,
-                    object.vertex[ object.polygon[l_index].c ].z);
-    }
-    glEnd();
-}*/
 
 void startPicking(int cursorX, int cursorY) {
 

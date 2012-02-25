@@ -1,15 +1,13 @@
-﻿La génération a démarré 24/02/2012 20:28:15.
-     1>Projet "C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\glut_3d\glut_3d.vcxproj" sur le nœud 2 (build cible(s)).
+﻿La génération a démarré 25/02/2012 03:20:37.
+     1>Projet "J:\Projet Infographie\Moteur3D\glut_3d\glut_3d\glut_3d.vcxproj" sur le nœud 2 (build cible(s)).
      1>InitializeBuildStatus:
          Création de "Debug\glut_3d.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt Object.c
-         Object.c
-     1>c:\users\cyril\documents\visual studio 2010\projects\infographie\glut_3d\glut_3d\object.c(161): warning C4101: 'i' : variable locale non référencée
-     1>c:\users\cyril\documents\visual studio 2010\projects\infographie\glut_3d\glut_3d\object.c(199): warning C4101: 'i' : variable locale non référencée
-     1>c:\users\cyril\documents\visual studio 2010\projects\infographie\glut_3d\glut_3d\object.c(23): warning C4716: 'newCube' : doit retourner une valeur
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt Animation.c
+         Animation.c
+     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\animation.c(17): warning C4716: 'newAnim' : doit retourner une valeur
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut_3d.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.lib" /MACHINE:X86 Debug\3DSLoader.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut_3d.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.lib" /MACHINE:X86 /PROFILE Debug\3DSLoader.obj
          Debug\Animation.obj
          Debug\BMPloader.obj
          Debug\Camera.obj
@@ -27,15 +25,15 @@
          Debug\Texture.obj
          Debug\List.obj
          Debug\StringStruct.obj
-         LINK : C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
-         glut_3d.vcxproj -> C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.exe
+     1>3DSLoader.obj : warning LNK4075: ' /EDITANDCONTINUE' ignoré à cause de la spécification '/OPT:REF'
+         glut_3d.vcxproj -> J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe
        Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\Debug\glut_3d.exe;#1" /manifest Debug\glut_3d.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe;#1" /manifest Debug\glut_3d.exe.intermediate.manifest
        FinalizeBuildStatus:
          Suppression du fichier "Debug\glut_3d.unsuccessfulbuild".
          Mise à jour de l'horodatage "Debug\glut_3d.lastbuildstate".
-     1>Génération du projet "C:\Users\Cyril\Documents\Visual Studio 2010\Projects\infographie\glut_3d\glut_3d\glut_3d.vcxproj" terminée (build cible(s)).
+     1>Génération du projet "J:\Projet Infographie\Moteur3D\glut_3d\glut_3d\glut_3d.vcxproj" terminée (build cible(s)).
 
 La génération a réussi.
 
-Temps écoulé 00:00:01.06
+Temps écoulé 00:00:01.03

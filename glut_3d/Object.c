@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "Object.h"
 #include "BMPloader.h"
 #include "ObjectAccessor\ObjectAccessor.h"
@@ -36,6 +37,15 @@ void deletePoint(Point* pt)
 	free(pt);
 }
 
+Point * cpy(Point* pt)
+{
+	Point* npt;
+	npt = newPoint(NULL,0,0,0);
+	memcpy(npt,pt,sizeof(Point));
+	return npt;
+}
+
+
 
 Polygone * newPolygone(Polygone* poly, Point* firstPoint, int color)
 {
@@ -51,7 +61,8 @@ Polygone * newPolygone(Polygone* poly, Point* firstPoint, int color)
 	poly->obj.size = 1.0f;
 
 	poly->lPoint = newListCh();
-	poly->lPoint->Append(poly->lPoint,firstPoint);
+	if(firstPoint)
+		poly->lPoint->Append(poly->lPoint,firstPoint);
 	return poly;
 }
 

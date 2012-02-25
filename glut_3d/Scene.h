@@ -4,6 +4,7 @@
 #define SCENE_H
 
 #include "Object.h"
+#include "Animation.h"
 
 typedef struct _scene Scene;
 
@@ -17,6 +18,7 @@ enum SceneOption
 struct _scene
 {
 	ListCh * object_list;
+	AnimScene * anim;
 	int option;
 
 	void (*showAllObject)(Scene*);
@@ -25,9 +27,9 @@ struct _scene
 };
 
 // CONSTRUTOR / DECONSTRUTOR
-Scene * newScene(Scene*);
+Scene* newScene(Scene*);
 void deleteScene(Scene*);
-
+Scene* cpyScene(Scene*);
 
 //Function
 void showAllObject(Scene*);

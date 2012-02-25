@@ -81,8 +81,13 @@ struct _3ds
 
 Point * newPoint(Point*, float x, float y, float z);
 void deletePoint(Point*);
+Point* cpyPoint(Point*);
+
 
 Cube* newCube(Cube *, Point,int*);
+
+
+Object* cpyObject(Point*);
 
 Polygone * newPolygone(Polygone*, Point*, int);
 void deletePolygone(Polygone*);

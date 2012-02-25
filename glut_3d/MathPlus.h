@@ -25,6 +25,7 @@ typedef struct _quat
 Quat* newQuat(Quat*,double,double,double,double);
 void deleteQuat(Quat*);
 
+Quat quatAdd(Quat,Quat);
 Quat quatConj(Quat);
 double quatNorm(Quat);
 void quatNormalize(Quat*);
@@ -36,6 +37,10 @@ double quatScaleProd(Quat,Quat);
 Matrice* quatTomatrice(Quat);
 Quat matriceToquat(Matrice*);
 Quat toRot(Quat);
+
+Quat interpolQuat(Quat,Quat, double);
+
+
 
 
 #endif
