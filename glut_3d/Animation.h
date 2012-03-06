@@ -44,6 +44,7 @@ struct _animationscene
 
 
 Animation* newAnim(Animation*,Object*);
+void initAnim(Animation*);
 void deleteAnim(Animation*);
 
 void update(Animation*,int);
@@ -59,5 +60,7 @@ void addAnim(AnimScene*,Animation*);
 void delAnim(AnimScene*,Animation*);
 void updateAll(AnimScene*, int, int);
 void reset(AnimScene*);
+void updatePosition(AnimScene* anim,int time);
+Animation* getAnimFromObj(AnimScene* anim,Object* obj);
 
 #endif

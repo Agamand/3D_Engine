@@ -70,6 +70,7 @@ Polygone * newPolygone(Polygone* poly, Point* firstPoint, int color)
 Container* newContainer(Container* ct,Point * center, Point * repere)
 {
 	int i;
+	Animation* anim;
 	if(!ct)
 		ct = (Container*)malloc(sizeof(Container));
 
@@ -82,6 +83,9 @@ Container* newContainer(Container* ct,Point * center, Point * repere)
 	ct->center = *center;
 	ct->repere = *repere;
 	newQuat(&ct->obj.qtrot,0.0f,0.0,0.0,0.0);
+	anim = newAnim(NULL,ct);
+	addMoveInfo(anim,ct->obj.qtrot,0);
+	addAnim(Objmgr->scene->anim,anim);
 	return ct;
 }
 
@@ -115,12 +119,17 @@ void polyDelPoint(Polygone * poly, Point * pt)
 	poly->lPoint->Erase(poly->lPoint,pt);
 }
 
-void showPolygone(Polygone* poly)
+void showPolygone(Polygone* poly, int* name)
 {
 	Pointer* ptr;
 	Point * pt;
 	glBegin(GL_POLYGON);
 	ptr = poly->lPoint->begin;
+	if(name)
+	{
+		glLoadName(*name);
+		*name++;
+	}
 	while((ptr = ptr->nextpointer) != poly->lPoint->end)
 	{
 		pt = (Point*)ptr->pointer;
@@ -167,7 +176,7 @@ void deleteSphere(Sphere* sph)
 	free(sph);
 }
 
-void showSphere(Sphere* sph)
+void showSphere(Sphere* sph,int* name)
 {
 	int i;
     GLUquadric* params = gluNewQuadric();
@@ -176,7 +185,11 @@ void showSphere(Sphere* sph)
 
 	glPushMatrix();
     
-
+	if(name)
+	{
+		glLoadName(*name);
+		*name++;
+	}
 	glTranslatef(sph->center.x,sph->center.y,sph->center.z);
 	glRotated(TOROT(toRot(sph->obj.qtrot)));
 		
@@ -205,13 +218,17 @@ void contDelObject(Container* ct,Object* obj)
 {
 	ct->objectL->Erase(ct->objectL,obj);
 }
-void showContainer(Container* ct)
+void showContainer(Container* ct, int*name)
 {
 	int i;
 	Pointer* itr;
 	glPushMatrix();
     
-
+	if(name)
+	{
+		glLoadName(*name);
+		*name++;
+	}
 	glTranslatef(ct->center.x,ct->center.y,ct->center.z);
 	glTranslatef(ct->repere.x,ct->repere.y,ct->repere.z);
 	glRotated(TOROT(toRot(ct->obj.qtrot)));
@@ -220,7 +237,7 @@ void showContainer(Container* ct)
 	itr = ct->objectL->begin;
 	while((itr = itr->nextpointer) != ct->objectL->end)
 	{
-		showObject((Object*)itr->pointer);
+		showObject((Object*)itr->pointer,NULL);
 	}
 
 	glPopMatrix();

@@ -16,6 +16,15 @@ typedef struct _sphere Sphere;
 typedef struct _container Container;
 typedef struct _3ds Object_3ds;
 
+
+
+enum FileType
+{
+	FILE_SCENE,
+	FILE_ANIM,
+	FILE_LISTCH,
+	FILE_OBJECT,
+};
 enum ObjectType
 {
 	OBJECT_TYPE_POLYGONE,
@@ -108,13 +117,13 @@ void render_string(float x, float y, float z, const char* s);
 
 void polyAddPoint(Polygone*,Point*);
 void polyDelPoint(Polygone*,Point*);
-void showPolygone(Polygone*);
+void showPolygone(Polygone*, int*);
 
-void showSphere(Sphere*);
+void showSphere(Sphere*, int*);
 
 void contAddObject(Container*,Object*);
 void contDelObject(Container*,Object*);
-void showContainer(Container*);
+void showContainer(Container*,int*);
 void rot(Object*obj,double angle, double x, double y, double z);
 
 

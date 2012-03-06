@@ -107,3 +107,66 @@ GLuint LoadShader(GLenum type, const char *filename)
     
     return shader;
 }
+
+Shader* LoadProgram(const char *vertex, const char *frag)
+{
+	GLuint vertex_id,frag_id,program_id;
+	GLint link = 0;
+	GLint tailleErreur = 0;
+	char *erreur = NULL;
+	Shader* sh = NULL;
+
+	vertex_id = LoadShader(GL_VERTEX_SHADER,vertex);
+	frag_id = LoadShader(GL_FRAGMENT_SHADER,frag);
+
+
+	program_id = glCreateProgram();
+	sh = (Shader*)malloc(sizeof(Shader));
+	sh->frag = frag_id;
+	sh->vertex = vertex_id;
+	sh->program_id = program_id;
+	glAttachShader(program_id, vertex_id);
+	glAttachShader(program_id, frag_id);
+
+	glLinkProgram(program_id);
+
+	glGetProgramiv(program_id, GL_LINK_STATUS, &link);
+
+	if(link != GL_TRUE)
+	{
+
+		glGetProgramiv(program_id, GL_INFO_LOG_LENGTH, &tailleErreur);
+
+		erreur = (char*)malloc(sizeof(char)*(tailleErreur + 1));
+
+		glGetProgramInfoLog(program_id, tailleErreur, &tailleErreur, erreur);
+		erreur[tailleErreur] = '\0';
+
+		printf("Erreur lors du link du program : %s",erreur);
+
+		free(erreur);
+		DeleteProgram(sh);
+
+		return NULL;
+	}
+
+
+	return sh;
+}
+
+void DeleteProgram(Shader*sh)
+{
+
+	if(!sh)
+		return;
+	if(sh->vertex)
+		glDeleteShader(sh->vertex);
+
+	if(sh->frag)
+		glDeleteShader(sh->frag);
+
+	if(sh->program_id)
+		glDeleteProgram(sh->program_id);
+
+	free(sh);
+}

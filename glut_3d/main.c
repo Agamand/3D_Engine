@@ -47,7 +47,10 @@ int timer = 10;
 
 //TEST
 Animation* testanim = NULL;
-
+Object* list_object[20];
+int index = 0;
+Shader * shadtest;
+Scene* sctest;
 int light[] = {0,0,0,1};
 GLuint shader[] = {0,0};
 GLuint program;
@@ -86,6 +89,7 @@ void mouse(int button, int state, int x, int y);
 void mousemotion(int x, int y);
 void passivemotion(int x, int y);
 void onkey(unsigned char key,int x, int y);
+void keyboardSpec(unsigned char key,int x, int y);
 void reshape(int w, int h);
 void idle();
 void mainUpdate(int value);
@@ -149,7 +153,8 @@ int main(int argc, char ** argv)
 
     glutDisplayFunc(display);
 	glutKeyboardFunc(onkey);
-	//glutSpecialFunc(keyboardSpec);
+	
+	glutSpecialFunc(keyboardSpec);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mousemotion);
 	glutPassiveMotionFunc(passivemotion);
@@ -163,17 +168,37 @@ int main(int argc, char ** argv)
 	Objmgr->scene =  newScene(NULL);
 	//selected_obj = newSphere(NULL,&p,2.0f,"earthmap1k_24.bmp",255 +(255 << 8) + (255 << 16));
 	//Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-	selected_obj = doigt(1.0f);//corps(&c);
+	selected_obj = bras_complet(&c.bras[0]);
 	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
 
 
 	//rot(c.bras[0].bras[0],45.0f,0,1.0,0.0);
 	//rot(c.bras[1].bras[0],45.0f,0,1.0,0.0);
 
+	
+	selected_obj = c.bras[0].bras[0];
+	for(i = 0;  i < 20; i++)
+		list_object[i] = NULL;
 
-	//selected_obj = c.bras[0].bras[0];
-
-
+	list_object[0] = c.bras[0].bras[0];
+	list_object[1] = c.bras[0].bras[1];
+	list_object[2] = c.bras[0].main.main;
+	list_object[3] = c.bras[0].main.doigt[0].doigt[0];
+	list_object[4] = c.bras[0].main.doigt[0].doigt[1];
+	list_object[5] = c.bras[0].main.doigt[0].doigt[2];
+	list_object[6] = c.bras[0].main.doigt[1].doigt[0];
+	list_object[7] = c.bras[0].main.doigt[1].doigt[1];
+	list_object[8] = c.bras[0].main.doigt[1].doigt[2];
+	list_object[9] = c.bras[0].main.doigt[2].doigt[0];
+	list_object[10] = c.bras[0].main.doigt[2].doigt[1];
+	list_object[11] = c.bras[0].main.doigt[2].doigt[2];
+	list_object[12] = c.bras[0].main.doigt[3].doigt[0];
+	list_object[13] = c.bras[0].main.doigt[3].doigt[1];
+	list_object[14] = c.bras[0].main.doigt[3].doigt[2];
+	list_object[15] = c.bras[0].main.doigt[4].doigt[0];
+	list_object[16] = c.bras[0].main.doigt[4].doigt[1];
+	list_object[17] = c.bras[0].main.doigt[4].doigt[2];
+	shadtest = LoadProgram("Shader/HeatHaze.vert","Shader/HeatHaze.frag");
 	testanim = newAnim(NULL,selected_obj);
 
     glutMainLoop();
@@ -216,9 +241,16 @@ void display()
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, lightDir1);
 	glLightfv(GL_LIGHT1, GL_SPOT_CUTOFF, &lightSpot0);
 
-
-
-	Objmgr->scene->showAllObject(Objmgr->scene);
+	glUseProgram(shadtest->program_id);
+	glBegin(GL_POLYGON);
+	glColor3f(1.0f,1.0f,1.0f);
+	glVertex3f(1.0f,1.0f,-1.0f);
+	glVertex3f(1.0f,-1.0f,-1.0f);
+	glVertex3f(-1.0f,-1.0f,-1.0f);
+	glVertex3f(-1.0f,1.0f,-1.0f);
+	glEnd();
+	glUseProgram(0);
+	Objmgr->scene->showAllObject(Objmgr->scene,NULL);
 
 	
 	showGrid();
@@ -231,6 +263,29 @@ void display()
 
 	glFlush();
 	glutSwapBuffers();
+}
+void keyboardSpec(unsigned char key,int x, int y)
+{
+	switch(key)
+	{
+	case 'h':
+		index++;
+		if(index >= 20)
+			index = 0;
+		selected_obj = list_object[index];
+		if(!selected_obj)
+			selected_obj = list_object[0];
+		break;
+	case 'i':
+		index--;
+		if(index < 0)
+			index = 0;
+		selected_obj = list_object[index];
+		if(!selected_obj)
+			selected_obj = list_object[0];
+		break;
+	}
+
 }
 
 void mousemotion(int x,int y)
@@ -317,8 +372,21 @@ void passivemotion(int x, int y)
 	y_0 = -y + Y_2;
 
 }
+void setTime(double time)
+{
+
+	updatePosition(Objmgr->scene->anim,time_scene*1000);
+	time_scene = time;
+	if(time_scene < 0.0f)
+		time_scene = 0.0f;
+
+	Objmgr->scene->anim->reset(Objmgr->scene->anim);
+	Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
+	printf("Temps scene : %f \n",time_scene);
+}
 void onkey(unsigned char key,int x, int y)
 {
+	char buffer[128];
 	Vector3D v;
 	if(cam)
 		cam->OnKeyboard(cam,key);
@@ -335,44 +403,71 @@ void onkey(unsigned char key,int x, int y)
 		mode = SELECT_ROT_3;
 		break;
 	case '7':
+		/*if(anim && selected_obj)
+		{
+			if(anim->obj != selected_obj)
+				anim = getAnimFromObj(Objmgr->scene->anim,selected_obj);
+		}
+
 		if(!anim && selected_obj)
 		{
-			anim = newAnim(NULL,selected_obj);
-			addAnim(Objmgr->scene->anim,anim);
+			anim = getAnimFromObj(Objmgr->scene->anim,selected_obj);
+			if(!anim)
+			{
+				anim = newAnim(NULL,selected_obj);
+				addAnim(Objmgr->scene->anim,anim);
+			}
 		}else if(!anim && !selected_obj)
 			break;
 
 		addMoveInfo(anim,anim->obj->qtrot,time_scene*1000);
 
-		
+		*/
 		break;
 	case '9':
 		anim = NULL;
 		break;
 	case 'r':
+		setTime(0.0f);
 		Objmgr->scene->anim->reset(Objmgr->scene->anim);
 		break;
 	case 't':
+		setTime(0.0f);
 		Objmgr->scene->anim->reset(Objmgr->scene->anim);
 		Objmgr->scene->anim->start = 1;
 		break;
-	case '+':
-		if(Objmgr->scene->anim->start)
+	case 'i':
+		printf("\n !SET! time : ");
+		fgets(buffer,128-1,stdin);
+		buffer[strlen(buffer)-1] = 0;
+		setTime(atof(buffer));
+		break;
+	case 'w':
+		printf("\n !SAVE! file : ");
+		fgets(buffer,128-1,stdin);
+		buffer[strlen(buffer)-1] = 0;
+		setTime(0.0f);
+		saveScene(Objmgr->scene,buffer);
+		break;
+	case 'x':
+		printf("\n !LOAD! file : ");
+		fgets(buffer,128-1,stdin);
+		buffer[strlen(buffer)-1] = 0;
+		setTime(0.0f);
+		sctest = loadScene(buffer);
+		if(!sctest)
+		{
+			printf("\n %s loading error.",buffer);
 			break;
-		time_scene += 1.0f;
-		printf("Temps scene : %f \n",time_scene);
-		Objmgr->scene->anim->reset(Objmgr->scene->anim);
-		Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
+		}
+		Objmgr->scene = sctest;
+		printf("\n %s loading success.",buffer);
+		break;
+	case '+':
+		setTime(time_scene + 1.0f);
 		break;
 	case '-':
-		if(Objmgr->scene->anim->start)
-			break;
-		time_scene -= 1.0f;
-		if(time_scene < 0.0f)
-			time_scene = 0.0f;
-		Objmgr->scene->anim->reset(Objmgr->scene->anim);
-		Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
-		printf("Temps scene : %f \n",time_scene);
+		setTime(time_scene - 1.0f);
 		break;
 	}
 	glutPostRedisplay();

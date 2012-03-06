@@ -21,8 +21,8 @@ struct _scene
 	AnimScene * anim;
 	int option;
 
-	void (*showAllObject)(Scene*);
-	void (*showObject)(Object*);
+	void (*showAllObject)(Scene*,int*);
+	void (*showObject)(Object*,int*);
 
 };
 
@@ -32,7 +32,10 @@ void deleteScene(Scene*);
 Scene* cpyScene(Scene*);
 
 //Function
-void showAllObject(Scene*);
-void showObject(Object*);
+void showAllObject(Scene*,int*);
+void showObject(Object*,int*);
+
+Scene* loadScene(char*);
+void saveScene(Scene*,char*);
 
 #endif
