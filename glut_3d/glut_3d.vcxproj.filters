@@ -24,25 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Util\List.c">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrice.c">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Util\StringStruct.c">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.c">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="main.c" />
-    <ClCompile Include="ObjectAccessor\ObjectAccessor.c">
-      <Filter>ObjectAccessor</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\Camera.c">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Other.c">
       <Filter>Object</Filter>
     </ClCompile>
@@ -55,14 +36,8 @@
     <ClCompile Include="PNGloader.c">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Program.c">
-      <Filter>Shader</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.c">
       <Filter>Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.c">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="3DSLoader.c">
       <Filter>Object</Filter>
@@ -70,23 +45,36 @@
     <ClCompile Include="Animation.c">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="MathPlus.c">
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Vector.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\Vector.c">
+    <ClCompile Include="Matrix.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="MathPlus.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectAccessor\ObjectAccessor.cpp">
+      <Filter>ObjectAccessor</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Util\List.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrice.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\StringStruct.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="Util\util.h">
       <Filter>Util</Filter>
     </ClInclude>
@@ -111,9 +99,6 @@
     <ClInclude Include="BMPloader.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Texture</Filter>
     </ClInclude>
@@ -131,6 +116,15 @@
     </ClInclude>
     <ClInclude Include="Camera\Vector.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,52 @@
 
 
 
+
+Scene::Scene()
+{
+	time = 0;
+	_start = false;
+}
+
+
+void Scene::update(int diff,bool forced)
+{
+	if(!_start && !forced)
+		return;
+
+	time += diff;
+}
+
+void Scene::reset()
+{
+	time = 0;
+	_start = false;
+}
+
+void Scene::show()
+{
+	if(object_list.empty())
+		return;
+
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->show();
+	}
+}
+
+void Scene::del(Object* obj)
+{
+	if(object_list.empty())
+		return;
+
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		if(obj == object_list[i])
+			object_list.erase(object_list.begin()+i);
+	}
+}
+
+/*
 // CONSTRUTOR / DECONSTRUTOR
 Scene * newScene(Scene* sc)
 {
@@ -58,6 +104,8 @@ void showObject(Object* obj,int*name)
 	case OBJECT_TYPE_CONTAINER:
 		showContainer((Container*)obj,name);
 		break;
+	case OBJECT_TYPE_LIGHT:
+		showLight((Light*)obj);
 	}
 }
 Object* loadObject(FILE* fl,AnimScene* anims)
@@ -79,6 +127,7 @@ Object* loadObject(FILE* fl,AnimScene* anims)
 			fread(obj,sizeof(Object),1,fl);
 			cont = (Container*)obj;
 			cont->objectL = newListCh();
+			cont->showRep = 0;
 			fread(&cont->center,sizeof(Point),1,fl);
 			fread(&cont->repere,sizeof(Point),1,fl);
 			fread(&value,sizeof(int),1,fl);
@@ -265,3 +314,4 @@ void saveScene(Scene* sc,char* filename)
 	fclose(fl);
 
 }
+*/

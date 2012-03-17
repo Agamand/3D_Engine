@@ -10,7 +10,7 @@
 //
 // See 3Dlabs-License.txt for license information
 //
-
+#version 140
 const vec3 Xunitvec = vec3 (1.0, 0.0, 0.0);
 const vec3 Yunitvec = vec3 (0.0, 1.0, 0.0);
 
@@ -25,10 +25,10 @@ uniform float FrameHeight;
 uniform sampler2D EnvMap;
 uniform sampler2D RefractionMap;
 
-varying vec3  Normal;
-varying vec3  EyeDir;
-varying vec4  EyePos;
-varying float LightIntensity;
+in vec3  Normal;
+in vec3  EyeDir;
+in vec4  EyePos;
+in float LightIntensity;
 
 void main (void)
 {

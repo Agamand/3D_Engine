@@ -11,10 +11,10 @@
 // See 3Dlabs-License.txt for license information
 //
 
-varying vec3  Normal;
-varying vec3  EyeDir;
-varying vec4  EyePos;
-varying float LightIntensity;
+out vec3  Normal;
+out vec3  EyeDir;
+out vec4  EyePos;
+out float LightIntensity;
 
 uniform vec3  LightPos;
 

@@ -1,6 +1,8 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <glew.h>
 #include "Shader.h"
 
 
@@ -86,7 +88,7 @@ GLuint LoadShader(GLenum type, const char *filename)
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logsize);
         
         /* on alloue un espace memoire dans lequel OpenGL ecrira le message */
-        log = malloc(logsize + 1);
+        log = (char*)malloc(logsize + 1);
         if(log == NULL)
         {
             fprintf(stderr, "impossible d'allouer de la memoire !\n");

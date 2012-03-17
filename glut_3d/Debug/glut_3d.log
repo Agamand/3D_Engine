@@ -1,77 +1,48 @@
-﻿La génération a démarré 06/03/2012 09:23:25.
-     1>Projet "J:\Projet Infographie\Moteur3D\glut_3d\glut_3d\glut_3d.vcxproj" sur le nœud 2 (build cible(s)).
+﻿La génération a démarré 17/03/2012 00:22:21.
+     1>Projet "J:\Projet Infographie\Moteur3D\glut_3d - Copie\glut_3d\glut_3d.vcxproj" sur le nœud 2 (build cible(s)).
      1>InitializeBuildStatus:
          Création de "Debug\glut_3d.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
-         main.c
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(154): warning C4113: 'void (__cdecl *)()' est différent de 'void (__cdecl *)(void)' dans les listes de paramètres
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(157): warning C4028: paramètre formel 1 différent de la déclaration
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(161): warning C4113: 'void (__cdecl *)()' est différent de 'void (__cdecl *)(void)' dans les listes de paramètres
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(179): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(183): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(184): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(185): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(186): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(187): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(188): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(189): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(190): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(191): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(192): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(193): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(194): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(195): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(196): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(197): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(198): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(199): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(200): warning C4133: '=' : types incompatibles - de 'Container *' à 'Object *'
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(137): warning C4101: 'itr' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(142): warning C4101: 'qt1' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(142): warning C4101: 'qt2' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(142): warning C4101: 'qt3' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(225): warning C4101: 'txt' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(226): warning C4101: 'params' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(316): warning C4101: 'pt' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(442): warning C4013: 'strlen' non défini(e) ; extern retournant int pris par défaut
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(390): warning C4101: 'v' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(482): warning C4101: 'i' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(480): warning C4101: 'm3' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(480): warning C4101: 'm1' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(479): warning C4101: 'qt2' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(480): warning C4101: 'm2' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(479): warning C4101: 'qt' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(502): warning C4101: 'j' : variable locale non référencée
-     1>j:\projet infographie\moteur3d\glut_3d\glut_3d\main.c(548): warning C4018: '<' : incompatibilité signed/unsigned
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(126): warning C4101: 't' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(142): warning C4101: 'i' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(277): warning C4101: 'c' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(385): warning C4101: 'i' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(384): warning C4101: 'txt' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(656): warning C4101: 'p' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(661): warning C4101: 'i' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(657): warning C4101: '_rand2' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(657): warning C4101: '_rand' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(689): warning C4101: 'j' : variable locale non référencée
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut_3d.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.lib" /MACHINE:X86 /PROFILE Debug\3DSLoader.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut_3d.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.lib" /MACHINE:X86 /PROFILE Debug\3DSLoader.obj
          Debug\Animation.obj
          Debug\BMPloader.obj
          Debug\Camera.obj
          Debug\Vector.obj
          Debug\main.obj
          Debug\MathPlus.obj
-         Debug\Matrice.obj
+         Debug\Matrix.obj
          Debug\Object.obj
          Debug\ObjectAccessor.obj
          Debug\Other.obj
+         Debug\Particle.obj
          Debug\PNGloader.obj
          Debug\Program.obj
+         Debug\Robot.obj
          Debug\Scene.obj
          Debug\Shader.obj
          Debug\Texture.obj
-         Debug\List.obj
-         Debug\StringStruct.obj
      1>3DSLoader.obj : warning LNK4075: ' /EDITANDCONTINUE' ignoré à cause de la spécification '/OPT:REF'
-         glut_3d.vcxproj -> J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe
+         glut_3d.vcxproj -> J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.exe
        Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"J:\Projet Infographie\Moteur3D\glut_3d\Debug\glut_3d.exe;#1" /manifest Debug\glut_3d.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.exe;#1" /manifest Debug\glut_3d.exe.intermediate.manifest
        FinalizeBuildStatus:
          Suppression du fichier "Debug\glut_3d.unsuccessfulbuild".
          Mise à jour de l'horodatage "Debug\glut_3d.lastbuildstate".
-     1>Génération du projet "J:\Projet Infographie\Moteur3D\glut_3d\glut_3d\glut_3d.vcxproj" terminée (build cible(s)).
+     1>Génération du projet "J:\Projet Infographie\Moteur3D\glut_3d - Copie\glut_3d\glut_3d.vcxproj" terminée (build cible(s)).
 
 La génération a réussi.
 
-Temps écoulé 00:00:01.15
+Temps écoulé 00:00:03.63

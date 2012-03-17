@@ -3,31 +3,39 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-typedef struct _vector3d Vector3D;
-
-struct _vector3d
+class Vector3D
 {
-	float x,y,z;
-	float length;
+public:
+	Vector3D();
+	Vector3D(double x,double y,double z);
+	Vector3D(Vector3D const &a);
+	~Vector3D() {;}
+
+	void setX(double x) { this->x = x; }
+	double getX() { return x; }
+	void setY(double y) { this->y = y; }
+	double getY() { return y; }
+	void setZ(double z) { this->z = z; }
+	double getZ() { return z; }
+	double getLength() { updateLength(); return length; }
+
+	Vector3D operator+(Vector3D const &a);
+	Vector3D operator-(Vector3D const &a);
+	Vector3D operator*(double a);
+	Vector3D operator/(double a);
+	Vector3D operator+=(Vector3D const &a);
+	Vector3D operator-=(Vector3D const &a);
+	Vector3D operator*=(double a);
+	Vector3D operator/=(double a);
+	bool operator==(Vector3D const &a);
+	//Vector3D operator=(Vector3D &const a);
+	double scaleProduct(Vector3D const &a);
+	Vector3D crossProduct(Vector3D const &a);
+	void updateLength();
+	void normalise();
+private:
+	double x,y,z;
+	double length;
 };
-
-//CONSTRUTOR / DESTRUCTOR
-
-Vector3D * newVector3D(Vector3D* v,float x, float y, float z);
-void deleteVector3D(Vector3D* v);
-
-// OPERATOR
-
-Vector3D vectorAdd(Vector3D v, Vector3D a);
-Vector3D vectorSous(Vector3D v, Vector3D a);
-Vector3D vectorMutl(Vector3D v,float a);
-Vector3D vectorDiv(Vector3D v,float a);
-float    vectorScaleProduct(Vector3D v, Vector3D a);
-Vector3D vectorCrossProduct(Vector3D v, Vector3D a);
-
-// FUNCTION
-void updateLength(Vector3D* v);
-Vector3D normalize(Vector3D* v);
-
 
 #endif

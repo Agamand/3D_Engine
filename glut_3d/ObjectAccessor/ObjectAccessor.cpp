@@ -4,8 +4,40 @@
 
 
 
+ObjectAccessor::ObjectAccessor()
+{
+	scene = NULL;
+	objmgr = this;
+
+}
+
+ObjectAccessor::ObjectAccessor(Scene* sc)
+{
+	scene = sc;
+	objmgr = this;
+}
+
+ObjectAccessor::~ObjectAccessor()
+{
+	if(scene)
+		delete scene;
+
+}
+
+Texture* ObjectAccessor::getTexture(String name)
+{
+	for(std::list<Texture*>::iterator itr = texture_list.begin(); itr != texture_list.end(); itr++)
+	{
+		if(!name.compare((*itr)->textureName))
+			return (*itr);
+	}
+	return NULL;
+}
+
+ObjectAccessor * ObjectAccessor::objmgr = 0;
 
 
+/*
 
 void addObject(ObjectAccessor* objmgr,void* p, char*name)
 {
@@ -98,4 +130,4 @@ void removeTextureFromP(void*p)
 	{
 		ls->Erase(ls,t);
 	}
-}
+}*/

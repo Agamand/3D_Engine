@@ -44,6 +44,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,21 +69,20 @@
     <ClCompile Include="3DSLoader.c" />
     <ClCompile Include="Animation.c" />
     <ClCompile Include="BMPloader.c" />
-    <ClCompile Include="Camera\Camera.c" />
-    <ClCompile Include="Camera\Vector.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="MathPlus.c" />
-    <ClCompile Include="Matrice.c" />
-    <ClCompile Include="Object.c" />
-    <ClCompile Include="ObjectAccessor\ObjectAccessor.c" />
+    <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Camera\Vector.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathPlus.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectAccessor\ObjectAccessor.cpp" />
     <ClCompile Include="Other.c" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PNGloader.c" />
-    <ClCompile Include="Program.c" />
-    <ClCompile Include="Scene.c" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.c" />
     <ClCompile Include="Texture.c" />
-    <ClCompile Include="Util\List.c" />
-    <ClCompile Include="Util\StringStruct.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DSLoader.h" />
@@ -91,17 +91,16 @@
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\Vector.h" />
     <ClInclude Include="MathPlus.h" />
-    <ClInclude Include="Matrice.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectAccessor\ObjectAccessor.h" />
     <ClInclude Include="Other.h" />
+    <ClInclude Include="Particle.h" />
     <ClInclude Include="PNGloader.h" />
-    <ClInclude Include="Program.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Util\List.h" />
-    <ClInclude Include="Util\StringStruct.h" />
     <ClInclude Include="Util\util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

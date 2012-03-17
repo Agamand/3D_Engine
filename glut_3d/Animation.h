@@ -5,6 +5,7 @@
 #include "Camera\Vector.h"
 #include "MathPlus.h"
 #include "Object.h"
+#include <map>
 
 enum AnimFlag
 {
@@ -12,23 +13,42 @@ enum AnimFlag
 	ANIMFLAG_INSTANTLY = 0x01,
 };
 
-typedef struct _moveinfo MoveInfo;
-typedef struct _animation Animation;
-typedef struct _animationscene AnimScene;
-
-struct _moveinfo
+class MoveInfo_compare
 {
-	Vector3D pos;
-	Quat rot;
-	int time;
+public:
+    bool operator()(const int& a, const int& b)
+    {
+        return a < b;
+    }
 };
 
+class Animation
+{
+public:
+
+	struct MoveInfo
+	{
+		Vector3D pos;
+		Quat rot;
+		int time;
+	};
+
+	Animation();
+	void update(int diff);
+	void reset();
+	void addMoveInfo(MoveInfo mi,int time);
+	void remMoveInfo(int time);
+	
+
+private:
+	std::map<int,MoveInfo,MoveInfo_compare> mv_list;
+};/*
 struct _animation //time in ms
 {
 	Object * obj;
 	MoveInfo mv_info[256];
 	int mv_size;
-	int t;
+	
 	void (*update)(Animation*,int);
 
 };
@@ -41,19 +61,6 @@ struct _animationscene
 	void(*update)(AnimScene*,int, int);
 	void (*reset)(AnimScene*);
 };
-
-
-Animation* newAnim(Animation*,Object*);
-void initAnim(Animation*);
-void deleteAnim(Animation*);
-
-void update(Animation*,int);
-
-void addMoveInfo(Animation*,Quat,int time);
-void remMoveInfo(Animation*,int time);
-void orderMoveInfo(Animation*);
-int compareMoveInfo(const void *Param1, const void *Param2);
-
 AnimScene* newAnimScene(AnimScene*);
 void deleteAnimScene(AnimScene*);
 void addAnim(AnimScene*,Animation*);
@@ -62,5 +69,5 @@ void updateAll(AnimScene*, int, int);
 void reset(AnimScene*);
 void updatePosition(AnimScene* anim,int time);
 Animation* getAnimFromObj(AnimScene* anim,Object* obj);
-
+*/
 #endif

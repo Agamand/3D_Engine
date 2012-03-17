@@ -7,28 +7,24 @@
 //
 // See 3Dlabs-License.txt for license information
 //
+#version 140
+ 
+uniform float time;
+uniform float repeat;
+uniform vec3 v0;
+const float g = -9.80665;
 
-uniform float Time;
-uniform float RepeatFactor;
-uniform float Radius;
-uniform float Acceleration;
-
-varying vec4 Color;
+out vec4 Color;
 
 void main(void)
-{
-	vec4 vertex = vec4(0,0,0,1);
+{	
+	vec4 vertex = gl_Vertex;
+		
+	float t = max(time - gl_Color.a, 0.0);
+	t = t - repeat * floor(t * (1.0 / repeat));
+	
+	vertex += vec4(v0.xy*t,0.5*g*t*t+v0.z*t,0.0);
 
-	float t = max(Time - gl_Color.a, 0.0);
-
-	// modulo(a, b) = a - b * floor(a * (1 / b)).
-	t = t - RepeatFactor * floor(t * (1.0 / RepeatFactor));
-
-	vec3 velocity = Radius * (gl_Color.xyz - vec3(0.5));
-
-	vertex += vec4(velocity * t, 0.0);
-	vertex.y -= Acceleration * t * t;
-
-	Color = vec4(gl_Color.rgb, 1.0 - t);
+	Color = vec4(1.0-v0.x/2.0,gl_Color.gb, 1.0 - t);
 	gl_Position = gl_ModelViewProjectionMatrix * vertex;
 }

@@ -2,6 +2,25 @@
 #include "Animation.h"
 
 
+Animation::Animation()
+{
+}
+void Animation::update(int diff)
+{
+}
+void Animation::reset()
+{
+}
+void Animation::addMoveInfo(MoveInfo mi,int time)
+{
+}
+void Animation::remMoveInfo(int time)
+{
+}	
+
+
+
+/*
 Animation* newAnim(Animation* anim,Object* obj)
 {
 	int i;
@@ -253,4 +272,4 @@ Animation* getAnimFromObj(AnimScene* anim,Object* obj)
 			return an;
 	}
 	return NULL;
-}
+}*/

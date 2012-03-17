@@ -1,7 +1,7 @@
 #include <gl\glew.h>
 #include <time.h>
 #include <math.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <glut.h>
 
 #include "Camera\Camera.h"
@@ -10,11 +10,17 @@
 #include "Animation.h"
 
 #include "ObjectAccessor\ObjectAccessor.h"
-#include "Other.h"
+//#include "Other.h"
+#include "Robot.h"
+#include "Particle.h"
 #include "3DSLoader.h"
+
+#include <random>
 #define X_2 400
 #define Y_2 300
 #define BLANC 0xffffff
+#define ROUGE 0x0000ff
+#define BLEU 0xff0000
 #define TIMER 1000/60
 
 
@@ -39,43 +45,40 @@ enum Mode
 int click_pressed = NO_CLICK;
 int mode = 0;
 Object* selected_obj = NULL;
-Animation *anim = NULL;
+//Animation *anim = NULL;
 Camera* cam = NULL;
 double time_scene = 0.0f; //in sec
 clock_t last_time = 0;
 int timer = 10;
 
 //TEST
-Animation* testanim = NULL;
-Object* list_object[20];
+float t = 0.0f;
+GLuint cubeMapId;
+//Animation* testanim = NULL;
+Object* list_object[22];
 int index = 0;
 Shader * shadtest;
 Scene* sctest;
 int light[] = {0,0,0,1};
 GLuint shader[] = {0,0};
+Shader* sh;
+lpart lparticle;
 GLuint program;
 GLuint texture;
 
-	GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
-	GLfloat mat_ambient_color[] = {0.8, 0.8, 0.2, 1.0};
-	GLfloat mat_diffuse[] = {0.1, 0.5, 0.8, 1.0};
-	GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-	GLfloat no_shininess[] = {0.0};
-	GLfloat low_shininess[] = {5.0};
-	GLfloat high_shininess[] = {100.0};
-	GLfloat mat_emission[] = {0.3, 0.2, 0.2, 0.0};
+
 
 	GLfloat lightColor0[] = {1.0f, 1.0f, 1.0f, 1.0f};    // Color (0.5, 0.5, 0.5)
-	GLfloat lightPos0[] = {0.0f, 6.0f, 6.0f, 1.0f};
+	GLfloat lightPos0[] = {0.0f, -6.0f, 1.0f, 1.0f};
 
 	
 	GLfloat lightSpot0 = 20;    
-	GLfloat lightDir0[] = {-1.0f, 0.0f, 0.0f};
+	GLfloat lightDir0[] = {0.0f, 0.0f, 0.0f};
 
 		GLfloat lightColor1[] = {1.0f, 1.0f, 1.0f, 1.0f};
-		GLfloat lightDir1[] = {1.0f, 0.0f, 0.0f};
+		GLfloat lightDir1[] = {0.0f, 1.0f, 0.0f};
 
-Corps c;
+
 
 #define BUFSIZE 512
 GLuint selectBuf[BUFSIZE];
@@ -89,16 +92,15 @@ void mouse(int button, int state, int x, int y);
 void mousemotion(int x, int y);
 void passivemotion(int x, int y);
 void onkey(unsigned char key,int x, int y);
-void keyboardSpec(unsigned char key,int x, int y);
+void keyboardSpec( int key,int x, int y);
 void reshape(int w, int h);
 void idle();
 void mainUpdate(int value);
+void processHit(GLint hits, GLuint buffer[]);
 
 void showGrid();
 
-void startPicking(int cursorX, int cursorY);
-void stopPicking();
-//void test_3ds(obj_type object);
+void picking(int cursorX, int cursorY);
 void letter3D(char l, float x, float y, float z);
 void esgi3D();
 
@@ -112,37 +114,39 @@ void initOP(void)
 	glClearColor(0*192/255.0f, 0*192/255.0f, 0*192/255.0f, 0.0);
 	glEnable(GL_LINE_SMOOTH);
 	//glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
 }
 
 void initTexture()
 {
 	Texture * t;
 
-	t = newTexture(NULL,"earthmap1k_24.bmp");
-	addTexture(t);
+	/*t = newTexture(NULL,"earthmap1k_24.bmp");
+	Objmgr->addTexture(t);
 	t = newTexture(NULL,"Water.bmp");
-	addTexture(t);
+	Objmgr->addTexture(t);
 	load(t);
 	t = newTexture(NULL,"spaceshiptexture.bmp");
-	addTexture(t);
+	Objmgr->addTexture(t);
 	load(t);
-	texture = t->textureID; 
+	texture = t->textureID; */
 }
 
 int main(int argc, char ** argv)
 {
-	Pointer* itr;
+
 	int i;
-	Point p;
-	Vector3D v;
+
+	Vector3D v,v1,v2;
 	GLenum err;
 	Quat qt1,qt2,qt3;
     glutInit(&argc, argv);
 
-	initObjectAccessor();
+	new ObjectAccessor(new Scene());
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(X_2*2+1, Y_2*2+1);
 	glutInitWindowPosition (100+800, 100);
@@ -153,31 +157,33 @@ int main(int argc, char ** argv)
 
     glutDisplayFunc(display);
 	glutKeyboardFunc(onkey);
-	
 	glutSpecialFunc(keyboardSpec);
 	glutMouseFunc(mouse);
 	glutMotionFunc(mousemotion);
 	glutPassiveMotionFunc(passivemotion);
 	glutIdleFunc(idle);
 	glutReshapeFunc(reshape);
-	newPoint(&p,-5.0f,6,6);
-	newVector3D(&v,-2.0f, 0.0f, 0.0f);
-	cam = newCamera(NULL,v);
-	cam->_speed = 0.5f;
 
-	Objmgr->scene =  newScene(NULL);
-	//selected_obj = newSphere(NULL,&p,2.0f,"earthmap1k_24.bmp",255 +(255 << 8) + (255 << 16));
-	//Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-	selected_obj = bras_complet(&c.bras[0]);
+	cam = new Camera(Vector3D(-2.0f,0.0f,0.0f));
+
+	/*selected_obj = bras_complet(&c.bras[0]);
+	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
+	selected_obj = jambe_complet(&c.jambe[0]);
 	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
 
-
+	newVector3D(&v1,0.0f,0.0f,1.0f);
+	newVector3D(&v2,0.0f,1.0f,0.0f);
+	//newVector3D(&v1,0.0f,0.0f,1.0f);
+	//selected_obj = newLight(NULL,v1,v1,BLANC,GL_LIGHT0);
+	//((Light*)selected_obj)->dir = v2;
+	//Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
 	//rot(c.bras[0].bras[0],45.0f,0,1.0,0.0);
 	//rot(c.bras[1].bras[0],45.0f,0,1.0,0.0);
 
 	
 	selected_obj = c.bras[0].bras[0];
-	for(i = 0;  i < 20; i++)
+	((Container*)selected_obj)->showRep = 1;
+	for(i = 0;  i < 22; i++)
 		list_object[i] = NULL;
 
 	list_object[0] = c.bras[0].bras[0];
@@ -198,11 +204,22 @@ int main(int argc, char ** argv)
 	list_object[15] = c.bras[0].main.doigt[4].doigt[0];
 	list_object[16] = c.bras[0].main.doigt[4].doigt[1];
 	list_object[17] = c.bras[0].main.doigt[4].doigt[2];
-	shadtest = LoadProgram("Shader/HeatHaze.vert","Shader/HeatHaze.frag");
-	testanim = newAnim(NULL,selected_obj);
-
+	list_object[18] = c.jambe[0].jambe[0];
+	list_object[19] = c.jambe[0].jambe[1];
+	list_object[20] = c.jambe[0].pied.pied;*/
+	Container* t = new Container(Vector3D(0.0f,0.0f,0.0f));
+	t->addCylinder(1.0f,1.0f,2.0f,20.0f,20.0f);
+	//((Container*)selected_obj)->addSphere(0.05f,100.0f,100.0f,M_PI,M_PI);
+	//ObjectAccessor::getObjMgr()->getScene()->add(t);
+	Robot* rob = new Robot();
+	ObjectAccessor::getObjMgr()->getScene()->add(rob->getBase());
+	//ObjectAccessor::getObjMgr()->getScene()->add(poly);
+	shadtest = LoadProgram("Shader/test.vert","Shader/test.frag");
+	//testanim = newAnim(NULL,selected_obj);
+	sh = LoadProgram("Shader/ParticleSimple.vert","Shader/ParticleSimple.frag");
     glutMainLoop();
     return 0;
+
 }
 
 
@@ -219,70 +236,223 @@ void reshape(int w, int h)
 
   glutPostRedisplay ();
 }
+float onde(float i,float t)
+{
+	float length = 0.2;
+	float h = 0.2;
+	float coef = 0.0f;
+	return 0.0f;
+	//if(i >= t-length && i <= t+length*2)
+		return h*sin((t+length-i)/length*M_PI);
+	//else return -0.0f;
+}
+void test_1(float slice)
+{
+	float start = 0.0f;
+	float c;
+	int i;
+	for(i = 1; i <= slice; i++)
+	{
+		//if(i%2 != 0)
+			//continue;
+
+		c = 1.0f - i/slice;
+		glPushMatrix();
+		glTranslatef(0.0f,3.0f,0.0f);
+		glBegin(GL_POLYGON);
+		glColor3f(0.0f,0.0f,c);
+		glVertex3f((i-1)/slice,1.0f,0.0f);
+		glVertex3f((i-1)/slice,-1.0f,0.0f);
+		glVertex3f(i/slice,-1.0f,0.0f);
+		glVertex3f(i/slice,1.0f,0.0f);
+		start += i/60.0f;
+		glEnd();
+		glPopMatrix();
+	}
+}
+
+void surface(float l1, float l2, float slice)
+{
+	float start = 0.0f;
+	float c;
+	int i,j;
+	for(i = 1; i <= slice; i++)
+	{
+		//if(i%2 != 0)
+		//	continue;
+		for(j = 1; j <= slice; j++)
+		{
+			glPushMatrix();
+			//glTranslatef(0.0f,3.0f,0.0f);
+			glBegin(GL_POLYGON);
+			glColor4f(1.0f,0.0f,0.0f,0.1f);
+			glVertex3f(l1*(i-1)/slice-l1/2,l2*(j-1)/slice-l2/2,0.0f);
+			glVertex3f(l1*(i-1)/slice-l1/2,l2*(j)/slice-l2/2,0.0f);
+			glVertex3f(l1*i/slice-l1/2,l2*(j)/slice-l2/2,0.0f);
+			glVertex3f(l1*i/slice-l1/2,l2*(j-1)/slice-l2/2,0.0f);
+			glEnd();
+			glPopMatrix();
+		}
+	}
+}
+
+void test_2(float slice,float stack,float r)
+{
+	float start = 0.0f;
+	int i,j;
+	float c1,c2;
+	
+	for(j = 1; j <= stack/4; j++)
+	{
+		
+		for(i = 1; i <= slice; i++)
+		{
+			
+			if(i%2 == 0 && j%2 == 0 || i%2 != 0 && j%2 != 0)
+			{
+				c1 = 0;
+				c2 = 1.0;
+			}else 
+			{
+				c1 = 1.0;
+				c2 = 0;
+			}
+
+
+			/*c1 = 1.0f - i/slice;
+			c2 = j > slice/2 ? 1.0f-j/slice : j/slice;
+			//c1 /=2;
+			//c1 +=1.0/2;
+			c2 /=2;
+			c2 +=1.0/2;*/			
+			glBegin(GL_POLYGON);
+			glColor3f(c1,0.0,c2);
+			glVertex3f(r*(i-1)/slice*cos((j-1)*2*M_PI/stack),r*(i-1)/slice*sin((j-1)*2*M_PI/stack),onde((i-1)/slice,t));
+			glVertex3f(r*(i-1)/slice*cos((j)*2*M_PI/stack),r*(i-1)/slice*sin((j)*2*M_PI/stack),onde((i-1)/slice,t));
+			glVertex3f(r*(i)/slice*cos((j)*2*M_PI/stack),r*(i)/slice*sin((j)*2*M_PI/stack),onde((i)/slice,t));
+			glVertex3f(r*(i)/slice*cos((j-1)*2*M_PI/stack),r*(i)/slice*sin((j-1)*2*M_PI/stack),onde((i)/slice,t));
+			glEnd();
+		}
+	}
+}
+
+double randVal(double min, double max)
+{
+	return (double) (min + (max - min)*((float) rand() / (RAND_MAX + 1.0)));
+}
+
+
+void genParticle()
+{
+	float nPart = 300.0f,i;
+	int uniID[4];
+	double vec[3];
+	
+	uniID[0] = glGetUniformLocation(sh->program_id, "time");
+	uniID[1] = glGetUniformLocation(sh->program_id, "repeat");
+	uniID[2] = glGetUniformLocation(sh->program_id, "v0");
+	
+
+	for(i = 0; i < nPart; i++)
+	{
+		vec[0] = 2*cos(i/nPart*2*M_PI);
+		vec[1] = 2*sin(i/nPart*2*M_PI);
+		vec[2] = 5.0f;
+		glUseProgram(sh->program_id);
+		glUniform1f(uniID[0],t);
+		glUniform1f(uniID[1],4.0f);
+		glUniform3f(uniID[2],vec[0],vec[1],vec[2]);
+	    glBegin(GL_POLYGON);
+		glColor3f(0.0f,1.0f,0.0f);
+		glVertex3f(0.01f,0.0f,0.01f);
+		glVertex3f(0.01f,0.0f,0.0f);
+		glVertex3f(0.0f,0.0f,0.0f);
+		glVertex3f(0.0f,0.0f,0.01);
+		glEnd();
+		glPopMatrix();
+		glUseProgram(0);
+	}
+
+}
+
+
+
+
 
 void display()
 {
 	char txt[200];
-	GLUquadric* params;
+	int i;
+	int uniformId = 0;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode (GL_TEXTURE);
+    glLoadIdentity ();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();	
 
 	if(cam)
-		look(cam);
+		cam->look();
 
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);   
+	/*glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);   
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0); 
 	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, lightDir0);
 	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &lightSpot0);
-
+	*/
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightColor1);   
 	glLightfv(GL_LIGHT1, GL_POSITION, lightPos0); 
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, lightDir1);
 	glLightfv(GL_LIGHT1, GL_SPOT_CUTOFF, &lightSpot0);
 
-	glUseProgram(shadtest->program_id);
-	glBegin(GL_POLYGON);
-	glColor3f(1.0f,1.0f,1.0f);
-	glVertex3f(1.0f,1.0f,-1.0f);
-	glVertex3f(1.0f,-1.0f,-1.0f);
-	glVertex3f(-1.0f,-1.0f,-1.0f);
-	glVertex3f(-1.0f,1.0f,-1.0f);
-	glEnd();
-	glUseProgram(0);
-	Objmgr->scene->showAllObject(Objmgr->scene,NULL);
+	//test_2(200,200,2.0);
+	ObjectAccessor::getObjMgr()->getScene()->show();
+	showAllParticle(lparticle,t);
+	//surface(2.0f,2.0f,100.0f);
+	/*glTranslatef(0.0,0.0,-0.2);
+	glPushMatrix();
 
-	
-	showGrid();
+	test_2(100.0f,100.0f,2.0f);
+	glPopMatrix();
 
 	//glEnable(GL_LIGHTING);
-	//glUseProgram(program);
+	//genParticle();
+	*/
+    /*uniformId = glGetUniformLocation(shadtest->program_id, "time");
+	glUseProgram(shadtest->program_id);
+	glUniform1f(uniformId,t);
+	surface( 2.0f,2.0f,100.0f);
+	glUseProgram(0);*/
 	//showObject(selected_obj);
-
+	
 	//
 
+	showGrid();
 	glFlush();
 	glutSwapBuffers();
 }
-void keyboardSpec(unsigned char key,int x, int y)
+void keyboardSpec(int key,int x, int y)
 {
 	switch(key)
 	{
 	case 'h':
 		index++;
-		if(index >= 20)
+		if(index >= 21)
 			index = 0;
+		//((Container*)selected_obj)->showRep = 0;
 		selected_obj = list_object[index];
 		if(!selected_obj)
 			selected_obj = list_object[0];
+
+		//((Container*)selected_obj)->showRep = 1;
 		break;
 	case 'i':
 		index--;
 		if(index < 0)
 			index = 0;
+		//((Container*)selected_obj)->showRep = 0;
 		selected_obj = list_object[index];
 		if(!selected_obj)
 			selected_obj = list_object[0];
+		//((Container*)selected_obj)->showRep = 1;
 		break;
 	}
 
@@ -299,21 +469,19 @@ void mousemotion(int x,int y)
 	oy = y;
 
 	if(cam && click_pressed == CLICK_RIGHT)
-		cam->OnMouseMotion(cam,x_diff,y_diff);
+		cam->OnMouseMotion(x_diff,y_diff);
 
 	if(selected_obj && click_pressed == CLICK_LEFT && mode >= SELECT_ROT_1)
 	{
 		angleAdd *= x_diff*TORAD;
-		newQuat(&qt,angleAdd, mode == SELECT_ROT_1 ? 1.0f : 0.0f, mode == SELECT_ROT_2 ? 1.0f : 0.0f, mode == SELECT_ROT_3 ? 1.0f : 0.0f);
-		selected_obj->qtrot = quatProd(selected_obj->qtrot,qt);
+		selected_obj->rotate(angleAdd,Vector3D(mode == SELECT_ROT_1 ? 1.0f : 0.0f, mode == SELECT_ROT_2 ? 1.0f : 0.0f, mode == SELECT_ROT_3 ? 1.0f : 0.0f));
 	}
-	glutPostRedisplay();	
+	//glutPostRedisplay();	
 }
 
 void mouse(int button, int state, int x, int y)
 {
 	float x_0,y_0;
-	Point* pt;
 
 	ox = x;
 	oy = y;
@@ -343,6 +511,7 @@ void mouse(int button, int state, int x, int y)
 	if(click_pressed != CLICK_LEFT)
 		return;
 
+	//picking(x,y);
 	/*startPicking(x, y);
 	stopPicking();
 
@@ -375,13 +544,13 @@ void passivemotion(int x, int y)
 void setTime(double time)
 {
 
-	updatePosition(Objmgr->scene->anim,time_scene*1000);
+	//updatePosition(Objmgr->scene->anim,time_scene*1000);
 	time_scene = time;
 	if(time_scene < 0.0f)
 		time_scene = 0.0f;
-
-	Objmgr->scene->anim->reset(Objmgr->scene->anim);
-	Objmgr->scene->anim->update(Objmgr->scene->anim,time_scene*1000,1);
+	
+	ObjectAccessor::getObjMgr()->getScene()->reset();
+	ObjectAccessor::getObjMgr()->getScene()->update(time_scene*1000,true);
 	printf("Temps scene : %f \n",time_scene);
 }
 void onkey(unsigned char key,int x, int y)
@@ -389,7 +558,7 @@ void onkey(unsigned char key,int x, int y)
 	char buffer[128];
 	Vector3D v;
 	if(cam)
-		cam->OnKeyboard(cam,key);
+		cam->OnKeyboard(key);
 
 	switch(key)
 	{
@@ -425,16 +594,15 @@ void onkey(unsigned char key,int x, int y)
 		*/
 		break;
 	case '9':
-		anim = NULL;
+//		anim = NULL;
 		break;
 	case 'r':
 		setTime(0.0f);
-		Objmgr->scene->anim->reset(Objmgr->scene->anim);
+		ObjectAccessor::getObjMgr()->getScene()->reset();
 		break;
 	case 't':
 		setTime(0.0f);
-		Objmgr->scene->anim->reset(Objmgr->scene->anim);
-		Objmgr->scene->anim->start = 1;
+		ObjectAccessor::getObjMgr()->getScene()->start();
 		break;
 	case 'i':
 		printf("\n !SET! time : ");
@@ -447,37 +615,48 @@ void onkey(unsigned char key,int x, int y)
 		fgets(buffer,128-1,stdin);
 		buffer[strlen(buffer)-1] = 0;
 		setTime(0.0f);
-		saveScene(Objmgr->scene,buffer);
+		//saveScene(Objmgr->scene,buffer);
 		break;
 	case 'x':
 		printf("\n !LOAD! file : ");
 		fgets(buffer,128-1,stdin);
 		buffer[strlen(buffer)-1] = 0;
 		setTime(0.0f);
-		sctest = loadScene(buffer);
+		//sctest = loadScene(buffer);
 		if(!sctest)
 		{
 			printf("\n %s loading error.",buffer);
 			break;
 		}
-		Objmgr->scene = sctest;
+		//Objmgr->scene = sctest;
 		printf("\n %s loading success.",buffer);
 		break;
 	case '+':
-		setTime(time_scene + 1.0f);
+		setTime(time_scene + 0.1f);
 		break;
 	case '-':
-		setTime(time_scene - 1.0f);
+		setTime(time_scene - 0.1f);
+		break;
+	case '&':
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+		break;
+	case 233:
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		break;
+	case '"':
+		glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
 		break;
 	}
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 void idle()
 {
+	Vector3D v0;
+	Particle* p;
+	double _rand,_rand2;
 	float _angle = M_PI/60;
 	Quat qt,qt2;
-	Matrice* m1,*m2,*m3;
 	clock_t diff;
 	int i;
 	clock_t time = clock();
@@ -488,10 +667,18 @@ void idle()
 	
 	if(timer <= diff)
 	{
-
-		Objmgr->scene->anim->update(Objmgr->scene->anim,TIMER+diff-timer,0);
+		/*for(i = 0; i < 10;i++)
+		{
+		Vector3D v(randVal(-2.0f,2.0f),randVal(-2.0f,2.0f),randVal(-2.0f,2.0f));
+		p = new Particle(v,t,3.0f,sh->program_id);
+		lparticle.push_back(p);
+		}*/
+		ObjectAccessor::getObjMgr()->getScene()->update(TIMER+diff-timer);
 
 		timer = TIMER;
+		t += 0.005;
+		//if(t > 1.0f)
+			//t = 0.0f;
 		glutPostRedisplay();
 	}
 	else timer -= diff;
@@ -517,68 +704,3 @@ void showGrid()
 	}
 }
 
-
-void startPicking(int cursorX, int cursorY) {
-
-	GLint viewport[4];
-
-	glSelectBuffer(BUFSIZE,selectBuf);
-	glRenderMode(GL_SELECT);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-
-	glGetIntegerv(GL_VIEWPORT,viewport);
-	gluPickMatrix(cursorX,viewport[3]-cursorY,
-			5,5,viewport);
-	gluPerspective(45,(float)X_2/((float)Y_2),0.1,1000);
-	glMatrixMode(GL_MODELVIEW);
-	glInitNames();
-}
-
-void processHits (GLint hits, GLuint buffer[])
-{
-   unsigned int i, j;
-   GLuint names, *ptr, minZ,*ptrNames, numberOfNames;
-
-   printf ("hits = %d\n", hits);
-   ptr = (GLuint *) buffer;
-   minZ = 0xffffffff;
-   for (i = 0; i < hits; i++) {	
-      names = *ptr;
-	  ptr++;
-	  if (*ptr < minZ) {
-		  numberOfNames = names;
-		  minZ = *ptr;
-		  ptrNames = ptr+2;
-	  }
-	  
-	  ptr += names+2;
-	}
-  printf ("The closest hit names are ");
-  ptr = ptrNames;
-  for (j = 0; j < numberOfNames; j++,ptr++) {
-     printf ("%d ", *ptr);
-  }
-  printf ("\n");
-   
-}
-
-void stopPicking() {
-
-	int hits;
-	
-	// restoring the original projection matrix
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	glFlush();
-	
-	// returning to normal rendering mode
-	hits = glRenderMode(GL_RENDER);
-	
-	// if there are hits process them
-	if (hits != 0)
-		processHits(hits,selectBuf);
-}

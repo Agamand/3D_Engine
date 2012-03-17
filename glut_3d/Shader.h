@@ -1,10 +1,10 @@
-#include <gl\glew.h>
-#include <glut.h>
+
 
 
 #ifndef SHADER_H
 #define SHADER_H
-
+//#include <gl\glew.h>
+#include <glut.h>
 typedef struct _shader
 {
 	GLuint program_id,vertex,frag;

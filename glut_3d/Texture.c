@@ -1,6 +1,7 @@
 #include "BMPloader.h"
 #include "PNGloader.h"
 #include "Texture.h"
+#include <glut.h>
 
 
 
@@ -79,5 +80,5 @@ void load(Texture * t)
 
 void unLoad(Texture * t)
 {
-	glDeleteTextures(1,&t->textureID);
+	glDeleteTextures(1,(GLuint*)&t->textureID);
 }

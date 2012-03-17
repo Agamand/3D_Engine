@@ -1,12 +1,32 @@
-#include "Vector.h"
+
 
 #ifndef CAMERA_H
 #define CAMERA_H
 
-typedef struct _camera Camera;
+#include "Vector.h"
 
-struct _camera
+class Camera
 {
+public:
+	Camera();
+	Camera(Vector3D pos);
+	~Camera();
+
+	void OnMouseMotion(int x, int y);
+	void OnKeyboard(char key);
+
+	void VectorsFromAngles();
+
+	Vector3D getPosition() { return _position; }
+	void setPosition(Vector3D pos) { _position = pos; } 
+	void getPosition(double &x, double &y, double &z) { x = _position.getX(); y = _position.getY(); z = _position.getZ(); }
+	void setPosition(double x, double y, double z) { _position = Vector3D(x,y,z); }
+
+	void setTarget(Vector3D pos) { _target = pos; } 
+
+	void look();
+
+private:
     float _speed;
     float _sensivity;
 
@@ -20,25 +40,5 @@ struct _camera
     Vector3D _left;
     float _theta;
     float _phi;
-
-	void (*OnMouseMotion)(Camera* cam,int x, int y);
-	int (*OnKeyboard)(Camera* cam,char key);
-
 };
-
-
-// CONSTRUCTOR / DECONSTRUCTOR
-
-Camera * newCamera(Camera* cam, Vector3D pos);
-void deleteCamera(Camera* cam);
-
-// FUNCTION
-
-void VectorsFromAngles(Camera*cam);
-void OnMouseMotion(Camera* cam,int x, int y);
-int OnKeyboard(Camera* cam,char key);
-void setPosition(Camera* cam, Vector3D pos);
-void setTarget(Camera* cam, float x, float y, float z);
-void look(Camera*);
-
 #endif

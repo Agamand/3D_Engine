@@ -1,16 +1,13 @@
-//
-// Fragment shader for a particle fountain.
-//
-// Author: Philip Rideout
-//
-// Copyright (c) 2005-2006 3Dlabs Inc. Ltd.
-//
-// See 3Dlabs-License.txt for license information
-//
+// simple fragment shader
 
-varying vec4 Color;
+// 'time' contains seconds since the program was linked.
 
-void main (void)
+#version 140
+uniform float time;
+
+in vec4 Color;
+
+void main()
 {
 	gl_FragColor = Color;
 }

@@ -2,7 +2,7 @@
 
 
 
-
+/*
 Object * box(Point * center,Point* repere,float x_length, float y_length, float z_length)
 {
 	Point *_pt;
@@ -79,7 +79,7 @@ Object * box(Point * center,Point* repere,float x_length, float y_length, float 
 	return (Object*)ct;
 }
 
-
+/*
 
 Object *pied()
 {
@@ -337,7 +337,7 @@ Object * jambe_complete()
 	((Container*)obj)->center.z += 4.0f;
 
 	return obj;
-}
+}*//*
 
 Object * doigt(float length)
 {
@@ -522,3 +522,56 @@ Object * corps(Corps * c)
 	rot(_obj,90,0.0,0.0,1.0);
 	return ct;
 }
+
+Object * pied(Pied* p)
+{
+	Point c,r;
+	Object* pied;
+	newPoint(&c,0.0f,0.0f,0.0f);
+	newPoint(&r,0.4f,0.4f,0.3f);
+	pied = box(&c,&r,2.0f,0.8f,0.2f);
+	p->pied = pied;
+	return pied;
+}
+Object * jambe()
+{
+	Point c,r;
+	Object* jambe;
+	newPoint(&c,0.0f,0.0f,0.0f);
+	newPoint(&r,0.1f,0.1f,0.1f);
+	jambe = box(&c,&r,0.2f,0.2f,-3.0f);
+	return jambe;
+}
+Object * jambe_complet(Jambe*j)
+{
+	Object *_obj,*obj;
+
+	obj = pied(&j->pied);
+	_obj = jambe();
+	((Container*)obj)->center.z -= 3.4f;
+	((Container*)obj)->center.x -= 0.2f;
+	((Container*)obj)->center.y -= 0.2f;
+	j->jambe[1] = _obj;
+	contAddObject((Container*)_obj,obj);
+	obj = _obj;
+	((Container*)obj)->center.z -= 3.2f;
+	_obj = jambe();
+	j->jambe[0] = _obj; 
+	contAddObject((Container*)_obj,obj);
+	return _obj;
+}
+
+Object* makeSphere(double angle_1, double angle_1to, double angle_2, double angle_2to, double stack, double slice)
+{
+	int i,j;
+	Point* p;
+	Container* c = ;
+	Polygone* poly;
+	for(i = 0; i < slice; i++)
+		for(j = 0; j < stack; i++)
+		{	
+			
+			poly = newPolygone(NULL,NULL,0);
+			newPoint(&p,cos(i*2*M_PI),cos
+		}
+}*/
