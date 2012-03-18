@@ -50,6 +50,7 @@ Camera* cam = NULL;
 double time_scene = 0.0f; //in sec
 clock_t last_time = 0;
 int timer = 10;
+Robot * rob;
 
 //TEST
 float t = 0.0f;
@@ -211,7 +212,8 @@ int main(int argc, char ** argv)
 	t->addCylinder(1.0f,1.0f,2.0f,20.0f,20.0f);
 	//((Container*)selected_obj)->addSphere(0.05f,100.0f,100.0f,M_PI,M_PI);
 	//ObjectAccessor::getObjMgr()->getScene()->add(t);
-	Robot* rob = new Robot();
+	rob = new Robot();
+	selected_obj = rob->getBase();
 	ObjectAccessor::getObjMgr()->getScene()->add(rob->getBase());
 	//ObjectAccessor::getObjMgr()->getScene()->add(poly);
 	shadtest = LoadProgram("Shader/test.vert","Shader/test.frag");
@@ -435,24 +437,26 @@ void keyboardSpec(int key,int x, int y)
 	{
 	case 'h':
 		index++;
-		if(index >= 21)
-			index = 0;
+		//if(index >= 21)
+			//index = 0;
 		//((Container*)selected_obj)->showRep = 0;
-		selected_obj = list_object[index];
-		if(!selected_obj)
-			selected_obj = list_object[0];
+		selected_obj = (*rob)[index];
+		//if(!selected_obj)
+			//selected_obj = list_object[0];
 
 		//((Container*)selected_obj)->showRep = 1;
 		break;
 	case 'i':
 		index--;
+
 		if(index < 0)
 			index = 0;
+		selected_obj = (*rob)[index];
 		//((Container*)selected_obj)->showRep = 0;
-		selected_obj = list_object[index];
+		/*selected_obj = list_object[index];
 		if(!selected_obj)
 			selected_obj = list_object[0];
-		//((Container*)selected_obj)->showRep = 1;
+		//((Container*)selected_obj)->showRep = 1;*/
 		break;
 	}
 
@@ -597,18 +601,16 @@ void onkey(unsigned char key,int x, int y)
 //		anim = NULL;
 		break;
 	case 'r':
-		setTime(0.0f);
 		ObjectAccessor::getObjMgr()->getScene()->reset();
 		break;
 	case 't':
-		setTime(0.0f);
 		ObjectAccessor::getObjMgr()->getScene()->start();
 		break;
 	case 'i':
 		printf("\n !SET! time : ");
 		fgets(buffer,128-1,stdin);
 		buffer[strlen(buffer)-1] = 0;
-		setTime(atof(buffer));
+		ObjectAccessor::getObjMgr()->getScene()->setTime((int)(atof(buffer)*1000));
 		break;
 	case 'w':
 		printf("\n !SAVE! file : ");
@@ -632,10 +634,10 @@ void onkey(unsigned char key,int x, int y)
 		printf("\n %s loading success.",buffer);
 		break;
 	case '+':
-		setTime(time_scene + 0.1f);
+		ObjectAccessor::getObjMgr()->getScene()->incTime();
 		break;
 	case '-':
-		setTime(time_scene - 0.1f);
+		ObjectAccessor::getObjMgr()->getScene()->incTime(-100);
 		break;
 	case '&':
 		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);

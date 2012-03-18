@@ -13,14 +13,7 @@ enum AnimFlag
 	ANIMFLAG_INSTANTLY = 0x01,
 };
 
-class MoveInfo_compare
-{
-public:
-    bool operator()(const int& a, const int& b)
-    {
-        return a < b;
-    }
-};
+
 
 class Animation
 {
@@ -28,21 +21,52 @@ public:
 
 	struct MoveInfo
 	{
+	public:
+		MoveInfo()
+		{
+			pos = Vector3D();
+			rot = Quat();
+			time = -1;
+		}
+		MoveInfo(Vector3D pos, Quat rot, int time)
+		{
+			this->pos = pos;
+			this->rot = rot;
+			this->time = time;
+		}
+		MoveInfo(Object * obj, int time)
+		{
+			this->pos = obj->getPosition();
+			this->rot = obj->getRotation();
+			this->time = time;
+		}
 		Vector3D pos;
 		Quat rot;
 		int time;
 	};
 
-	Animation();
-	void update(int diff);
-	void reset();
-	void addMoveInfo(MoveInfo mi,int time);
+	Animation(Object* obj);
+	void update(int time);
+	void addMoveInfo(MoveInfo mi);
 	void remMoveInfo(int time);
-	
-
+	bool checkMoveInfo(MoveInfo mv);
+	MoveInfo getInterpolateFor(int time);
 private:
-	std::map<int,MoveInfo,MoveInfo_compare> mv_list;
-};/*
+	std::vector<MoveInfo> mv_list;
+	Object* obj;
+};
+
+class MoveInfo_compare
+{
+public:
+    bool operator()(const Animation::MoveInfo& a, const Animation::MoveInfo& b)
+    {
+        return a.time < b.time;
+    }
+};
+
+
+/*
 struct _animation //time in ms
 {
 	Object * obj;

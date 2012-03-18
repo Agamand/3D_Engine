@@ -1,25 +1,106 @@
 #include <stdlib.h>
 #include "Animation.h"
+#include <algorithm>
+Animation::Animation(Object* obj)
+{
+	this->obj = obj;
+	addMoveInfo(MoveInfo(obj->getPosition(),obj->getRotation(),0));
+}
 
+void Animation::update(int time)
+{
+	if(mv_list.size() < 2)
+		return;
 
-Animation::Animation()
-{
+	MoveInfo mv = getInterpolateFor(time);
+	obj->setPosition(mv.pos);
+	obj->setRotation(mv.rot);
+			
 }
-void Animation::update(int diff)
+void Animation::addMoveInfo(MoveInfo mi)
 {
-}
-void Animation::reset()
-{
-}
-void Animation::addMoveInfo(MoveInfo mi,int time)
-{
+	if(!checkMoveInfo(mi))
+		return;
+
+	remMoveInfo(mi.time);
+
+	mv_list.push_back(mi);
+	std::sort (mv_list.begin(),mv_list.end(),MoveInfo_compare());
 }
 void Animation::remMoveInfo(int time)
 {
+	if(mv_list.empty())
+		return;
+
+	for(std::size_t i = 0; i < mv_list.size();)
+	{
+		if(mv_list[i].time == time)
+		{
+			mv_list.erase(mv_list.begin()+i);
+		}
+		else
+		{
+			i++;
+		}
+	}
 }	
 
+bool vectorCompare(Vector3D v1, Vector3D v2)
+{
+	Vector3D v = v1 - v2;
+	if(ABS(v.getX()) > 0.0005f)
+		return false;
+	if(ABS(v.getY()) > 0.0005f)
+		return false;
+	if(ABS(v.getZ()) > 0.0005f)
+		return false;
+	return true;
+}
 
+bool quatCompare(Quat qt1,Quat qt2)
+{
+	Quat qt = qt1 - qt2;
+	if(ABS(qt.getA()) > 0.0005f || !vectorCompare(qt1.getVector(),qt2.getVector()))
+		return false;
+	return true;
+}
 
+bool Animation::checkMoveInfo(MoveInfo mv)
+{
+	MoveInfo _mv;
+	if(mv_list.empty())
+		return true;
+
+	_mv = getInterpolateFor(mv.time);
+	       
+	return !(quatCompare(mv.rot,_mv.rot) && vectorCompare(mv.pos,_mv.pos));
+}
+Animation::MoveInfo Animation::getInterpolateFor(int time)
+{
+	if(mv_list.size() < 2)
+		return mv_list[0];
+
+	int index = 0;
+	for(std::size_t i = 0; i < mv_list.size(); i++)
+	{
+		if(time >= mv_list[i].time && time <= mv_list[i+1].time || i+1 == mv_list.size()-1)
+		{
+			index = i;
+			break;
+		}			
+	}
+
+	int inter = mv_list[index+1].time - mv_list[index].time;
+	double t = time - mv_list[index].time;
+	t = ((double)t)/((double)inter);
+	if(t > 1.0f)
+		t = 1.0f;
+	MoveInfo mv;
+	mv.rot = mv_list[index].rot.interpolate(mv_list[index+1].rot,t);
+	mv.pos = mv_list[index].pos;
+	mv.time = time;
+	return mv;
+}
 /*
 Animation* newAnim(Animation* anim,Object* obj)
 {
@@ -99,29 +180,7 @@ Quat getInterpolateFor(Animation* anim, int time)
 	qt = interpolQuat(anim->mv_info[i].rot,anim->mv_info[i+1].rot,t);
 	return qt;
 }
-int quatCompare(Quat qt1,Quat qt2)
-{
-	double a,x,y,z;
-	a = qt1.vector.x-qt2.vector.x;
-	x = qt1.vector.x-qt2.vector.x;
-	y = qt1.vector.y-qt2.vector.y;
-	z = qt1.vector.z-qt2.vector.z;
 
-	a = a < 0 ? -a : a;
-	x = x < 0 ? -x : x;
-	y = y < 0 ? -y : y;
-	z = z < 0 ? -z : z;
-	if(a > 0.0005f)
-		return 0;
-	if(x > 0.0005f)
-		return 0;
-	if(y > 0.0005f)
-		return 0;
-	if(z > 0.0005f)
-		return 0;
-
-	return 1;
-}
 int checkAnim(Animation* anim,Quat qt, int time)
 {
 	Quat _qt;
@@ -147,21 +206,7 @@ void addMoveInfo(Animation* anim,Quat qt,int time)
 	anim->mv_size++;
 	orderMoveInfo(anim);
 }
-void updatePosition(AnimScene* anim,int time)
-{
-	Pointer* itr;
-	Animation* an;
-	if(anim->start)
-		return;
 
-	itr = anim->l_anim->begin;
-	while((itr = itr->nextpointer) != anim->l_anim->end)
-	{
-		an = (Animation*)itr->pointer;
-
-		addMoveInfo(an,an->obj->qtrot,time);
-	}
-}
 void remMoveInfo(Animation*anim,int time)
 {
 	int i;

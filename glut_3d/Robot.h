@@ -13,8 +13,10 @@ public:
 	Object* doigt();
 	Object* doigt_complete();
 	Object* getBase() {return base; }
+	Object* operator[] (int i);
 private:
 	Container* base;
+	Container* _doigt[3];
 
 };
 

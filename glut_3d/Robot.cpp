@@ -209,10 +209,18 @@ Object* Robot::doigt_complete()
 	c2 = (Container*)doigtB();
 	c1->addObject(c2);
 	c2->setPosition(0.335,0.0,0.0);
-
+	_doigt[0] = c2;
+	_doigt[1] = c1;
 	c2 = c1;
 	c1 = (Container*)doigt();
+	_doigt[2] = c1;
 	c2->setPosition(0.335,0.0,0.0);
 	c1->addObject(c2);
 	return c1;
+}
+
+Object* Robot::operator[] (int i)
+{
+	i %=3;
+	return _doigt[i];
 }

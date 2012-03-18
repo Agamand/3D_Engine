@@ -149,6 +149,8 @@ Quat Quat::operator/=(double const &a)
 
 double Quat::ScaleProd(Quat q)
 {
+	normalise();
+	q.normalise();
 	return a*q.getA() + vect.scaleProduct(q.getVector());
 }
 
@@ -209,6 +211,10 @@ Quat Quat::interpolate(Quat q, double t)
 {
 	double sin1,sin2;
 	double a = ScaleProd(q);
+	if(a > 1.0f)
+		a = 1.0f;
+	else if(a < -1.0f)
+		a = -1.0f;
 	a = acos(a);
 	sin1 = sin((1-t)*a)/sin(a);
 	sin2 = sin(t*a)/sin(a);

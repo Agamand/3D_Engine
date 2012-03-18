@@ -67,7 +67,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3DSLoader.c" />
-    <ClCompile Include="Animation.c" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BMPloader.c" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\Vector.cpp" />

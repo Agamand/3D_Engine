@@ -2,10 +2,9 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "Util\List.h"
 #include "Texture.h"
-
 #include "MathPlus.h"
+//#include "Animation.h"
 #include <vector>
 /*
 typedef struct _cube Cube;
@@ -36,6 +35,8 @@ enum ObjectType
 	OBJECT_TYPE_LIGHT,
 };
 
+class Animation;
+
 class Object
 {
 public:
@@ -48,18 +49,24 @@ public:
 	void setPosition(Vector3D pos) { position = pos; } 
 	void getPosition(double &x, double &y, double &z) { x = position.getX(); y = position.getY(); z = position.getZ(); }
 	void setPosition(double x, double y, double z) { position = Vector3D(x,y,z); }
+	void update(int time);
+	void updatePosition(int time);
+	virtual void updateChild(int time) {return;}
+	virtual void updatePositionChild(int time) {return;}
 
 	Vector3D getRepere() { return repere; }
 	void setRepere(Vector3D pos) { repere = pos; } 
 	void getRepere(double &x, double &y, double &z) { x = repere.getX(); y = repere.getY(); z = repere.getZ(); }
 	void setRepere(double x, double y, double z) { repere = Vector3D(x,y,z); }
-	
+
 	ObjectType getType() { return type;}
 	
 	double getSize() { return size; }
 	void setSize(double size) { this->size = size; }
 
 	void rotate(double angle, Vector3D vect) { rotation *= Quat(angle,vect);}
+	void setRotation(Quat q) { rotation = q;}
+	Quat getRotation() { return rotation;}
 
 	int getColor() { return color; }
 	void setColor(int color) { this->color = color; }
@@ -69,6 +76,8 @@ public:
 
 	Object* getParent() { return parent; }
 	void setParent(Object* par) { parent = par; }
+
+	Animation* getAnimation() { return animation; }
 
 	virtual void show() {return;}
 
@@ -81,6 +90,7 @@ protected:
 	Vector3D position;
 	Vector3D repere;
 	Object* parent;
+	Animation* animation;
 };
 
 class Container : public Object
@@ -94,6 +104,8 @@ public:
 	void show();
 	void addObject(Object* obj) {object_list.push_back(obj);}
 	void delObject(Object* obj);
+	void updateChild(int time);
+	void updatePositionChild(int time);
 
 	void addSphere(double r,float stack, float slice,double angle = 2.0f *M_PI);
 	void addCylinder(double r1,double r2, double length,float stack, float slice, double angle = 2.0f*M_PI);

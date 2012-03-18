@@ -42,9 +42,6 @@
     <ClCompile Include="3DSLoader.c">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.c">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="Robot.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

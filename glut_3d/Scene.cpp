@@ -18,12 +18,22 @@ void Scene::update(int diff,bool forced)
 		return;
 
 	time += diff;
+
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->update(time);
+	}
 }
 
 void Scene::reset()
 {
 	time = 0;
 	_start = false;
+
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->update(0);
+	}
 }
 
 void Scene::show()
@@ -47,6 +57,27 @@ void Scene::del(Object* obj)
 		if(obj == object_list[i])
 			object_list.erase(object_list.begin()+i);
 	}
+}
+void Scene::updatePosition()
+{
+
+	if(_start)
+		return;
+
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->updatePosition(time);
+	}
+}
+
+void Scene::setTime(int time)
+{
+	if(_start)
+		return;
+
+	updatePosition();
+	this->time = time;
+	update(0,true);
 }
 
 /*

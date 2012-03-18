@@ -25,6 +25,10 @@ public:
 	void show();
 	void add(Object* obj) { object_list.push_back(obj); }
 	void del(Object* obj);
+	void setTime(int time);
+	int getTime() { return time; }
+	void incTime(int time = 100) { setTime(this->time + time); }
+	void updatePosition();
 private:
 	std::vector<Object*> object_list;
 	int time;

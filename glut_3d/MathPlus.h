@@ -10,6 +10,7 @@
 #include "Matrix.h"
 #define TODEG 180/M_PI
 #define TORAD M_PI/180
+#define ABS(x) x > 0.0f ? x : -x
 // Quaternion
 
 #define TOROT(qt) qt.a*TODEG, qt.v.getX(), qt.v.getY(), qt.v.getZ()

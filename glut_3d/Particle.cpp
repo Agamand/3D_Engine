@@ -44,13 +44,12 @@ void showAllParticle(lpart list,float t)
 	if(list.empty())
 		return;
 
-	for(std::size_t i = 0; i < list.size(); i++)
+	for(std::size_t i = 0; i < list.size(); )
 	{		
 		if(!list[i]->show(t))
 		{
-			//delete list[i];
-			//list.erase(list.begin()+i);
-
-		}
+			delete list[i];
+			list.erase(list.begin()+i);
+		}else i++;
 	}
 }

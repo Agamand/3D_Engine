@@ -27,6 +27,7 @@ Object::Object() : parent(NULL), texture(NULL), type(OBJECT_TYPE_NONE)
 	repere = position;
 	rotation = Quat();
 	size = 1.0f;
+	animation =  new Animation(this);
 }
 
 Object::Object(Vector3D _position)
@@ -50,6 +51,19 @@ Object::~Object()
 		//delete texture;
 }
 
+void Object::update(int time)
+{
+	animation->update(time);
+	updateChild(time);
+}
+
+void Object::updatePosition(int time)
+{
+	Animation::MoveInfo mv(position,rotation,time);
+	animation->addMoveInfo(mv);
+	updatePositionChild(time);
+}
+
 Container::Container()
 {
 	Object::Object();
@@ -70,10 +84,25 @@ void Container::delObject(Object* obj)
 	if(object_list.empty())
 		return;
 
-	for(std::size_t i = 0; i < object_list.size(); i++)
+	for(std::size_t i = 0; i < object_list.size();)
 	{
 		if(obj == (object_list[i]))
 			object_list.erase(object_list.begin()+i);
+		else i++;
+	}
+}
+
+void Container::updateChild(int time)
+{
+	for(std::size_t i = 0; i < object_list.size(); i++)
+		object_list[i]->update(time);
+}
+
+void Container::updatePositionChild(int time)
+{
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->updatePosition(time);
 	}
 }
 
