@@ -1,10 +1,22 @@
-﻿La génération a démarré 18/03/2012 01:10:56.
+﻿La génération a démarré 20/03/2012 12:21:52.
      1>Projet "J:\Projet Infographie\Moteur3D\glut_3d - Copie\glut_3d\glut_3d.vcxproj" sur le nœud 2 (build cible(s)).
      1>InitializeBuildStatus:
-         Création de "Debug\glut_3d.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+         Mise à jour de l'horodatage "Debug\glut_3d.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Scene.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Object.cpp ObjectAccessor\ObjectAccessor.cpp Scene.cpp main.cpp
+         main.cpp
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(127): warning C4101: 't' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(143): warning C4101: 'i' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(245): warning C4101: 'c' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(353): warning C4101: 'i' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(352): warning C4101: 'txt' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(636): warning C4101: '_rand2' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(636): warning C4101: '_rand' : variable locale non référencée
+     1>j:\projet infographie\moteur3d\glut_3d - copie\glut_3d\main.cpp(668): warning C4101: 'j' : variable locale non référencée
          Scene.cpp
+         ObjectAccessor.cpp
+         Object.cpp
+         Génération de code en cours...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut_3d.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\Debug\glut_3d.lib" /MACHINE:X86 /PROFILE Debug\3DSLoader.obj
          Debug\Animation.obj
@@ -12,6 +24,7 @@
          Debug\Camera.obj
          Debug\Vector.obj
          Debug\main.obj
+         Debug\Physics.obj
          Debug\MathPlus.obj
          Debug\Matrix.obj
          Debug\Object.obj
@@ -34,4 +47,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:03.91
+Temps écoulé 00:00:07.13

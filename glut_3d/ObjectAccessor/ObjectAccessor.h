@@ -23,18 +23,27 @@ public:
 
 	Scene* getScene() { return scene; }
 	void setScene(Scene * sc) { scene = sc;}
+	uint64 nextGUID() {return ++_guid;}
 	//static ObjectAccessor * Objmgr;
 	// Shader* getShader(String name);
 	// void addShader(Shader* sh) { program_list.push_back(sh); }
 
-	static ObjectAccessor* getObjMgr() {return objmgr;}
+	static ObjectAccessor* getObjMgr() 
+	{
+		if(!objmgr)
+			objmgr = new ObjectAccessor();
+		return objmgr;
+	}
 
 private:
 	Scene* scene;
 	std::list<Texture*> texture_list;
 	//std::list<> program_list;
 	static ObjectAccessor* objmgr;
+	uint64 _guid;
 };
+
+//ObjectAccessor * ObjectAccessor::objmgr = NULL;
 
 
 

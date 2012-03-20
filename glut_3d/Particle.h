@@ -11,7 +11,7 @@ class Particle
 {
 public:
 	Particle(Vector3D v ,float begin ,float ttl, int prog);
-	//~Particle() {;}
+	~Particle() {}
 	int show(float t);
 private:
 	Vector3D v; //Vitesse

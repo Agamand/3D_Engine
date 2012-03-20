@@ -14,6 +14,8 @@ enum SceneOption
 	ENABLE_TEXTURE = 0x2,
 };
 
+#define MAX_LIGHT 8
+
 class Scene
 {
 public:
@@ -29,9 +31,14 @@ public:
 	int getTime() { return time; }
 	void incTime(int time = 100) { setTime(this->time + time); }
 	void updatePosition();
+	int getUnusableLight();
+	bool isEnable(int light) { if(light >= MAX_LIGHT || light < 0) return false; _light[light];}
+	void enableLight(int n) { if(n >= MAX_LIGHT || n < 0) return; _light[n] = true;}
+	void disableLight(int n) { if(n >= MAX_LIGHT || n < 0) return; _light[n] = false;}
 private:
 	std::vector<Object*> object_list;
 	int time;
 	bool _start;
+	bool _light[MAX_LIGHT];
 };
 #endif

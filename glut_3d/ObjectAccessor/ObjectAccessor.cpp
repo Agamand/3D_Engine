@@ -8,6 +8,7 @@ ObjectAccessor::ObjectAccessor()
 {
 	scene = NULL;
 	objmgr = this;
+	_guid = 0;
 
 }
 
@@ -15,6 +16,7 @@ ObjectAccessor::ObjectAccessor(Scene* sc)
 {
 	scene = sc;
 	objmgr = this;
+	_guid = 0;
 }
 
 ObjectAccessor::~ObjectAccessor()
@@ -28,7 +30,7 @@ Texture* ObjectAccessor::getTexture(String name)
 {
 	for(std::list<Texture*>::iterator itr = texture_list.begin(); itr != texture_list.end(); itr++)
 	{
-		if(!name.compare((*itr)->textureName))
+		if(!name.compare((*itr)->getName()))
 			return (*itr);
 	}
 	return NULL;

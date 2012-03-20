@@ -14,14 +14,15 @@ Scene::Scene()
 
 void Scene::update(int diff,bool forced)
 {
-	if(!_start && !forced)
-		return;
-
-	time += diff;
+	if(_start || forced)
+		time += diff;
 
 	for(std::size_t i = 0; i < object_list.size(); i++)
 	{
-		object_list[i]->update(time);
+		if(_start || forced)
+			object_list[i]->update(time);
+
+		object_list[i]->updateMass(diff);
 	}
 }
 
@@ -78,6 +79,16 @@ void Scene::setTime(int time)
 	updatePosition();
 	this->time = time;
 	update(0,true);
+}
+
+int Scene::getUnusableLight()
+{
+	for(int i = 0; i < MAX_LIGHT; i++)
+	{
+		if(!_light[i]) 
+			return i;
+	}
+	return -1;
 }
 
 /*

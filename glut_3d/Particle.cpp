@@ -27,12 +27,13 @@ int Particle::show(float t)
 	glUniform1f(uniID[0],t-begin);
 	glUniform1f(uniID[1],ttl);
 	glUniform3f(uniID[2],v.getX(),v.getY(),v.getZ());
-	glBegin(GL_POINTS);
+	glBegin(GL_TRIANGLE_STRIP);
 	glColor3f(0.0f,1.0f,0.0f);
-	glVertex3f(0.01f,0.0f,0.01f);
-/*	glVertex3f(0.01f,0.0f,0.0f);
+	//glVertex3f(0.01f,0.0f,0.01f);
+	glVertex3f(0.005f,0.0f,0.1f);
+	glVertex3f(0.01f,0.0f,0.0f);
 	glVertex3f(0.0f,0.0f,0.0f);
-	glVertex3f(0.0f,0.0f,0.01);*/
+	//glVertex3f(0.0f,0.0f,0.01);
 	glEnd();
 	glUseProgram(0);
 	return 1;
@@ -43,12 +44,12 @@ void showAllParticle(lpart list,float t)
 
 	if(list.empty())
 		return;
-
+	
 	for(std::size_t i = 0; i < list.size(); )
 	{		
 		if(!list[i]->show(t))
 		{
-			delete list[i];
+			//delete list[i];
 			list.erase(list.begin()+i);
 		}else i++;
 	}

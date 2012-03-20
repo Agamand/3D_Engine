@@ -7,8 +7,10 @@
 #include "BMPloader.h"
 #include "ObjectAccessor\ObjectAccessor.h"
 #include "Matrix.h"
+#include "Physics.h"
 #include <glut.h>
 
+#define R(dr,r0,i) (dr*i + r0)
 
 /*	GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
 	GLfloat mat_ambient_color[] = {0.8, 0.8, 0.2, 1.0};
@@ -28,6 +30,8 @@ Object::Object() : parent(NULL), texture(NULL), type(OBJECT_TYPE_NONE)
 	rotation = Quat();
 	size = 1.0f;
 	animation =  new Animation(this);
+	mass = NULL;
+	guid = ObjectAccessor::getObjMgr()->nextGUID();
 }
 
 Object::Object(Vector3D _position)
@@ -64,6 +68,13 @@ void Object::updatePosition(int time)
 	updatePositionChild(time);
 }
 
+void Object::updateMass(int diff)
+{
+	if(!mass)
+		return;
+
+	mass->simulate(diff);
+}
 Container::Container()
 {
 	Object::Object();
@@ -87,7 +98,10 @@ void Container::delObject(Object* obj)
 	for(std::size_t i = 0; i < object_list.size();)
 	{
 		if(obj == (object_list[i]))
+		{
+			object_list[i]->setParent(NULL);
 			object_list.erase(object_list.begin()+i);
+		}
 		else i++;
 	}
 }
@@ -134,11 +148,12 @@ void Container::addSphere(double r,float stack, float slice,double angle)
 		{
 
 			Polygone* poly = new Polygone();
-			poly->setColor(0xffff0000);
-			poly->addVertex(Polygone::Vertex(r*cosa*cos(j*angle/slice),r*sina*cos(j*M_PI/slice), r*sin(j*M_PI/slice)));
-			poly->addVertex(Polygone::Vertex(r*cosa*cos((j+1)*angle/slice),r*sina*cos((j+1)*M_PI/slice), r*sin((j+1)*M_PI/slice)));
-			poly->addVertex(Polygone::Vertex(r*cosa1*cos((j+1)*angle/slice),r*sina1*cos((j+1)*M_PI/slice), r*sin((j+1)*M_PI/slice)));
-			poly->addVertex(Polygone::Vertex(r*cosa1*cos(j*angle/slice),r*sina1*cos(j*M_PI/slice), r*sin(j*M_PI/slice)));
+			poly->setColor(0xffffffff);
+			poly->setTexture(texture);
+			poly->addVertex(Polygone::Vertex(r*cosa*sin(j*M_PI/slice),r*sina*sin(j*M_PI/slice), r*cos(j*M_PI/slice),i/stack,1.0f-j/slice));
+			poly->addVertex(Polygone::Vertex(r*cosa*sin((j+1)*M_PI/slice),r*sina*sin((j+1)*M_PI/slice), r*cos((j+1)*M_PI/slice),i/stack,1.0f-(j+1)/slice));
+			poly->addVertex(Polygone::Vertex(r*cosa1*sin((j+1)*M_PI/slice),r*sina1*sin((j+1)*M_PI/slice), r*cos((j+1)*M_PI/slice),(i+1)/stack,1.0f-(j+1)/slice));
+			poly->addVertex(Polygone::Vertex(r*cosa1*sin(j*M_PI/slice),r*sina1*sin(j*M_PI/slice), r*cos(j*M_PI/slice),(i+1)/stack,1.0f-j/slice));
 			addObject(poly);
 		}
 
@@ -152,18 +167,17 @@ void Container::addSphere(double r,float stack, float slice,double angle)
 
 void Container::addCylinder(double r1,double r2, double length,float stack, float slice, double angle)
 {
-	double dr = (r2-r1)/stack;
+	double dr = (r2-r1)/slice;
 	for(int i = 0; i < stack;i++)
 	{
 		for(int j = 0; j < slice; j++)
 		{
-			double r = dr*i + r1;
 			Polygone* poly = new Polygone();
 			poly->setColor(0xffff0000);
-			poly->addVertex(Polygone::Vertex(r*cos(i*angle/stack),r*sin(i*angle/stack), length/slice*j));
-			poly->addVertex(Polygone::Vertex(r*cos(i*angle/stack),r*sin(i*angle/stack), length/slice*(j+1)));
-			poly->addVertex(Polygone::Vertex(r*cos((i+1)*angle/stack),r*sin((i+1)*angle/stack), length/slice*(j+1)));
-			poly->addVertex(Polygone::Vertex(r*cos((i+1)*angle/stack),r*sin((i+1)*angle/stack), length/slice*j));
+			poly->addVertex(Polygone::Vertex((dr*j + r1)*cos(i*angle/stack),(dr*j + r1)*sin(i*angle/stack), length/slice*j));
+			poly->addVertex(Polygone::Vertex((dr*(j+1) + r1)*cos(i*angle/stack),(dr*(j+1) + r1)*sin(i*angle/stack), length/slice*(j+1)));
+			poly->addVertex(Polygone::Vertex((dr*(j+1) + r1)*cos((i+1)*angle/stack),(dr*(j+1) + r1)*sin((i+1)*angle/stack), length/slice*(j+1)));
+			poly->addVertex(Polygone::Vertex((dr*j + r1)*cos((i+1)*angle/stack),(dr*j + r1)*sin((i+1)*angle/stack), length/slice*j));
 			addObject(poly);
 		}
 	}
@@ -234,6 +248,12 @@ void Polygone::show()
 {
 	//glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient_color);
 	//glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+	glScaled(size,size,size);
+	glEnable(GL_TEXTURE_2D);
+	if(texture)
+	{
+		glBindTexture(GL_TEXTURE_2D,texture->getTextureID());
+	}
 	glBegin(GL_POLYGON);
 	for(std::size_t i = 0; i < vertex_list.size(); i++)
 	{
@@ -243,6 +263,7 @@ void Polygone::show()
 		glVertex3d(vertex_list[i]->x,vertex_list[i]->y,vertex_list[i]->z);
 	}
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Polygone::delVertex(Vertex v)
@@ -260,7 +281,46 @@ void Polygone::delVertex(Vertex v)
 	}
 }
 
+Light::Light()
+{
+	Object::Object();
+	spot = 180;
+	dir = Vector3D(1.0f,0.0f,0.0f);
+	n_light = ObjectAccessor::getObjMgr()->getScene()->getUnusableLight();
+	ObjectAccessor::getObjMgr()->getScene()->enableLight(n_light);
+}
 
+Light::Light(Vector3D pos)
+{
+	Object::Object(pos);
+	spot = 180;
+	dir = Vector3D(1.0f,0.0f,0.0f);
+	n_light = ObjectAccessor::getObjMgr()->getScene()->getUnusableLight();
+	ObjectAccessor::getObjMgr()->getScene()->enableLight(n_light);
+}
+
+void Light::show()
+{
+	float pos[4],_color[4],_dir[3];
+	int i;
+	pos[0] = position.getX();
+	pos[1] = position.getY();
+	pos[2] = position.getZ();
+	pos[3] = 1.0f;
+
+
+	for(i = 0; i < 4; i++)
+		_color[i] = ((char*)&color)[i]/255.0f;
+
+	_dir[0] = dir.getX();
+	_dir[1] = dir.getY();
+	_dir[2] = dir.getZ();
+	glEnable(GL_LIGHT0+n_light);
+	glLightfv(GL_LIGHT0+n_light, GL_DIFFUSE, _color);   
+	glLightfv(GL_LIGHT0+n_light, GL_POSITION, pos); 
+	glLightfv(GL_LIGHT0+n_light, GL_SPOT_DIRECTION, _dir);
+	glLightfv(GL_LIGHT0+n_light, GL_SPOT_CUTOFF, &spot);
+}
 
 /*Cube* newCube(Cube * cube, Point p,int l[])
 {
@@ -528,6 +588,7 @@ void rot(Object*obj,double angle, double x, double y, double z)
 
 void showrepere()
 {
+	return;
 	glDisable(GL_LIGHTING);
 	glBegin(GL_LINES);
 	glColor3ub(255,0,0);

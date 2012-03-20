@@ -41,7 +41,7 @@ Vector3D Vector3D::operator*(double a)
 Vector3D Vector3D::operator/(double a)
 {
 	if(a!= 0.0f)
-		return Vector3D(x*a,y*a,z*a);
+		return Vector3D(x/a,y/a,z/a);
 	return *this;
 }
 

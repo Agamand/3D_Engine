@@ -6,7 +6,29 @@
 #define TEXTURE_H
 
 #include <time.h>
+#include "Util\util.h"
+class Texture
+{
+public:
+	Texture();
+	Texture(String filename);
+	~Texture();
 
+	int getTextureID() { return textureID; }
+	String getName() { return name;}
+	void load();
+	void unLoad();
+
+private:
+	int textureID;
+	String filename;
+	String name;
+	time_t ttl;
+	int use;
+	bool isLoad;
+};
+
+/*
 
 typedef struct _texture Texture;
 
@@ -30,6 +52,6 @@ void deleteTexture(Texture* t);
 void load(Texture * t);
 void unLoad(Texture * t);
 
-
+*/
 
 #endif TEXTURE_H

@@ -12,11 +12,18 @@ public:
 	Object* doigtB();
 	Object* doigt();
 	Object* doigt_complete();
+	Object* corps();
+	Object* tete();
+	Object* bras();
+	Object* avant_bras();
+	Object* bras_complete();
+	Object* mains();
 	Object* getBase() {return base; }
 	Object* operator[] (int i);
 private:
 	Container* base;
-	Container* _doigt[3];
+	Container* _doigt[12];
+	Container* _bras[2];
 
 };
 

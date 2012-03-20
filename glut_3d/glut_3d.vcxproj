@@ -72,6 +72,7 @@
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\Vector.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="MathPlus.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -82,7 +83,7 @@
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.c" />
-    <ClCompile Include="Texture.c" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DSLoader.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="BMPloader.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Camera\Vector.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="MathPlus.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Object.h" />

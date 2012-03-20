@@ -8,7 +8,7 @@
 #include "Camera\Vector.h"
 #include "Shader.h"
 #include "Animation.h"
-
+#include "Physics.h"
 #include "ObjectAccessor\ObjectAccessor.h"
 //#include "Other.h"
 #include "Robot.h"
@@ -53,7 +53,7 @@ int timer = 10;
 Robot * rob;
 
 //TEST
-float t = 0.0f;
+float t = 1.0f;
 GLuint cubeMapId;
 //Animation* testanim = NULL;
 Object* list_object[22];
@@ -117,9 +117,9 @@ void initOP(void)
 	//glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT1);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	//glEnable( GL_ALPHA_TEST );
 }
 
 void initTexture()
@@ -167,54 +167,20 @@ int main(int argc, char ** argv)
 
 	cam = new Camera(Vector3D(-2.0f,0.0f,0.0f));
 
-	/*selected_obj = bras_complet(&c.bras[0]);
-	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-	selected_obj = jambe_complet(&c.jambe[0]);
-	Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-
-	newVector3D(&v1,0.0f,0.0f,1.0f);
-	newVector3D(&v2,0.0f,1.0f,0.0f);
-	//newVector3D(&v1,0.0f,0.0f,1.0f);
-	//selected_obj = newLight(NULL,v1,v1,BLANC,GL_LIGHT0);
-	//((Light*)selected_obj)->dir = v2;
-	//Objmgr->scene->object_list->Append(Objmgr->scene->object_list,selected_obj);
-	//rot(c.bras[0].bras[0],45.0f,0,1.0,0.0);
-	//rot(c.bras[1].bras[0],45.0f,0,1.0,0.0);
-
-	
-	selected_obj = c.bras[0].bras[0];
-	((Container*)selected_obj)->showRep = 1;
-	for(i = 0;  i < 22; i++)
-		list_object[i] = NULL;
-
-	list_object[0] = c.bras[0].bras[0];
-	list_object[1] = c.bras[0].bras[1];
-	list_object[2] = c.bras[0].main.main;
-	list_object[3] = c.bras[0].main.doigt[0].doigt[0];
-	list_object[4] = c.bras[0].main.doigt[0].doigt[1];
-	list_object[5] = c.bras[0].main.doigt[0].doigt[2];
-	list_object[6] = c.bras[0].main.doigt[1].doigt[0];
-	list_object[7] = c.bras[0].main.doigt[1].doigt[1];
-	list_object[8] = c.bras[0].main.doigt[1].doigt[2];
-	list_object[9] = c.bras[0].main.doigt[2].doigt[0];
-	list_object[10] = c.bras[0].main.doigt[2].doigt[1];
-	list_object[11] = c.bras[0].main.doigt[2].doigt[2];
-	list_object[12] = c.bras[0].main.doigt[3].doigt[0];
-	list_object[13] = c.bras[0].main.doigt[3].doigt[1];
-	list_object[14] = c.bras[0].main.doigt[3].doigt[2];
-	list_object[15] = c.bras[0].main.doigt[4].doigt[0];
-	list_object[16] = c.bras[0].main.doigt[4].doigt[1];
-	list_object[17] = c.bras[0].main.doigt[4].doigt[2];
-	list_object[18] = c.jambe[0].jambe[0];
-	list_object[19] = c.jambe[0].jambe[1];
-	list_object[20] = c.jambe[0].pied.pied;*/
 	Container* t = new Container(Vector3D(0.0f,0.0f,0.0f));
-	t->addCylinder(1.0f,1.0f,2.0f,20.0f,20.0f);
+	t->setTexture(new Texture("earthmap1k_24.bmp"));
+	
+	selected_obj = t;
+
+
+	//addCylinder(0.5,0.6,1.0,20,20);
+	t->addSphere(1.0f,40,40);
 	//((Container*)selected_obj)->addSphere(0.05f,100.0f,100.0f,M_PI,M_PI);
-	//ObjectAccessor::getObjMgr()->getScene()->add(t);
+	ObjectAccessor::getObjMgr()->getScene()->add(t);
 	rob = new Robot();
-	selected_obj = rob->getBase();
-	ObjectAccessor::getObjMgr()->getScene()->add(rob->getBase());
+
+	//selected_obj = rob->getBase();
+	//ObjectAccessor::getObjMgr()->getScene()->add(rob->getBase());
 	//ObjectAccessor::getObjMgr()->getScene()->add(poly);
 	shadtest = LoadProgram("Shader/test.vert","Shader/test.frag");
 	//testanim = newAnim(NULL,selected_obj);
@@ -407,7 +373,7 @@ void display()
 
 	//test_2(200,200,2.0);
 	ObjectAccessor::getObjMgr()->getScene()->show();
-	showAllParticle(lparticle,t);
+	//showAllParticle(lparticle,t);
 	//surface(2.0f,2.0f,100.0f);
 	/*glTranslatef(0.0,0.0,-0.2);
 	glPushMatrix();
@@ -575,7 +541,12 @@ void onkey(unsigned char key,int x, int y)
 	case '3':
 		mode = SELECT_ROT_3;
 		break;
+	case '8':
+		selected_obj->getMass()->setVelocity(Vector3D(0.0f,0.0f,3.0f));
+		break;
 	case '7':
+		selected_obj->setMass(new Mass(selected_obj,1.0f));
+		selected_obj->getMass()->setVelocity(Vector3D(0.0f,2.0f,10.0f));
 		/*if(anim && selected_obj)
 		{
 			if(anim->obj != selected_obj)
@@ -596,6 +567,12 @@ void onkey(unsigned char key,int x, int y)
 		addMoveInfo(anim,anim->obj->qtrot,time_scene*1000);
 
 		*/
+		break;
+	case '4':
+		selected_obj->getMass()->applyVelocity(Vector3D(0.0f,2.0f,0.0f));
+		break;
+	case '6':
+		selected_obj->getMass()->applyVelocity(Vector3D(0.0f,-2.0f,0.0f));
 		break;
 	case '9':
 //		anim = NULL;
@@ -669,12 +646,12 @@ void idle()
 	
 	if(timer <= diff)
 	{
-		/*for(i = 0; i < 10;i++)
+		for(i = 0; i < 1;i++)
 		{
-		Vector3D v(randVal(-2.0f,2.0f),randVal(-2.0f,2.0f),randVal(-2.0f,2.0f));
+		Vector3D v(randVal(-2.0f,2.0f),randVal(-2.0f,2.0f),4.0f);
 		p = new Particle(v,t,3.0f,sh->program_id);
 		lparticle.push_back(p);
-		}*/
+		}
 		ObjectAccessor::getObjMgr()->getScene()->update(TIMER+diff-timer);
 
 		timer = TIMER;

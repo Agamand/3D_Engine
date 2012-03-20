@@ -33,9 +33,11 @@ enum ObjectType
 	OBJECT_TYPE_CONTAINER,
 	//OBJECT_TYPE_3DS, 
 	OBJECT_TYPE_LIGHT,
+	OBJECT_TYPE_PARTICLE_GENERATOR,
 };
 
 class Animation;
+class Mass;
 
 class Object
 {
@@ -81,7 +83,13 @@ public:
 
 	virtual void show() {return;}
 
+	void setMass(Mass* m) { mass = m;}
+	Mass* getMass() { return mass;}
+
+	void updateMass(int diff);
+
 protected:
+	uint64 guid;
 	ObjectType type;
 	double size;
 	int color;
@@ -91,6 +99,7 @@ protected:
 	Vector3D repere;
 	Object* parent;
 	Animation* animation;
+	Mass* mass;
 };
 
 class Container : public Object
@@ -102,7 +111,7 @@ public:
 	~Container();
 
 	void show();
-	void addObject(Object* obj) {object_list.push_back(obj);}
+	void addObject(Object* obj) { obj->setParent(this); object_list.push_back(obj);}
 	void delObject(Object* obj);
 	void updateChild(int time);
 	void updatePositionChild(int time);
@@ -158,6 +167,32 @@ public:
 	void show();
 private:
 	std::vector<Vertex*> vertex_list;
+};
+
+class Light : public Object
+{
+public:
+	Light();
+	Light(Vector3D pos);
+	~Light();
+
+	void show();
+private:
+	int n_light;
+	float spot;
+	Vector3D dir;
+};
+
+class ParticleGenerator : public Object
+{
+public:
+	ParticleGenerator();
+	ParticleGenerator(Vector3D pos);
+	~ParticleGenerator();
+
+	void show();
+private:
+	Vector3D dir;
 };
 
 void showrepere();

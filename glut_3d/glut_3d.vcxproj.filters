@@ -22,6 +22,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{04b98405-56a9-4498-a7ec-f2f08ad371f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics System">
+      <UniqueIdentifier>{d0eb488d-624f-4e35-8296-2c1487352d41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Other.c">
@@ -34,9 +37,6 @@
       <Filter>Texture</Filter>
     </ClCompile>
     <ClCompile Include="PNGloader.c">
-      <Filter>Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.c">
       <Filter>Texture</Filter>
     </ClCompile>
     <ClCompile Include="3DSLoader.c">
@@ -72,6 +72,12 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Physics System</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="Robot.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Physics System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
