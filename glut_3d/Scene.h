@@ -9,9 +9,9 @@
 
 enum SceneOption
 {
-	NOTHING_OPTION = 0x0,
-	ENABLE_LIGHT = 0x1,
-	ENABLE_TEXTURE = 0x2,
+	OPTION_NOTHING = 0x0,
+	OPTION_ENABLE_LIGHT = 0x1,
+	OPTION_ENABLE_TEXTURE = 0x2,
 };
 
 #define MAX_LIGHT 8
@@ -20,6 +20,7 @@ class Scene
 {
 public:
 	Scene();
+	Scene(int opt);
 	~Scene() {;}
 	void start() { reset(); _start = true; }
 	void update(int time,bool forced = false);
@@ -35,10 +36,17 @@ public:
 	bool isEnable(int light) { if(light >= MAX_LIGHT || light < 0) return false; _light[light];}
 	void enableLight(int n) { if(n >= MAX_LIGHT || n < 0) return; _light[n] = true;}
 	void disableLight(int n) { if(n >= MAX_LIGHT || n < 0) return; _light[n] = false;}
+	int getOption() { return option;}
+	void addOption(int opt) { option |= opt;}
+	void delOption(int opt) { option &= ~opt;}
+	void clearOption() { option = OPTION_NOTHING;}
+	void setOption(int opt) { option = opt;}
+	void applyOption();
 private:
 	std::vector<Object*> object_list;
 	int time;
 	bool _start;
 	bool _light[MAX_LIGHT];
+	int option;
 };
 #endif

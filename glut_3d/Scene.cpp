@@ -1,16 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <glut.h>
 #include "Scene.h"
 
 
 
 
-Scene::Scene()
+Scene::Scene() : option(OPTION_NOTHING)
 {
 	time = 0;
 	_start = false;
 }
 
+Scene::Scene(int opt)
+{
+	Scene::Scene();
+	option = opt;
+}
 
 void Scene::update(int diff,bool forced)
 {
@@ -36,9 +42,19 @@ void Scene::reset()
 		object_list[i]->update(0);
 	}
 }
+void Scene::applyOption()
+{
+	if(option & OPTION_ENABLE_LIGHT)
+		glEnable(GL_LIGHTING);
+	else glDisable(GL_LIGHTING);
 
+	if(option & OPTION_ENABLE_TEXTURE)
+		glEnable(GL_TEXTURE_2D);
+	else glDisable(GL_TEXTURE_2D);
+}
 void Scene::show()
 {
+	applyOption();
 	if(object_list.empty())
 		return;
 

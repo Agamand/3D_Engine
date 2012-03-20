@@ -171,7 +171,13 @@ int main(int argc, char ** argv)
 	t->setTexture(new Texture("earthmap1k_24.bmp"));
 	
 	selected_obj = t;
-
+	Polygone* p = new Polygone();
+	p->addVertex(Polygone::Vertex(0.0,0.0,0.0,0.25,0.25));
+	p->addVertex(Polygone::Vertex(0.0,0.0,1.0,0.25,0.75));
+	p->addVertex(Polygone::Vertex(1.0,0.0,1.0,0.75,0.25));
+	p->addVertex(Polygone::Vertex(1.0,0.0,0.0,0.75,0.75));
+	p->setTexture(new Texture("earthmap1k_24.bmp"));
+	p->getTexture()->load();
 
 	//addCylinder(0.5,0.6,1.0,20,20);
 	t->addSphere(1.0f,40,40);
@@ -373,6 +379,8 @@ void display()
 
 	//test_2(200,200,2.0);
 	ObjectAccessor::getObjMgr()->getScene()->show();
+	//glColor3f(1.0,1.0,0.0);
+	//glutSolidSphere(1.0,40,40);
 	//showAllParticle(lparticle,t);
 	//surface(2.0f,2.0f,100.0f);
 	/*glTranslatef(0.0,0.0,-0.2);
