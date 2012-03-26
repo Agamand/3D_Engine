@@ -22,9 +22,11 @@ public:
 	Scene();
 	Scene(int opt);
 	~Scene() {;}
-	void start() { reset(); _start = true; }
+	void start() { _start = true; }
 	void update(int time,bool forced = false);
 	void reset();
+	void pause() { _start = false; }
+	bool started() {return _start;}
 	void show();
 	void add(Object* obj) { object_list.push_back(obj); }
 	void del(Object* obj);

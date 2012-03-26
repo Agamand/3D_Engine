@@ -31,6 +31,9 @@
     <Filter Include="Texture\Loader">
       <UniqueIdentifier>{0839566e-93e2-40d2-ac4c-585cc1d86d28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Robot_demo">
+      <UniqueIdentifier>{66d32054-316c-4435-aa4f-7475b60c573b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="Math\Quaternion.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Robot_demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Math\Quaternion.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Robot_demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,21 +1,18 @@
-﻿La génération a démarré 26/03/2012 02:45:41.
-     1>Projet "J:\Projet Infographie\Moteur3D\glut_3d - Copie\src\glut\glut.vcxproj" sur le nœud 3 (build cible(s)).
+﻿La génération a démarré 26/03/2012 14:11:22.
+     1>Projet "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\src\glut\glut.vcxproj" sur le nœud 2 (build cible(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Le répertoire Output ne se termine pas par une barre oblique finale.  Cette instance de build ajoutera une barre oblique, comme requis, pour permettre l'évaluation correcte du répertoire Output.
      1>InitializeBuildStatus:
-         Mise à jour de l'horodatage "Debug\glut.unsuccessfulbuild".
+         Création de "Debug\glut.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
        ClCompile:
          Toutes les sorties sont à jour.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\bin\Win32_Debug\glut.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib 3D_Engine.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glut32.lib opengl32.lib glew32.lib /MANIFEST /ManifestFile:"Debug\glut.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\glut_3d - Copie\bin\Win32_Debug\glut.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\bin\Win32_Debug\glut.lib" /MACHINE:X86 Debug\main.obj
-         Debug\Robot.obj
-         glut.vcxproj -> J:\Projet Infographie\Moteur3D\glut_3d - Copie\src\glut\..\..\bin\Win32_Debug\glut.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"..\..\bin\Win32_Debug\glut.exe;#1" /manifest Debug\glut.exe.intermediate.manifest
+         Toutes les sorties sont à jour.
+         glut.vcxproj -> J:\Projet Infographie\Moteur3D\Engine(Cpp version)\src\glut\..\..\bin\Win32_Debug\glut.exe
        FinalizeBuildStatus:
          Suppression du fichier "Debug\glut.unsuccessfulbuild".
          Mise à jour de l'horodatage "Debug\glut.lastbuildstate".
-     1>Génération du projet "J:\Projet Infographie\Moteur3D\glut_3d - Copie\src\glut\glut.vcxproj" terminée (build cible(s)).
+     1>Génération du projet "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\src\glut\glut.vcxproj" terminée (build cible(s)).
 
 La génération a réussi.
 
-Temps écoulé 00:00:01.53
+Temps écoulé 00:00:00.12

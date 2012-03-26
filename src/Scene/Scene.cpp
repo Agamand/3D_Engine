@@ -14,7 +14,8 @@ Scene::Scene() : option(OPTION_NOTHING)
 
 Scene::Scene(int opt)
 {
-	Scene::Scene();
+	time = 0;
+	_start = false;
 	option = opt;
 }
 

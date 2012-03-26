@@ -64,17 +64,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
-    <OutDir>..\bin\$(Platform)_$(Configuration)</OutDir>
+    <OutDir>..\bin\Lib</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_libOnly|Win32'">
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
-    <OutDir>..\bin\$(Platform)_$(Configuration)</OutDir>
+    <OutDir>..\bin\Lib</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_withGUI|Win32'">
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
-    <OutDir>..\bin\$(Platform)_$(Configuration)</OutDir>
+    <OutDir>..\bin\Lib</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -134,6 +134,7 @@
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\Particle.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Scene\Animation.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Shader\Shader.c" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Object\Particle.h" />
     <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="Scene\Animation.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Shader\Shader.h" />
