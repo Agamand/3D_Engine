@@ -2,44 +2,73 @@
 
 #ifndef VECTOR_H
 #define VECTOR_H
-class Matrix;
+
+#include <iostream>
+#include <fstream>
+#include <assert.h>
+
+using namespace std;
+
+class Matrix4;
 
 class Vector3D
 {
 public:
 	Vector3D();
-	Vector3D(double x,double y,double z);
+	Vector3D(float x,float y,float z);
 	Vector3D(Vector3D const &a);
 	~Vector3D() {;}
 
-	void setX(double x) { this->x = x; }
-	double getX() { return x; }
-	void setY(double y) { this->y = y; }
-	double getY() { return y; }
-	void setZ(double z) { this->z = z; }
-	double getZ() { return z; }
-	double getLength() { updateLength(); return length; }
+	void setX(float x) { this->x = x; }
+	float getX() { return x; }
+	void setY(float y) { this->y = y; }
+	float getY() { return y; }
+	void setZ(float z) { this->z = z; }
+	float getZ() { return z; }
+	inline float magnitude() const 
+	{
+		return ::sqrtf(x*x + y*y + z*z);
+	}
+
+	inline float length() const
+	{
+		return magnitude();
+	}
 
 	Vector3D operator+(Vector3D const &a);
 	Vector3D operator-(Vector3D const &a);
-	Vector3D operator*(double a);
-	Vector3D operator/(double a);
+	Vector3D operator*(float a);
+	Vector3D operator/(float a);
 	Vector3D operator+=(Vector3D const &a);
 	Vector3D operator-=(Vector3D const &a);
-	Vector3D operator*=(double a);
-	Vector3D operator/=(double a);
+	Vector3D operator*=(float a);
+	Vector3D operator/=(float a);
+	Vector3D operator=(Vector3D const &a);
+	inline const float operator[](int i) const
+	{
+		assert(i >= 0);
+		assert(i < 3);
+		return _array[i];
+	}
+	inline float operator[](int i)
+	{
+		assert(i >= 0);
+		assert(i < 3);
+		return _array[i];
+	}
 	bool operator==(Vector3D const &a);
 	//Vector3D operator=(Vector3D &const a);
-	double scaleProduct(Vector3D const &a);
+	float scaleProduct(Vector3D const &a);
 	Vector3D crossProduct(Vector3D const &a);
-	void updateLength();
-	void normalise();
-
-	Matrix toMatrix();
+	void normalise() const;
+	bool isNull() { return x == 0 && y == 0 && z == 0;}
 
 private:
-	double x,y,z;
-	double length;
+	float &x,&y,&z;
+	float _array[3];
 };
 
+ofstream& operator<<(ofstream &file, Vector3D  v);
+
+ifstream& operator>>(ifstream &file, Vector3D  v);
 #endif

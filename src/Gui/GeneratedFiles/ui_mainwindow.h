@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 26. Mar 22:36:38 2012
+** Created: Thu 12. Apr 17:23:36 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -15,6 +15,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QComboBox>
+#include <QtGui/QGridLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
@@ -26,6 +27,7 @@
 #include <QtGui/QSpinBox>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
+#include <QtGui/QTreeView>
 #include <QtGui/QWidget>
 #include "glwidget.h"
 
@@ -38,8 +40,8 @@ public:
     QAction *actionSauvegarder;
     QAction *actionCharger;
     QAction *actionQuitter;
+    QAction *actionPlein;
     QAction *actionFil_de_fer;
-    QAction *actionFil_de_fer_2;
     QAction *actionPoints;
     QWidget *centralwidget;
     GlWidget *gl;
@@ -54,6 +56,9 @@ public:
     QWidget *tab;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
+    QTreeView *treeView;
     QWidget *tab_2;
     QScrollArea *scrollArea_2;
     QWidget *scrollAreaWidgetContents_2;
@@ -61,6 +66,10 @@ public:
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QComboBox *comboBox;
+    QPushButton *pushButton_4;
+    QPushButton *pushButton_5;
+    QPushButton *pushButton_6;
+    QPushButton *pushButton_7;
     QStatusBar *statusbar;
     QMenuBar *menubar;
     QMenu *menuFichier;
@@ -73,7 +82,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 607);
+        MainWindow->resize(985, 607);
         actionNouvelle_sc_ne = new QAction(MainWindow);
         actionNouvelle_sc_ne->setObjectName(QString::fromUtf8("actionNouvelle_sc_ne"));
         actionSauvegarder = new QAction(MainWindow);
@@ -82,10 +91,10 @@ public:
         actionCharger->setObjectName(QString::fromUtf8("actionCharger"));
         actionQuitter = new QAction(MainWindow);
         actionQuitter->setObjectName(QString::fromUtf8("actionQuitter"));
+        actionPlein = new QAction(MainWindow);
+        actionPlein->setObjectName(QString::fromUtf8("actionPlein"));
         actionFil_de_fer = new QAction(MainWindow);
         actionFil_de_fer->setObjectName(QString::fromUtf8("actionFil_de_fer"));
-        actionFil_de_fer_2 = new QAction(MainWindow);
-        actionFil_de_fer_2->setObjectName(QString::fromUtf8("actionFil_de_fer_2"));
         actionPoints = new QAction(MainWindow);
         actionPoints->setObjectName(QString::fromUtf8("actionPoints"));
         centralwidget = new QWidget(MainWindow);
@@ -95,6 +104,7 @@ public:
         gl = new GlWidget(centralwidget);
         gl->setObjectName(QString::fromUtf8("gl"));
         gl->setGeometry(QRect(10, 20, 621, 491));
+        gl->setCursor(QCursor(Qt::CrossCursor));
         Time = new QSlider(centralwidget);
         Time->setObjectName(QString::fromUtf8("Time"));
         Time->setGeometry(QRect(10, 520, 621, 20));
@@ -129,6 +139,7 @@ public:
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(640, 20, 151, 471));
+        tabWidget->setMovable(true);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         scrollArea = new QScrollArea(tab);
@@ -138,6 +149,17 @@ public:
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 149, 449));
+        gridLayoutWidget = new QWidget(scrollAreaWidgetContents);
+        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(0, 0, 141, 441));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        treeView = new QTreeView(gridLayoutWidget);
+        treeView->setObjectName(QString::fromUtf8("treeView"));
+
+        gridLayout->addWidget(treeView, 0, 0, 1, 1);
+
         scrollArea->setWidget(scrollAreaWidgetContents);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
@@ -164,13 +186,25 @@ public:
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
         comboBox->setGeometry(QRect(370, 540, 69, 22));
         comboBox->setMaxVisibleItems(10);
+        pushButton_4 = new QPushButton(centralwidget);
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        pushButton_4->setGeometry(QRect(800, 90, 75, 23));
+        pushButton_5 = new QPushButton(centralwidget);
+        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
+        pushButton_5->setGeometry(QRect(800, 130, 75, 23));
+        pushButton_6 = new QPushButton(centralwidget);
+        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
+        pushButton_6->setGeometry(QRect(800, 170, 75, 23));
+        pushButton_7 = new QPushButton(centralwidget);
+        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
+        pushButton_7->setGeometry(QRect(800, 210, 75, 23));
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 985, 21));
         menuFichier = new QMenu(menubar);
         menuFichier->setObjectName(QString::fromUtf8("menuFichier"));
         menuPr_f_rence = new QMenu(menubar);
@@ -197,8 +231,8 @@ public:
         menuPr_f_rence->addSeparator();
         menuPr_f_rence->addAction(menuMode_d_affichage->menuAction());
         menuMode_d_affichage->addSeparator();
+        menuMode_d_affichage->addAction(actionPlein);
         menuMode_d_affichage->addAction(actionFil_de_fer);
-        menuMode_d_affichage->addAction(actionFil_de_fer_2);
         menuMode_d_affichage->addAction(actionPoints);
         menuMode_d_affichage->addSeparator();
 
@@ -212,20 +246,20 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Projet Infographie", 0, QApplication::UnicodeUTF8));
         actionNouvelle_sc_ne->setText(QApplication::translate("MainWindow", "Nouvelle sc\303\250ne", 0, QApplication::UnicodeUTF8));
         actionSauvegarder->setText(QApplication::translate("MainWindow", "Sauvegarder", 0, QApplication::UnicodeUTF8));
         actionCharger->setText(QApplication::translate("MainWindow", "Charger", 0, QApplication::UnicodeUTF8));
         actionQuitter->setText(QApplication::translate("MainWindow", "Quitter", 0, QApplication::UnicodeUTF8));
-        actionFil_de_fer->setText(QApplication::translate("MainWindow", "Plein", 0, QApplication::UnicodeUTF8));
-        actionFil_de_fer_2->setText(QApplication::translate("MainWindow", "Fil de fer", 0, QApplication::UnicodeUTF8));
+        actionPlein->setText(QApplication::translate("MainWindow", "Plein", 0, QApplication::UnicodeUTF8));
+        actionFil_de_fer->setText(QApplication::translate("MainWindow", "Fil de fer", 0, QApplication::UnicodeUTF8));
         actionPoints->setText(QApplication::translate("MainWindow", "Points", 0, QApplication::UnicodeUTF8));
         maxTimeLabel->setText(QApplication::translate("MainWindow", "Max time", 0, QApplication::UnicodeUTF8));
         actualTimeLabel->setText(QApplication::translate("MainWindow", "Actual time", 0, QApplication::UnicodeUTF8));
         maxTimeLabel_2->setText(QApplication::translate("MainWindow", "ms", 0, QApplication::UnicodeUTF8));
         maxTimeLabel_3->setText(QApplication::translate("MainWindow", "ms", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Liste des objets", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Creation d'objet", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("MainWindow", "Pause", 0, QApplication::UnicodeUTF8));
         pushButton_3->setText(QApplication::translate("MainWindow", "Lecture", 0, QApplication::UnicodeUTF8));
@@ -235,7 +269,12 @@ public:
          << QApplication::translate("MainWindow", "Rotation X", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Rotation Y", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Rotation Z", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("MainWindow", "D\303\251ssiner", 0, QApplication::UnicodeUTF8)
         );
+        pushButton_4->setText(QApplication::translate("MainWindow", "Box", 0, QApplication::UnicodeUTF8));
+        pushButton_5->setText(QApplication::translate("MainWindow", "Sphere", 0, QApplication::UnicodeUTF8));
+        pushButton_6->setText(QApplication::translate("MainWindow", "Disk", 0, QApplication::UnicodeUTF8));
+        pushButton_7->setText(QApplication::translate("MainWindow", "Torus", 0, QApplication::UnicodeUTF8));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0, QApplication::UnicodeUTF8));
         menuPr_f_rence->setTitle(QApplication::translate("MainWindow", "Pr\303\251f\303\251rence", 0, QApplication::UnicodeUTF8));
         menuMode_d_affichage->setTitle(QApplication::translate("MainWindow", "Mode d'affichage", 0, QApplication::UnicodeUTF8));

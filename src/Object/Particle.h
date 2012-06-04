@@ -4,23 +4,27 @@
 #define PARTICLE_H
 
 
-#include "../Math/Vector.h"
+#include <glm/glm.hpp>
+#include "../Util/List.h"
 #include <vector>
 
 class Particle
 {
 public:
-	Particle(Vector3D v ,float begin ,float ttl, int prog);
+	Particle(glm::vec3 v ,glm::vec3 a,float begin ,float ttl, int prog);
 	~Particle() {}
-	int show(float t);
+
+	bool show(float t);
+	void generate(glm::vec3 v,glm::vec3 a, float begin, float ttl);
 private:
-	Vector3D v; //Vitesse
+	glm::vec3 v; //Vitesse
+	glm::vec3 a;
 	float begin;
 	float ttl;
 	int prog;
 };
 
-typedef std::vector<Particle*> lpart;
+typedef List<Particle*> lpart;
 
 
 

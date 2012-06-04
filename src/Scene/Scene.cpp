@@ -1,22 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <glut.h>
+#include "../opengl.h"
 #include "Scene.h"
+#include <iostream>
+#include <fstream>
 
 
-
-
-Scene::Scene() : option(OPTION_NOTHING)
-{
-	time = 0;
-	_start = false;
-}
+using namespace std;
 
 Scene::Scene(int opt)
 {
 	time = 0;
+	useShader = true;
 	_start = false;
 	option = opt;
+	for(int i = 0; i < MAX_LIGHT; i++)
+		_light[i] = false;
+
+	main_shader_program = new Shader("../../src/Shader/Scene.vert","../../src/Shader/Scene.frag");// "../../src/Shader/shownormal.geom");
+	shadernormal = new Shader("../../src/Shader/Scene.vert","../../src/Shader/color.frag", "../../src/Shader/shownormal.geom");
+	simpleShader = new Shader("../../src/Shader/simpleTransform.vert","../../src/Shader/color.frag");
 }
 
 void Scene::update(int diff,bool forced)
@@ -27,9 +30,9 @@ void Scene::update(int diff,bool forced)
 	for(std::size_t i = 0; i < object_list.size(); i++)
 	{
 		if(_start || forced)
-			object_list[i]->update(time);
+			object_list[i]->updateAnim(time);
 
-		object_list[i]->updateMass(diff);
+		object_list[i]->update(diff);
 	}
 }
 
@@ -38,9 +41,12 @@ void Scene::reset()
 	time = 0;
 	_start = false;
 
+		//DEBUG LOG
+	printf("SCENE RESET");
+
 	for(std::size_t i = 0; i < object_list.size(); i++)
 	{
-		object_list[i]->update(0);
+		object_list[i]->updateAnim(0);
 	}
 }
 void Scene::applyOption()
@@ -56,6 +62,26 @@ void Scene::applyOption()
 void Scene::show()
 {
 	applyOption();
+
+	UniformVar ena_l = main_shader_program->getUniform("enableLight");
+
+	int light[MAX_LIGHT] = 
+	{
+		_light[0] ? 1 : 0,
+		_light[1] ? 1 : 0,
+		_light[2] ? 1 : 0,
+		_light[3] ? 1 : 0,
+		_light[4] ? 1 : 0,
+		_light[5] ? 1 : 0,
+		_light[6] ? 1 : 0,
+		_light[7] ? 1 : 0
+	};
+	for(int i = 0; i  < MAX_LIGHT; i++)
+		glUniform1iv(ena_l.loc+i,1,(light+i));
+
+	if(useShader)
+		ActiveShader(main_shader_program);
+	else glUseProgram(0);
 	if(object_list.empty())
 		return;
 
@@ -63,6 +89,12 @@ void Scene::show()
 	{
 		object_list[i]->show();
 	}
+	/*ActiveShader(shadernormal);
+	for(std::size_t i = 0; i < object_list.size(); i++)
+	{
+		object_list[i]->show();
+	}*/
+
 }
 
 void Scene::del(Object* obj)
@@ -93,8 +125,13 @@ void Scene::setTime(int time)
 	if(_start)
 		return;
 
-	updatePosition();
+	//updatePosition();
+	if(time < 0)
+		time = 0;
+
 	this->time = time;
+	//DEBUG LOG
+	printf("TIME = %d ms\n",time);
 	update(0,true);
 }
 
@@ -108,269 +145,28 @@ int Scene::getUnusableLight()
 	return -1;
 }
 
-/*
-// CONSTRUTOR / DECONSTRUTOR
-Scene * newScene(Scene* sc)
+int Scene::file_import(String filepath)
 {
-	if(!sc)
-		sc = (Scene*)malloc(sizeof(Scene));
-
-	sc->object_list = newListCh();
-	sc->option = NOTHING_OPTION;
-	sc->showAllObject = showAllObject;
-	sc->showObject = showObject;
-	sc->anim = newAnimScene(NULL);
-	return sc;
+	return 1;
 }
-void deleteScene(Scene*sc )
+int Scene::file_export(String filepath)
 {
-	deleteListCh(sc->object_list);
-	deleteAnimScene(sc->anim);
-	free(sc);
-}
+	ofstream file(filepath.c_str(),ios::out | ios::binary);
 
-Scene* cpyScene(Scene*sc)
-{
-	Scene* nsc;
+	if(!file)
+		return -1; // Problème d'ouverture du fichier.
 
-	nsc = newScene(NULL);
-	nsc->option = sc->option;
+	file << (int)SCENE_VERSION;
+	file << option;
 
-}
 
-//Function
-void showAllObject(Scene*sc,int* name)
-{
-	Pointer * pt;
-	pt = sc->object_list->begin;
-
-	while((pt = pt->nextpointer) != sc->object_list->end)
+	// EXPORT OBJECT
+	file << object_list.size();
+	for(size_t i = 0; i < object_list.size(); i++)
 	{
-		sc->showObject((Object*)pt->pointer, name);
-	}
-}
-
-void showObject(Object* obj,int*name)
-{
-	switch(obj->type)
-	{
-	case OBJECT_TYPE_POLYGONE:
-		showPolygone((Polygone*)obj,name);
-		break;
-	case OBJECT_TYPE_SPHERE:
-		showSphere((Sphere*)obj,name);
-		break;
-	case OBJECT_TYPE_CONTAINER:
-		showContainer((Container*)obj,name);
-		break;
-	case OBJECT_TYPE_LIGHT:
-		showLight((Light*)obj);
-	}
-}
-Object* loadObject(FILE* fl,AnimScene* anims)
-{
-	Object* obj,*obj_bis;
-	Container* cont;
-	Polygone* poly;
-	Animation* anim;
-	Point* pt;
-	int value,i;
-		long point;
-	fread(&value,sizeof(int),1,fl);
-	fread(&value,sizeof(int),1,fl);
-	fseek(fl,-sizeof(int),SEEK_CUR);
-	switch(value)
-	{
-		case OBJECT_TYPE_CONTAINER:
-			obj = (Object*)malloc(sizeof(Container));
-			fread(obj,sizeof(Object),1,fl);
-			cont = (Container*)obj;
-			cont->objectL = newListCh();
-			cont->showRep = 0;
-			fread(&cont->center,sizeof(Point),1,fl);
-			fread(&cont->repere,sizeof(Point),1,fl);
-			fread(&value,sizeof(int),1,fl);
-			fread(&value,sizeof(int),1,fl);
-			for(i = 0; i < value; i++)
-			{
-				obj_bis = loadObject(fl,anims);
-				if(obj_bis)
-					cont->objectL->Append(cont->objectL,obj_bis);
-			}
-			fread(&value,sizeof(int),1,fl);
-			fread(&value,sizeof(int),1,fl);
-			if(value == 1)
-			{
-				anim = (Animation*)malloc(sizeof(Animation));
-				fread(anim,sizeof(Animation),1,fl);
-				anim->obj = obj;
-				initAnim(anim);
-				addAnim(anims,anim);
-			}
-			break;
-		case OBJECT_TYPE_POLYGONE:
-			obj = (Object*)malloc(sizeof(Polygone));
-			fread(obj,sizeof(Object),1,fl);
-			poly = (Polygone*)obj;
-			poly->lPoint = newListCh();
-			fread(&value,sizeof(int),1,fl);
-			fread(&value,sizeof(int),1,fl);
-			for(i = 0; i < value; i++)
-			{
-				pt = (Point*)malloc(sizeof(Point));
-				fread(pt,sizeof(Point),1,fl);
-				poly->lPoint->Append(poly->lPoint,pt);
-			}
-			fread(&value,sizeof(int),1,fl);
-			fread(&value,sizeof(int),1,fl);
-			if(value == 1)
-			{
-				anim = (Animation*)malloc(sizeof(Animation));
-				fread(anim,sizeof(Animation),1,fl);
-				anim->obj = obj;
-				initAnim(anim);
-				addAnim(anims,anim);
-			}
-			break;
-		default:
-			break;
 
 	}
-	return obj;
+
+	file.close();
+	return 1;
 }
-Scene* loadScene(char* filename)
-{
-	int i = 0;
-	Object* obj;
-	FILE* fl = NULL;
-	Scene* sc = NULL;
-	Pointer *itr, *end;
-	int value;
-	long size;
-
-	if(!(fl = fopen(filename,"rb")))
-		return NULL;
-	fseek(fl,0,SEEK_END);
-	size = ftell(fl);
-	fseek(fl,0,SEEK_SET);
-	fread(&value,sizeof(int),1,fl);
-
-	if(value != FILE_SCENE)
-	{
-		fclose(fl);
-		return NULL;
-	}
-	sc = newScene(NULL);
-	fread(&sc->option,sizeof(int),1,fl);
-
-	fread(&value,sizeof(int),1,fl);
-	fread(&value,sizeof(int),1,fl);
-
-	for(i = 0; i < value; i++)
-	{
-		obj = loadObject(fl,sc->anim);
-		sc->object_list->Append(sc->object_list,obj);
-	}
-	fclose(fl);
-	return sc;
-}
-
-void saveObject(FILE* fl,Object* obj, AnimScene* anims)
-{
-	int value;
-	Polygone* poly = NULL;
-	Container* cont = NULL;
-	Animation * anim;
-	Pointer* itr, *end;
-	if(!fl)
-		return;
-
-	value = FILE_OBJECT;
-	fwrite(&value,sizeof(int),1,fl);
-	switch(obj->type)
-	{
-	case OBJECT_TYPE_CONTAINER:
-		cont = (Container*)obj;
-		fwrite(obj,sizeof(Object),1,fl);
-		fwrite(&cont->center,sizeof(Point),1,fl);
-		fwrite(&cont->repere,sizeof(Point),1,fl);
-		value = FILE_LISTCH;
-		fwrite(&value,sizeof(int),1,fl);
-		fwrite(&cont->objectL->size,sizeof(int),1,fl);
-		itr = cont->objectL->begin;
-		end = cont->objectL->end;
-		while((itr = itr->nextpointer) != end)
-		{
-			saveObject(fl,(Object*)itr->pointer,anims);
-		}
-		value = FILE_ANIM;
-		fwrite(&value,sizeof(int),1,fl);
-		if(anim = getAnimFromObj(anims,obj))
-		{
-			value = 1;
-			fwrite(&value,sizeof(int),1,fl);
-			fwrite(anim,sizeof(Animation),1,fl);
-		}else
-		{
-			value = 0;
-			fwrite(&value,sizeof(int),1,fl);
-		}
-		break;
-	case OBJECT_TYPE_POLYGONE:
-		poly = (Polygone*)obj;
-		fwrite(obj,sizeof(Object),1,fl);
-		value = FILE_LISTCH;
-		fwrite(&value,sizeof(int),1,fl);
-		fwrite(&poly->lPoint->size,sizeof(int),1,fl);
-		itr = poly->lPoint->begin;
-		end = poly->lPoint->end;
-		while((itr = itr->nextpointer) != end)
-		{
-			fwrite(itr->pointer,sizeof(Point),1,fl);
-		}
-		value = FILE_ANIM;
-		fwrite(&value,sizeof(int),1,fl);
-		if(anim = getAnimFromObj(anims,obj))
-		{
-			value = 1;
-			fwrite(&value,sizeof(int),1,fl);
-			fwrite(anim,sizeof(Animation),1,fl);
-		}else
-		{
-			value = 0;
-			fwrite(&value,sizeof(int),1,fl);
-		}
-		break;
-	default:
-		break;
-	}
-}
-
-void saveScene(Scene* sc,char* filename)
-{
-	FILE* fl = NULL;
-	Pointer* itr, *end;
-	int value;
-	if(!(fl = fopen(filename,"rb+")))
-		fl = fopen(filename,"wb+");
-
-	if(!fl)
-		return;
-
-	value = FILE_SCENE;
-	fwrite(&value,sizeof(int),1,fl);
-	fwrite(&sc->option,sizeof(int),1,fl);
-
-	value = FILE_LISTCH;
-	fwrite(&value,sizeof(int),1,fl);
-	fwrite(&sc->object_list->size,sizeof(int),1,fl);
-	itr = sc->object_list->begin;
-	end = sc->object_list->end;
-	while((itr = itr->nextpointer) != end)
-	{
-		saveObject(fl,(Object*)itr->pointer,sc->anim);
-	}
-	fclose(fl);
-
-}
-*/

@@ -5,8 +5,8 @@ Mass::Mass(Object* obj, float mass)
 {
 	this->obj = obj;
 	this->mass = mass;
-	velocity = Vector3D();
-	force = Vector3D();
+	velocity = glm::vec3();
+	force = glm::vec3();
 	absorb = 1.0f;
 }
 
@@ -19,14 +19,14 @@ Mass::~Mass()
 void Mass::simulate(int dt)
 {
 
-	Vector3D pos = obj->getPosition();
-	velocity += (force/mass + Vector3D(0.0f,0.0f,-GRAVITY_ACCELERATION))*dt/1000.0f; //dt is in ms 
+	glm::vec3 pos = obj->getPosition();
+	velocity += (force/mass + glm::vec3(0.0f,0.0f,-GRAVITY_ACCELERATION))*(float)dt/1000.0f; //dt is in ms 
 
-	pos += velocity*dt/1000.0f;
-	if(pos.getZ() < 0.0)
+	pos += velocity*(float)dt/1000.0f;
+	if(pos.z < 0.0)
 	{
-		pos.setZ(0.0f);
-		velocity += Vector3D(0.0f,0.0f,velocity.getZ() < 0 ? -velocity.getZ() : 0)*(1.0f+absorb);
+		pos.z = 0.0f;
+		velocity += glm::vec3(0.0f,0.0f,velocity.z < 0 ? -velocity.z : 0)*(1.0f+absorb);
 	}
 	obj->setPosition(pos);
 }

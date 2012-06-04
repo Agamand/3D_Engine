@@ -7,6 +7,8 @@
 #include "Animation.h"
 #include <vector>
 
+#define SCENE_VERSION 1
+
 enum SceneOption
 {
 	OPTION_NOTHING = 0x0,
@@ -19,9 +21,12 @@ enum SceneOption
 class Scene
 {
 public:
-	Scene();
-	Scene(int opt);
-	~Scene() {;}
+	Scene(int opt = OPTION_NOTHING);
+	~Scene() 
+	{
+		delete main_shader_program;
+	}
+
 	void start() { _start = true; }
 	void update(int time,bool forced = false);
 	void reset();
@@ -44,11 +49,29 @@ public:
 	void clearOption() { option = OPTION_NOTHING;}
 	void setOption(int opt) { option = opt;}
 	void applyOption();
+
+	int file_import(String filepath);
+	int file_export(String filepath);
+
+	Shader* getMainShader() { return main_shader_program;}
+	void switchShader() { useShader = !useShader;}
+
+	void ActiveShader(Shader *  sh) { activeShader = sh; sh->use();}
+	Shader* GetActiveShader() {return activeShader;}
+	void switchSimpleShader() { ActiveShader(simpleShader);}
 private:
-	std::vector<Object*> object_list;
+	List<Object*> object_list;
 	int time;
 	bool _start;
 	bool _light[MAX_LIGHT];
 	int option;
+	Shader* main_shader_program;
+	Shader* shadernormal;
+	Shader* simpleShader;
+
+	Shader* activeShader;
+	bool useShader;
 };
+
+void initShader();
 #endif

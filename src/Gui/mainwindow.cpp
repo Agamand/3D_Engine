@@ -2,6 +2,7 @@
 #include "glwidget.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,6 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->Time,SIGNAL(valueChanged(int)),this,SLOT(updateTime(int)));
     connect(ui->actualTime,SIGNAL(valueChanged(int)),this,SLOT(updateTime(int)));
     connect(ui->maxTime,SIGNAL(valueChanged(int)),this,SLOT(updateMaxTime(int)));
+    connect(ui->actionQuitter, SIGNAL(triggered()), this, SLOT(close()));
+    connect(ui->actionPlein, SIGNAL(triggered()), this, SLOT(on_select_plein()));
+    connect(ui->actionFil_de_fer, SIGNAL(triggered()), this, SLOT(on_select_fil()));
+    connect(ui->actionPoints, SIGNAL(triggered()), this, SLOT(on_select_point()));
+    model_tree_obj = new QStandardItemModel();
+    QStandardItem* row = new QStandardItem("test");
+    model_tree_obj->appendRow(row);
+    row->appendRow(new QStandardItem("fils_test"));
+    ui->treeView->setModel(model_tree_obj);
 
 }
 
@@ -79,4 +89,39 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     ui->gl->pause();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->gl->setDraw(DRAW_BOX);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->gl->setDraw(DRAW_SPHERE);
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    ui->gl->setDraw(DRAW_DISK);
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    ui->gl->setDraw(DRAW_TORUS);
+}
+
+void MainWindow::on_select_plein()
+{
+	ui->gl->setGLmode(GL_FILL);
+}
+
+void MainWindow::on_select_fil()
+{
+	ui->gl->setGLmode(GL_LINE);
+}
+
+void MainWindow::on_select_point()
+{
+	ui->gl->setGLmode(GL_POINT);
 }

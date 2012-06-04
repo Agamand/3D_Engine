@@ -6,17 +6,17 @@
 Quat::Quat()
 {
 	a = 1;
-	vect = Vector3D(0.0f,0.0f,0.0f);
+	vect = glm::vec3(0.0f,0.0f,0.0f);
 }
 
-Quat::Quat(double a, Vector3D v)
+Quat::Quat(float a, glm::vec3 v)
 {
-	double sin_a,cos_a;
+	float sin_a,cos_a;
 	sin_a = sin(a / 2);
 	cos_a = cos(a / 2);
 
 	this->a = cos_a;
-	vect = Vector3D(v);
+	vect = glm::vec3(v);
 	vect *= sin_a;
 	normalise();
 }
@@ -24,12 +24,12 @@ Quat::Quat(double a, Vector3D v)
 Quat::Quat(Quat const &qt)
 {
 	a = qt.a;
-	vect = Vector3D(qt.vect);
+	vect = glm::vec3(qt.vect);
 }
 
-Quat::Quat(Matrix m)
+Quat::Quat(Matrix4 m)
 {
-	double t,s,x,y,z,a;
+	float t,s,x,y,z,a;
 	t = m.trace();
 
 	if(t > 0)
@@ -39,7 +39,7 @@ Quat::Quat(Matrix m)
 		y = (m[0][2] - m[2][0])*s;
 		z = (m[1][0] - m[0][1])*s;
 		a =  1/(4*s);
-		vect = Vector3D(x,y,z);
+		vect = glm::vec3(x,y,z);
 	}
 	else
 	{
@@ -67,7 +67,7 @@ Quat::Quat(Matrix m)
 			a = (m[0][1] + m[1][0])/s;
 			break;
 		}
-		vect = Vector3D(x,y,z);
+		vect = glm::vec3(x,y,z);
 	}
 	normalise();
 }
@@ -93,14 +93,14 @@ Quat Quat::operator*(Quat const &a)
 	return q;
 }
 
-Quat Quat::operator*(double const &a)
+Quat Quat::operator*(float const &a)
 {
 	Quat q(*this);
 	q *= a;
 	return q;
 }
 
-Quat Quat::operator/(double const &a)
+Quat Quat::operator/(float const &a)
 {
 	Quat q(*this);
 	q /= a;
@@ -123,7 +123,7 @@ Quat Quat::operator-=(Quat const &a)
 Quat Quat::operator*=(Quat const &a)
 {
 	Quat qt(*this);
-	Vector3D v;
+	glm::vec3 v;
 	this->a = qt.getA()*a.a - qt.getVector().scaleProduct(a.vect);
 	vect = a.vect;
 	vect *= qt.getA();
@@ -131,14 +131,14 @@ Quat Quat::operator*=(Quat const &a)
 	return *this;
 }
 
-Quat Quat::operator*=(double const &a)
+Quat Quat::operator*=(float const &a)
 {
 	this->a *= a;
 	this->vect *=a;
 	return *this;
 }
 
-Quat Quat::operator/=(double const &a)
+Quat Quat::operator/=(float const &a)
 {
 	if(a == 0.0f)
 		return *this;
@@ -147,7 +147,7 @@ Quat Quat::operator/=(double const &a)
 	return *this;
 }
 
-double Quat::ScaleProd(Quat q)
+float Quat::ScaleProd(Quat q)
 {
 	normalise();
 	q.normalise();
@@ -156,7 +156,7 @@ double Quat::ScaleProd(Quat q)
 
 Quat Quat::inv()
 {
-	double norm_2;
+	float norm_2;
 	Quat qt(conj());
 	norm_2 = norm()*norm();
 	qt /= norm_2;
@@ -173,21 +173,22 @@ Quat Quat::conj()
 	return q;
 }
 
-Matrix Quat::toMatrix()
+Matrix4 Quat::toMatrix()
 {
-	Matrix mat(4,4);
+	normalise();
+	Matrix4 mat;
 
-	double xx      = vect.getX() * vect.getX();
-	double xy      = vect.getX() * vect.getY();
-	double xz      = vect.getX() * vect.getZ();
-	double xa      = vect.getX() * a;
+	float xx      = vect.getX() * vect.getX();
+	float xy      = vect.getX() * vect.getY();
+	float xz      = vect.getX() * vect.getZ();
+	float xa      = vect.getX() * a;
 
-	double yy      = vect.getY() * vect.getY();
-	double yz      = vect.getY() * vect.getZ();
-	double ya      = vect.getY() * a;
+	float yy      = vect.getY() * vect.getY();
+	float yz      = vect.getY() * vect.getZ();
+	float ya      = vect.getY() * a;
 
-	double zz      = vect.getZ() * vect.getZ();
-	double za      = vect.getZ() * a;
+	float zz      = vect.getZ() * vect.getZ();
+	float za      = vect.getZ() * a;
 
 	mat[0][0]  = 1 - 2 * ( yy + zz );
 	mat[0][1]  =     2 * ( xy - za );
@@ -207,10 +208,10 @@ Matrix Quat::toMatrix()
 	return mat;
 }
 
-Quat Quat::interpolate(Quat q, double t)
+Quat Quat::interpolate(Quat q, float t)
 {
-	double sin1,sin2;
-	double a = ScaleProd(q);
+	float sin1,sin2;
+	float a = ScaleProd(q);
 	if(a > 1.0f)
 		a = 1.0f;
 	else if(a < -1.0f)
@@ -223,7 +224,7 @@ Quat Quat::interpolate(Quat q, double t)
 
 void Quat::normalise()
 {
-	double norme = norm();
+	float norme = norm();
 	if(norme > 0.0f)
 		*this /= norme;
 }
@@ -234,12 +235,18 @@ Rot Quat::toRot()
 	return Rot(acos(a) * 2,vect);
 }
 
-double Quat::norm()
+float Quat::norm()
 {
-	return sqrt(a*a + vect.getLength()*vect.getLength());
+	return sqrt(a*a + vect.length()*vect.length());
 }
 
-int max3(double a, double b, double c)
+glm::vec3 Quat::rotatePoint(glm::vec3 v)
+{
+	Matrix4 m = toMatrix();
+	return m*v;
+}
+
+int max3(float a, float b, float c)
 {
 	if(a >= b)
 	{
@@ -254,4 +261,22 @@ int max3(double a, double b, double c)
 		else 
 			return 2;
 	}
+}
+
+ofstream& operator<<(ofstream &file, Quat q)
+{
+	file << q.getA();
+	file << q.getVector();
+	return file;
+}
+
+ifstream& operator>>(ifstream &file, Quat q)
+{
+	float a;
+	glm::vec3 v;
+	file >> a;
+	q.setA(a);
+	file >> v;
+	q.setVector(v);
+	return file;
 }

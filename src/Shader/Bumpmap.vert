@@ -7,14 +7,16 @@
 //
 // See 3Dlabs-License.txt for license information
 //
+#version 130
 
-varying vec3 lightDir; 	  // interpolated surface local coordinate light direction 
-varying vec3 viewDir;     // interpolated surface local coordinate view direction
+out vec3 lightDir; 	  // interpolated surface local coordinate light direction 
+out vec3 viewDir;     // interpolated surface local coordinate view direction
+out vec4 tex_c;
 
 attribute vec3 Tangent;
 attribute vec3 Binormal;
 
-uniform vec3 LightPosition;  // eye space position of light
+
 
 void main(void)
 {
@@ -25,6 +27,7 @@ void main(void)
     vec3 lightVec;
     vec3 r;
     vec3 v;
+	vec3 LightPosition = gl_LightSource[0].position.xyz;
 
     // Do standard vertex stuff
     gl_Position  = gl_ModelViewProjectionMatrix * gl_Vertex;

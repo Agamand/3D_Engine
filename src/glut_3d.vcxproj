@@ -40,7 +40,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -62,19 +62,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir)glut\dep\glmath;$(ProjectDir)dep\glmath</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
     <OutDir>..\bin\Lib</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_libOnly|Win32'">
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
+    <IncludePath>..\dep\glmath\glm;$(IncludePath);$(ProjectDir)dep\glmath\glm;$(ProjectDir)dep\glmath</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
     <OutDir>..\bin\Lib</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_withGUI|Win32'">
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files\Glut\lib;C:\Program Files (x86)\GnuWin32\include;</IncludePath>
+    <IncludePath>..\dep\glmath\glm;$(IncludePath);$(ProjectDir)dep\glmath\glm;$(ProjectDir)dep\glmath</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\GnuWin32\lib</LibraryPath>
     <OutDir>..\bin\Lib</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\Lib</OutDir>
+    <IncludePath>..\dep\glmath\glm;$(IncludePath);$(ProjectDir)dep\glmath\glm;$(ProjectDir)dep\glmath</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,10 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
-    <ClCompile Include="Math\Quaternion.cpp" />
-    <ClCompile Include="Math\Matrix.cpp" />
-    <ClCompile Include="Math\Vector.cpp" />
+    <ClCompile Include="Math\DualQuaternion.cpp" />
+    <ClCompile Include="Math\Geom.cpp" />
     <ClCompile Include="ObjectAccessor\ObjectAccessor.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Object\Particle.cpp" />
@@ -137,31 +141,42 @@
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Scene\Animation.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
-    <ClCompile Include="Shader\Shader.c" />
+    <ClCompile Include="Scene_demo.cpp" />
+    <ClCompile Include="Shader\Shader.cpp" />
+    <ClCompile Include="Shader\ShaderManager.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="Texture\Loader\BMPloader.c" />
     <ClCompile Include="Texture\Loader\PNGloader.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
+    <ClCompile Include="Util\List.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera\Camera.h" />
-    <ClInclude Include="Math\Quaternion.h" />
-    <ClInclude Include="Math\Matrix.h" />
-    <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Math\DualQuaternion.h" />
+    <ClInclude Include="Math\Geom.h" />
     <ClInclude Include="ObjectAccessor\ObjectAccessor.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Object\Particle.h" />
+    <ClInclude Include="opengl.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Scene\Animation.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene_demo.h" />
     <ClInclude Include="Shader\Shader.h" />
+    <ClInclude Include="Shader\ShaderManager.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="Texture\Loader\BMPloader.h" />
     <ClInclude Include="Texture\Loader\PNGloader.h" />
     <ClInclude Include="Texture\Texture.h" />
+    <ClInclude Include="Util\List.h" />
     <ClInclude Include="Util\util.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="Util\List.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

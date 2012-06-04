@@ -1,14 +1,15 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdlib.h>
-#include <glut.h>
+#include "../opengl.h"
 #include "Camera.h"
 #include <vector>
+#include <glm/gtc/type_ptr.hpp>
 
 
 // CONSTRUCTOR / DECONSTRUCTOR
 
-Camera::Camera(Vector3D pos)
+Camera::Camera(glm::vec3 pos)
 {
 	_position = pos;
     _phi = 0;
@@ -24,16 +25,16 @@ Camera::Camera(Vector3D pos)
 
 void Camera::VectorsFromAngles()
 {
-	Vector3D up(0.0f,0.0f,1.0f);
-	double r_temp = cos(_phi*M_PI/180);
+	glm::vec3 up(0.0f,0.0f,1.0f);
+	float r_temp = cos(_phi*M_PI/180);
     if (_phi > 89)
         _phi = 89;
     else if (_phi < -89)
         _phi = -89;
     
-	_forward = Vector3D(r_temp*cos(_theta*M_PI/180),r_temp*sin(_theta*M_PI/180),sin(_phi*M_PI/180));
-	_left = up.crossProduct(_forward);
-	_left.normalise();
+	_forward = glm::vec3(r_temp*cos(_theta*M_PI/180),r_temp*sin(_theta*M_PI/180),sin(_phi*M_PI/180));
+	_left = glm::cross(up,_forward);
+	glm::normalize(_left);
 
    _target = _position + _forward;
 }
@@ -46,7 +47,7 @@ void Camera::OnMouseMotion(int x, int y)
 
 void Camera::OnKeyboard(char key)
 {
-	Vector3D up(0.0f,0.0f,1.0f);
+	glm::vec3 up(0.0f,0.0f,1.0f);
 	switch(key)
 	{
 	case 'z':
@@ -76,5 +77,8 @@ void Camera::OnKeyboard(char key)
 
 void Camera::look()
 {
-	gluLookAt(_position.getX(), _position.getY(), _position.getZ(), _target.getX(), _target.getY(), _target.getZ(), 0, 0, 1);
+	glMatrixMode(GL_MODELVIEW);
+	//gluLookAt(_position.x, _position.y, _position.z, _target.x, _target.y, _target.z, 0, 0, 1);
+	glm::mat4 m = glm::lookAt(_position,_target,glm::vec3(0,0,1));
+	glLoadMatrixf(glm::value_ptr(m));
 }

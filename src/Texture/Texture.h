@@ -7,15 +7,17 @@
 
 #include <time.h>
 #include "../Util/util.h"
+#include <vector>
+#include <assert.h>
 class Texture
 {
 public:
 	Texture();
 	Texture(String filename);
-	~Texture();
+
 
 	int getTextureID() { return textureID; }
-	String getName() { return name;}
+	String getName() { return filename;}
 	void load();
 	void unLoad();
 
@@ -28,30 +30,30 @@ private:
 	bool isLoad;
 };
 
-/*
-
-typedef struct _texture Texture;
-
-struct _texture
+class TextureMgr
 {
-	int textureID;
-	char* filename;
-	char * textureName;
-	time_t timeToUnload;
-	int use;
-	char isLoad;
+public:
+	TextureMgr();
+
+	Texture* getTexture(String filepath);
+	
+	void load(Texture*);
+	void loadAll();
+
+	void unload(Texture*);
+	void unloadAll();
+
+	static TextureMgr* getTextureMgr()
+	{
+		if(!textmgr)
+			textmgr = new TextureMgr();
+		
+		assert(textmgr != NULL);
+		return textmgr;
+	}
+private:
+	static TextureMgr* textmgr; //Singleton
+	std::vector<Texture*> texture_list;
 };
-
-// CONSTRUCTOR / DECONSTRUCTOR
-Texture * newTexture(Texture* t, const char * filename);
-void deleteTexture(Texture* t);
-
-
-// FUNCTION
-
-void load(Texture * t);
-void unLoad(Texture * t);
-
-*/
 
 #endif TEXTURE_H

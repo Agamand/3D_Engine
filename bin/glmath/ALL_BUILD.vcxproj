@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{9784C202-69D2-4B17-A032-562DCCB539DB}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/.;J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/./test/external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/.;J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/./test/external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/.;J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/./test/external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/.;J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/./test/external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\ALL_BUILD.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\ALL_BUILD</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\dep\glmath\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" "-HJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath" "-BJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath" --check-stamp-file "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeSystem.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCCompiler.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" "-HJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath" "-BJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath" --check-stamp-file "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeSystem.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCCompiler.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" "-HJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath" "-BJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath" --check-stamp-file "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeSystem.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCCompiler.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" "-HJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath" "-BJ:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath" --check-stamp-file "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeSystem.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCCompiler.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCPlatform.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeCXXPlatform.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/ZERO_CHECK.vcxproj">
+      <Project>CF85D12E-A4E4-4CBF-8D58-44FD751A9BEA</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/glm/glm.vcxproj">
+      <Project>AA89E666-9D16-4675-A075-2FA969693AE6</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/doc/glm-doc.vcxproj">
+      <Project>427B3337-B5AF-41DA-A479-8C09839BEEA7</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_common.vcxproj">
+      <Project>9762CB78-1DA5-4C62-B8FA-CA18ECC4D99C</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_exponential.vcxproj">
+      <Project>56C846AF-4B38-426C-89C2-709E3A7A6E59</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_geometric.vcxproj">
+      <Project>B4951E18-4CA6-4B13-B485-D7598C682424</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_integer.vcxproj">
+      <Project>5569BA48-A5C0-42C9-92D7-232561BA29BC</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_matrix.vcxproj">
+      <Project>75A495DA-33FF-4ADE-A154-473733D74B52</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_noise.vcxproj">
+      <Project>8EA029CC-CE79-4955-BFD4-27CB0F7C8021</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_packing.vcxproj">
+      <Project>9FB0B584-6BA8-481B-9C94-BD7FB2D7AD24</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_swizzle.vcxproj">
+      <Project>016B9ACB-65DA-4739-8516-2C692831E2C8</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_trigonometric.vcxproj">
+      <Project>38BE0B79-B304-462B-984D-9A23843D505F</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_func_vector_relational.vcxproj">
+      <Project>D2F7EA06-2D17-4CAF-B0EB-E15E8A60587C</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_setup_message.vcxproj">
+      <Project>6F8261EE-5E0A-4215-9294-C1A9EA7C6B92</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_setup_precision.vcxproj">
+      <Project>773D6A69-5114-4454-99A4-14725F6CCF05</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_float.vcxproj">
+      <Project>A52F6CFA-2745-4845-BC59-C3052FBF441A</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_half.vcxproj">
+      <Project>204576ED-E869-467B-B3E6-0DFA83EA6A29</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_int.vcxproj">
+      <Project>96707386-CC07-478B-BDD8-75E5257D4482</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_length.vcxproj">
+      <Project>8D33C78A-2E73-41D7-B4D1-A7FB3B391EA7</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat2x2.vcxproj">
+      <Project>9EE5EAEC-8927-4E43-9005-B948172E81B3</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat2x3.vcxproj">
+      <Project>C430A0C3-A8F3-4EEE-998E-BCC3A16F10AA</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat2x4.vcxproj">
+      <Project>0F433DA9-5E8B-41F3-81CD-6659FC804C80</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat3x2.vcxproj">
+      <Project>2974621C-3BF4-44BB-99DB-6E76C8CBC1FB</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat3x3.vcxproj">
+      <Project>D8F4FBC8-A1EB-4B9F-A508-EAD94EAE2C7B</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat3x4.vcxproj">
+      <Project>9AD7920F-3053-4C4F-8814-F6B06914CD66</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat4x2.vcxproj">
+      <Project>7F94784C-C241-4D70-BECF-0DFCFDDA00CF</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat4x3.vcxproj">
+      <Project>2DD37601-922E-4831-8808-96838980BA66</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_mat4x4.vcxproj">
+      <Project>B78FD822-0D8B-4DBD-8462-DC8DADE6965F</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_vec1.vcxproj">
+      <Project>86868C2D-CC65-4F17-9751-BC3FE3C4EACF</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_vec2.vcxproj">
+      <Project>86790F92-F40E-4FB6-8533-18B06095B9C1</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_vec3.vcxproj">
+      <Project>79AE5DB7-9391-4F80-BB25-ECF13B81A5A4</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/core/test-core_type_vec4.vcxproj">
+      <Project>E3621D38-E9B4-4809-988B-73736DB35C9C</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_half_float.vcxproj">
+      <Project>E2034662-7374-4333-8404-BA368E56D102</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_matrix_access.vcxproj">
+      <Project>C035704C-E7F3-463D-A5DB-D8089D05B96C</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_matrix_integer.vcxproj">
+      <Project>432AD9C3-E260-437C-9D0E-51E5D4325962</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_matrix_inverse.vcxproj">
+      <Project>BAD0B835-4B3B-49C5-BB4F-5AADB756B5DF</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_matrix_transform.vcxproj">
+      <Project>F523BD39-E1BA-4662-B590-F60D7C135ED5</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_noise.vcxproj">
+      <Project>9225D598-43E7-40BE-9971-E6B97F5F6952</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_quaternion.vcxproj">
+      <Project>C6B954D7-E9DD-4F33-943F-E5C579A0A52A</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_random.vcxproj">
+      <Project>04584E4D-5A7C-4920-89AA-51F9F5274E56</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_swizzle.vcxproj">
+      <Project>0B3C21F5-4B37-4017-B47B-64B44579D8C7</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_type_precision.vcxproj">
+      <Project>47B1E74B-9A08-4969-A456-69AEFD7632D8</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtc/test-gtc_type_ptr.vcxproj">
+      <Project>859770CC-7056-470E-B15C-82502E72ED46</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_bit.vcxproj">
+      <Project>FE9F2B02-0D67-484F-A6B6-3AF16A564DCF</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_gradient_paint.vcxproj">
+      <Project>0E98C1F4-A3DE-4F3B-8B5D-92BD34B0A652</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_integer.vcxproj">
+      <Project>575B2D7A-2000-4E79-AD8B-5E383B77E8EC</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_matrix_query.vcxproj">
+      <Project>7E8C7D6A-55E2-4FC6-8C4E-01F60469C536</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_noise.vcxproj">
+      <Project>C657E175-4812-4546-A3AA-C842AD03DEC7</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_quaternion.vcxproj">
+      <Project>4DF32E4E-E33A-4B49-A412-F3640CA537E3</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_random.vcxproj">
+      <Project>49BD0222-05C7-46DF-AB6B-75EA7315D4BC</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_rotate_vector.vcxproj">
+      <Project>2920B2F9-8817-44F0-9B78-972AC01E9BC4</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_simd_mat4.vcxproj">
+      <Project>69A21F90-AB8C-4AA0-81FE-81D193FCAEAB</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_simd_vec4.vcxproj">
+      <Project>45F2A2A3-A104-4ED9-88D4-F5EFC209181B</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_string_cast.vcxproj">
+      <Project>D232CC12-8249-41B4-99C7-C5203FF19ED0</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_ulp.vcxproj">
+      <Project>CE011CF6-70EB-4919-B7B1-A257AE5F4C69</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_vector_angle.vcxproj">
+      <Project>C53D3DC7-413B-4483-BEB4-A7B5408322B8</Project>
+    </ProjectReference>
+    <ProjectReference Include="J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/test/gtx/test-gtx_vector_query.vcxproj">
+      <Project>52555AB4-AE91-49CF-81A3-94B27434931F</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

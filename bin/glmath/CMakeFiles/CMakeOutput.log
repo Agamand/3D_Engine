@@ -1,0 +1,61 @@
+The system is: Windows - 6.1 - x86
+Determining if the CXX compiler works passed with the following output:
+Change Dir: J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Tous droits réservés.
+1>------ D‚but de la g‚n‚rationÿ: Projetÿ: cmTryCompileExec, Configurationÿ: Debug Win32 ------
+1>La g‚n‚ration a d‚marr‚ 08/05/2012 01:11:16.
+1>InitializeBuildStatus:
+1>  Cr‚ation de "cmTryCompileExec.dir\Debug\cmTryCompileExec.unsuccessfulbuild", car "AlwaysCreate" a ‚t‚ sp‚cifi‚.
+1>ClCompile:
+1>  Compilateur d'optimisation Microsoft (R) 32ÿbits C/C++ versionÿ16.00.30319.01 pour 80x86
+1>  Copyright (C) Microsoft Corporation. Tous droits r‚serv‚s.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec.dir\Debug\\" /Fd"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec.pdb" /Gd /TP /analyze- /errorReport:prompt "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"  /Zm1000 
+1>  
+1>  testCXXCompiler.cxx
+1>LinkEmbedManifest:
+1>  cmTryCompileExec.vcxproj -> J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe
+1>FinalizeBuildStatus:
+1>  Suppression du fichier "cmTryCompileExec.dir\Debug\cmTryCompileExec.unsuccessfulbuild".
+1>  Mise … jour de l'horodatage "cmTryCompileExec.dir\Debug\cmTryCompileExec.lastbuildstate".
+1>
+1>La g‚n‚ration a r‚ussi.
+1>
+1>Temps ‚coul‚ 00:00:01.63
+========== G‚n‚rationÿ: 1 a r‚ussi, 0 a ‚chou‚, 0 mis … jour, 0 a ‚t‚ ignor‚ ==========
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Tous droits réservés.
+1>------ D‚but de la g‚n‚rationÿ: Projetÿ: cmTryCompileExec, Configurationÿ: Debug Win32 ------
+1>La g‚n‚ration a d‚marr‚ 08/05/2012 01:11:20.
+1>InitializeBuildStatus:
+1>  Cr‚ation de "cmTryCompileExec.dir\Debug\cmTryCompileExec.unsuccessfulbuild", car "AlwaysCreate" a ‚t‚ sp‚cifi‚.
+1>ClCompile:
+1>  Compilateur d'optimisation Microsoft (R) 32ÿbits C/C++ versionÿ16.00.30319.01 pour 80x86
+1>  Copyright (C) Microsoft Corporation. Tous droits r‚serv‚s.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec.dir\Debug\\" /Fd"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec.pdb" /Gd /TP /analyze- /errorReport:prompt "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompilerABI.cpp"  /Zm1000 
+1>  
+1>  CMakeCXXCompilerABI.cpp
+1>LinkEmbedManifest:
+1>  cmTryCompileExec.vcxproj -> J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe
+1>FinalizeBuildStatus:
+1>  Suppression du fichier "cmTryCompileExec.dir\Debug\cmTryCompileExec.unsuccessfulbuild".
+1>  Mise … jour de l'horodatage "cmTryCompileExec.dir\Debug\cmTryCompileExec.lastbuildstate".
+1>
+1>La g‚n‚ration a r‚ussi.
+1>
+1>Temps ‚coul‚ 00:00:00.93
+========== G‚n‚rationÿ: 1 a r‚ussi, 0 a ‚chou‚, 0 mis … jour, 0 a ‚t‚ ignor‚ ==========
+
+

@@ -1,7 +1,12 @@
 #include "Loader/BMPloader.h"
 #include "Loader/PNGloader.h"
+
 #include "Texture.h"
-#include <glut.h>
+//#include "../ObjectAccessor/ObjectAccessor.h"
+
+
+
+// Texture Class
 
 Texture::Texture()
 {
@@ -73,3 +78,36 @@ void Texture::unLoad()
 {
 	glDeleteTextures(1,(GLuint*)&textureID);
 }
+
+
+
+// Texture Manager Class
+
+TextureMgr::TextureMgr()
+{
+	textmgr = this;
+}
+
+Texture* TextureMgr::getTexture(String filepath)
+{
+	for(std::vector<Texture*>::iterator itr = texture_list.begin(); itr != texture_list.end(); itr++)
+	{
+		if(!filepath.compare((*itr)->getName()))
+			return (*itr);
+	}
+
+	//no found -> Create texture !
+
+	Texture* t = new Texture(filepath);
+
+	if(t && t->getTextureID() > 0)
+	{
+		//addTexture(t);
+		return t;
+	}else if(t)	// filepath not correct
+		delete t;
+
+	return NULL;
+};
+
+TextureMgr* TextureMgr::textmgr = 0;

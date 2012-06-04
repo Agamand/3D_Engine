@@ -39,17 +39,8 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Matrix.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Vector.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\Physics.cpp">
       <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader\Shader.c">
-      <Filter>Shader</Filter>
     </ClCompile>
     <ClCompile Include="ObjectAccessor\ObjectAccessor.cpp">
       <Filter>ObjectAccessor</Filter>
@@ -75,22 +66,35 @@
     <ClCompile Include="Texture\Loader\PNGloader.cpp">
       <Filter>Texture\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Quaternion.cpp">
+    <ClCompile Include="Robot.cpp">
+      <Filter>Robot_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Geom.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Robot.cpp">
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\List.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp" />
+    <ClCompile Include="Math\DualQuaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\ShaderManager.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_demo.cpp">
+      <Filter>Robot_demo</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
       <Filter>Robot_demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.h">
       <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Matrix.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Vector.h">
-      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Physics.h">
       <Filter>Physics</Filter>
@@ -125,14 +129,35 @@
     <ClInclude Include="Util\util.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Quaternion.h">
+    <ClInclude Include="Robot.h">
+      <Filter>Robot_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Geom.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Robot.h">
+    <ClInclude Include="opengl.h" />
+    <ClInclude Include="Util\List.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h" />
+    <ClInclude Include="Math\DualQuaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\ShaderManager.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_demo.h">
+      <Filter>Robot_demo</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
       <Filter>Robot_demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="Util\List.tpp">
+      <Filter>Util</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@
 #include "../Texture/Texture.h"
 #include "../Shader/Shader.h"
 #include <list>
+#include <assert.h>
+
 
 
 class ObjectAccessor
@@ -20,6 +22,11 @@ public:
 
 	Texture* getTexture(String name);
 	void addTexture(Texture* t) { texture_list.push_back(t); }
+	// void delTexture(Texture* t);
+	
+	Shader* getShader();
+	void addShader(Shader* sh);
+	
 
 	Scene* getScene() { return scene; }
 	void setScene(Scene * sc) { scene = sc;}
@@ -29,6 +36,8 @@ public:
 	void delObject(uint64 guid);
 	Object* getObject(uint64 guid);
 
+	List<Object*> getLostObject() {return lost_object;}
+
 
 	// Shader* getShader(String name);
 	// void addShader(Shader* sh) { program_list.push_back(sh); }
@@ -37,71 +46,21 @@ public:
 	{
 		if(!objmgr)
 			objmgr = new ObjectAccessor();
+		
+		assert(objmgr != NULL);
 		return objmgr;
 	}
 
 private:
 	Scene* scene;
-	std::vector<Texture*> texture_list;
-	std::vector<Object*> object_list;
+	List<Texture*> texture_list;
+	List<Object*> object_list;
+	List<Object*> lost_object;
 	//std::list<> program_list;
+	//Singleton
 	static ObjectAccessor* objmgr;
 	uint64 _guid;
 };
-
-//ObjectAccessor * ObjectAccessor::objmgr = NULL;
-
-
-
-//typedef struct ObjectAccessor ObjectAccessor;
-//typedef struct Object Object;
-
-
-/*struct ObjectAccessor
-{
-	Scene* scene;
-	ListCh* objectlist;
-	ListCh* texturelist;
-	ListCh* programList;
-	//unsigned long int guid;
-};
-
-/*struct Object
-{
-	uint64 guid;
-	uint32 type;
-	StringC * name;
-	void * p;
-};*//*
-
-
-
-
-static void initObjectAccessor()
-{
-	Objmgr = (ObjectAccessor*)malloc(sizeof(ObjectAccessor));
-	Objmgr->objectlist = newListCh();
-	Objmgr->texturelist = newListCh();
-
-}
-static ObjectAccessor * getObjectAccessor()
-{
-	return Objmgr;
-}
-
-
-//ObjectAccessor function
-void addObject(void* p);
-Object* getObjectFromP(void*p);
-void removeObjectFromP(void*p);
-
-void addTexture(void* p);
-Texture* getTextureFromP(void*p);
-Texture* getTextureFromName(char * name);
-void removeTextureFromP(void*p);*/
-
-
-
 
 #endif
 

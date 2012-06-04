@@ -4,27 +4,24 @@
 #include "Matrix.h"
 
 
-Vector3D::Vector3D()
+Vector3D::Vector3D() : x(_array[0]),y(_array[1]),z(_array[2])
 {
-	x = 0.0f;
-	y = 0.0f;
-	z = 0.0f;
-	length = 0.0f;
+	this->x = 0.0f;
+	this->y = 0.0f;
+	this->z = 0.0f;
 }
-Vector3D::Vector3D(double x,double y,double z)
+Vector3D::Vector3D(float x,float y,float z) : x(_array[0]),y(_array[1]),z(_array[2])
 {
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	updateLength();
 }
 
-Vector3D::Vector3D(Vector3D const &a)
+Vector3D::Vector3D(Vector3D const &a) : x(_array[0]),y(_array[1]),z(_array[2])
 {
 	x = a.x;
 	y = a.y;
 	z = a.z;
-	updateLength();
 }
 
 Vector3D Vector3D::operator+(Vector3D const &a)
@@ -35,11 +32,11 @@ Vector3D Vector3D::operator-(Vector3D const &a)
 {
 	return Vector3D(x-a.x,y-a.y,z-a.z);
 }
-Vector3D Vector3D::operator*(double a)
+Vector3D Vector3D::operator*(float a)
 {
 	return Vector3D(x*a,y*a,z*a);
 }
-Vector3D Vector3D::operator/(double a)
+Vector3D Vector3D::operator/(float a)
 {
 	if(a!= 0.0f)
 		return Vector3D(x/a,y/a,z/a);
@@ -60,14 +57,14 @@ Vector3D Vector3D::operator-=(Vector3D const &a)
 	z -= a.z;
 	return *this;
 }
-Vector3D Vector3D::operator*=(double a)
+Vector3D Vector3D::operator*=(float a)
 {
 	x *= a;
 	y *= a;
 	z *= a;
 	return *this;
 }
-Vector3D Vector3D::operator/=(double a)
+Vector3D Vector3D::operator/=(float a)
 {
 	x /= a;
 	y /= a;
@@ -89,40 +86,44 @@ bool Vector3D::operator==(Vector3D const &a)
 	return true;
 }
 
+Vector3D Vector3D::operator=(Vector3D const &a)
+{
+	memcpy(_array,a._array,sizeof(float)*3);
+	return *this;
+}
+
 Vector3D Vector3D::crossProduct(Vector3D const &a)
 {
     return Vector3D(y*a.z - z*a.y,z*a.x - x*a.z,x*a.y - y*a.x);
 }
 
-double Vector3D::scaleProduct(Vector3D const &a)
+float Vector3D::scaleProduct(Vector3D const &a)
 {
 	return x*a.x + y*a.y + z*a.z;
 }
 
-void Vector3D::updateLength()
+void Vector3D::normalise() const
 {
-	length = x*x + y*y + z*z;
-	length = sqrt(length);
-}
-void Vector3D::normalise()
-{
-	updateLength();
-
-	if(length == 0.0f)
-		return;
-
-	x /= length;
-	y /= length;
-	z /= length;
-	updateLength();
+	float _length = length();
+	x /= _length;
+	y /= _length;
+	z /= _length;
 }
 
-Matrix Vector3D::toMatrix()
+ofstream& operator<<(ofstream &file, Vector3D  v)
 {
-	Matrix mat(4,1);
-	mat[0][0] = x;
-	mat[1][0] = y;
-	mat[2][0] = z;
-	mat[3][0] = 1.0f;
-	return mat;
+	file << v.getX() << v.getY() << v.getZ();
+	return file;
+}
+
+ifstream& operator>>(ifstream &file, Vector3D  v)
+{
+	float a;
+	file >> a;
+	v.setX(a);
+	file >> a;
+	v.setY(a);
+	file >> a;
+	v.setZ(a);
+	return file;
 }

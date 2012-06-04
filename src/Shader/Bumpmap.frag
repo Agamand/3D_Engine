@@ -7,19 +7,22 @@
 //
 // See 3Dlabs-License.txt for license information
 //
-
+#version 130
+uniform sampler2D texture;
 uniform sampler2D NormalMap;
 uniform float DiffuseFactor;
 uniform float SpecularFactor;
-uniform vec3 BaseColor;
+//uniform vec3 BaseColor;
 
-varying vec3 lightDir;    // interpolated surface local coordinate light direction 
-varying vec3 viewDir;     // interpolated surface local coordinate view direction
+in vec3 lightDir;    // interpolated surface local coordinate light direction 
+in vec3 viewDir;     // interpolated surface local coordinate view direction
+in vec3 tex_c;
 
 void main (void)
 {
     vec3 norm;
     vec3 r;
+	vec3 BaseColor = texture2D(texture,gl_TexCoord[0].st).xyz;
     vec3 color;
     float intensity;
     float spec;
@@ -42,5 +45,6 @@ void main (void)
     color = clamp(BaseColor * intensity, 0.0, 1.0);
  
     // Write out final fragment color
+	
     gl_FragColor = vec4(color, 1.0);
 }

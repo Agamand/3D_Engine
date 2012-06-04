@@ -1,8 +1,8 @@
 
 #ifndef MASS_H
 #define MASS_H
+#include <glm/glm.hpp>
 #include "../Object/Object.h"
-#include "../Math/Vector.h"
 
 #define GRAVITY_ACCELERATION 9.81
 
@@ -12,12 +12,12 @@ public:
 	Mass(Object* obj, float mass);
 	~Mass();
 
-	Vector3D velocity;
-	Vector3D force;
-	void applyForce(Vector3D f) { force += f;}
-	void applyVelocity(Vector3D v) { velocity += v;} 
+	glm::vec3 velocity;
+	glm::vec3 force;
+	void applyForce(glm::vec3 f) { force += f;}
+	void applyVelocity(glm::vec3 v) { velocity += v;} 
 	void simulate(int dt);
-	void setVelocity(Vector3D v){ velocity = v;}
+	void setVelocity(glm::vec3 v){ velocity = v;}
 
 
 private:
@@ -29,7 +29,6 @@ private:
 class Simulation
 {
 };
-
 
 #endif
 

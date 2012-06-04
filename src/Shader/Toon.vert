@@ -7,8 +7,9 @@
 //
 // See 3Dlabs-License.txt for license information
 //
+#version 130
 
-varying vec3 Normal;
+out vec3 Normal;
 
 void main(void)
 {

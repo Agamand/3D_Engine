@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon 26. Mar 22:19:42 2012
+** Created: Sat 14. Apr 13:26:18 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,6 +37,13 @@ static const uint qt_meta_data_MainWindow[] = {
       79,   73,   11,   11, 0x08,
      106,   11,   11,   11, 0x08,
      130,   11,   11,   11, 0x08,
+     156,   11,   11,   11, 0x08,
+     182,   11,   11,   11, 0x08,
+     208,   11,   11,   11, 0x08,
+     234,   11,   11,   11, 0x08,
+     260,   11,   11,   11, 0x08,
+     278,   11,   11,   11, 0x08,
+     294,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -47,6 +54,11 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "index\0on_comboBox_activated(int)\0"
     "on_pushButton_clicked()\0"
     "on_pushButton_2_clicked()\0"
+    "on_pushButton_4_clicked()\0"
+    "on_pushButton_5_clicked()\0"
+    "on_pushButton_6_clicked()\0"
+    "on_pushButton_7_clicked()\0on_select_plein()\0"
+    "on_select_fil()\0on_select_point()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -61,6 +73,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->on_comboBox_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->on_pushButton_clicked(); break;
         case 5: _t->on_pushButton_2_clicked(); break;
+        case 6: _t->on_pushButton_4_clicked(); break;
+        case 7: _t->on_pushButton_5_clicked(); break;
+        case 8: _t->on_pushButton_6_clicked(); break;
+        case 9: _t->on_pushButton_7_clicked(); break;
+        case 10: _t->on_select_plein(); break;
+        case 11: _t->on_select_fil(); break;
+        case 12: _t->on_select_point(); break;
         default: ;
         }
     }
@@ -98,9 +117,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 13;
     }
     return _id;
 }

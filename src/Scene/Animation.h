@@ -2,10 +2,12 @@
 
 #ifndef ANIMATION_H
 #define ANIMATION_H
-#include "../Math/Vector.h"
-#include "../Math/Quaternion.h"
+
 #include "../Object/Object.h"
+#include "../Bone.h"
 #include <map>
+#include <set>
+
 
 enum AnimFlag
 {
@@ -24,11 +26,11 @@ public:
 	public:
 		MoveInfo()
 		{
-			pos = Vector3D();
-			rot = Quat();
+			pos = glm::vec3();
+			rot = glm::quat();
 			time = -1;
 		}
-		MoveInfo(Vector3D pos, Quat rot, int time)
+		MoveInfo(glm::vec3 pos, glm::quat rot, int time)
 		{
 			this->pos = pos;
 			this->rot = rot;
@@ -40,9 +42,13 @@ public:
 			this->rot = obj->getRotation();
 			this->time = time;
 		}
-		Vector3D pos;
-		Quat rot;
+		glm::vec3 pos;
+		glm::quat rot;
 		int time;
+		bool operator<(const MoveInfo &a)
+		{
+			return this->time < a.time;
+		}
 	};
 
 	Animation(Object* obj);
@@ -56,6 +62,71 @@ private:
 	Object* obj;
 };
 
+
+class AnimationBone
+{
+public:
+	struct MoveInfoBone
+	{
+	public:
+		MoveInfoBone(int time = -1)
+		{
+			pos = glm::vec3();
+			rot = glm::quat();
+			time = time;
+		}
+		MoveInfoBone(glm::vec3 pos, glm::quat rot, int time)
+		{
+			this->pos = pos;
+			this->rot = rot;
+			this->time = time;
+		}
+		MoveInfoBone(Bone * _bone, int time)
+		{
+			this->pos = _bone->posBase;
+			this->rot = _bone->rotation;
+			this->time = time;
+		}
+		glm::vec3 pos;
+		glm::quat rot;
+		int time;
+		bool operator<(const MoveInfoBone &a)
+		{
+			return this->time < a.time;
+		}
+		bool operator==(const MoveInfoBone &a)
+		{
+			return this->time == a.time;
+		}
+		bool operator>(const MoveInfoBone &a)
+		{
+			return this->time > a.time;
+		}
+		bool operator<(const int t)
+		{
+			return this->time < t;
+		}
+		bool operator==(const int t)
+		{
+			return this->time == t;
+		}
+		bool operator>(const int t)
+		{
+			return this->time > t;
+		}
+	};
+
+	AnimationBone(Bone *_bone);
+	void update(int time);
+	void addMoveInfoBone(MoveInfoBone mi);
+	void remMoveInfoBone(int time);
+	bool checkMoveInfoBone(MoveInfoBone mv);
+	MoveInfoBone getInterpolateFor(int time);
+private:
+	std::map<int,MoveInfoBone> mv_set;
+	Bone* bone;
+};
+
 class MoveInfo_compare
 {
 public:
@@ -65,33 +136,4 @@ public:
     }
 };
 
-
-/*
-struct _animation //time in ms
-{
-	Object * obj;
-	MoveInfo mv_info[256];
-	int mv_size;
-	
-	void (*update)(Animation*,int);
-
-};
-
-struct _animationscene
-{
-	ListCh* l_anim;
-	int t;
-	int start;
-	void(*update)(AnimScene*,int, int);
-	void (*reset)(AnimScene*);
-};
-AnimScene* newAnimScene(AnimScene*);
-void deleteAnimScene(AnimScene*);
-void addAnim(AnimScene*,Animation*);
-void delAnim(AnimScene*,Animation*);
-void updateAll(AnimScene*, int, int);
-void reset(AnimScene*);
-void updatePosition(AnimScene* anim,int time);
-Animation* getAnimFromObj(AnimScene* anim,Object* obj);
-*/
 #endif

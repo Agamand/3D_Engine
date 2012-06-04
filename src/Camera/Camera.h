@@ -3,13 +3,14 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "../Math/Vector.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Camera
 {
 public:
 	Camera();
-	Camera(Vector3D pos);
+	Camera(glm::vec3 pos);
 	~Camera();
 
 	void OnMouseMotion(int x, int y);
@@ -17,12 +18,13 @@ public:
 
 	void VectorsFromAngles();
 
-	Vector3D getPosition() { return _position; }
-	void setPosition(Vector3D pos) { _position = pos; } 
-	void getPosition(double &x, double &y, double &z) { x = _position.getX(); y = _position.getY(); z = _position.getZ(); }
-	void setPosition(double x, double y, double z) { _position = Vector3D(x,y,z); }
+	glm::vec3 getPosition() { return _position; }
+	void setPosition(glm::vec3 pos) { _position = pos; } 
+	void getPosition(float &x, float &y, float &z) { x = _position.x; y = _position.y; z = _position.z; }
+	void setPosition(float x, float y, float z) { _position = glm::vec3(x,y,z); }
 
-	void setTarget(Vector3D pos) { _target = pos; } 
+	void setTarget(glm::vec3 pos) { _target = pos; } 
+	glm::vec3 getTarget() {return _target;}
 
 	void look();
 
@@ -34,10 +36,10 @@ private:
     int _verticalMotionActive;
     int _verticalMotionDirection;
 
-    Vector3D _position;
-    Vector3D _target;
-    Vector3D _forward;
-    Vector3D _left;
+	glm::vec3 _position;
+    glm::vec3 _target;
+    glm::vec3 _forward;
+    glm::vec3 _left;
     float _theta;
     float _phi;
 };

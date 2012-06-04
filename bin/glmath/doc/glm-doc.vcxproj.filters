@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\dummy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\dep\glmath\doc\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0BD1CA34-233B-4545-B8F1-D2C8752DB8CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TXT Files">
+      <UniqueIdentifier>{7AE20CCA-3CC7-4D4E-863E-6EC9200556CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML Files">
+      <UniqueIdentifier>{A9E4FD0C-E672-4FC8-84C7-F9708380CFEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XSL Files">
+      <UniqueIdentifier>{35761E0F-E951-4942-A1A0-10B9D547F877}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\data.xml">
+      <Filter>XML Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\about.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\code.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\download.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\goodies.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\link.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\news.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\util.xsl">
+      <Filter>XSL Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\man.doxy">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\pages.doxy">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\CMakeLists.txt">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\copying.txt">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\readme.txt">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\theme\doxygen.css">
+      <Filter>TXT Files</Filter>
+    </None>
+    <None Include="J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\theme\tabs.css">
+      <Filter>TXT Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

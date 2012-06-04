@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include "Animation.h"
 #include <algorithm>
+#include <xfunctional>
+#define ABS(x) x > 0.0f ? x : -x
 Animation::Animation(Object* obj)
 {
 	this->obj = obj;
@@ -45,22 +47,21 @@ void Animation::remMoveInfo(int time)
 	}
 }	
 
-bool vectorCompare(Vector3D v1, Vector3D v2)
+bool vectorCompare(glm::vec3 v1, glm::vec3 v2)
 {
-	Vector3D v = v1 - v2;
-	if(ABS(v.getX()) > 0.0005f)
+	glm::vec3 v = v1 - v2;
+	if(ABS(v.x) > 0.0005f)
 		return false;
-	if(ABS(v.getY()) > 0.0005f)
+	if(ABS(v.y) > 0.0005f)
 		return false;
-	if(ABS(v.getZ()) > 0.0005f)
+	if(ABS(v.z) > 0.0005f)
 		return false;
 	return true;
 }
 
-bool quatCompare(Quat qt1,Quat qt2)
+bool quatCompare(glm::quat qt1,glm::quat qt2)
 {
-	Quat qt = qt1 - qt2;
-	if(ABS(qt.getA()) > 0.0005f || !vectorCompare(qt1.getVector(),qt2.getVector()))
+	if(ABS(qt1.w - qt2.w) > 0.0005f || !vectorCompare(glm::vec3(qt1.x,qt1.y,qt1.z),glm::vec3(qt2.x,qt2.y,qt2.z)))
 		return false;
 	return true;
 }
@@ -91,230 +92,111 @@ Animation::MoveInfo Animation::getInterpolateFor(int time)
 	}
 
 	int inter = mv_list[index+1].time - mv_list[index].time;
-	double t = time - mv_list[index].time;
-	t = ((double)t)/((double)inter);
+	float t = time - mv_list[index].time;
+	t = ((float)t)/((float)inter);
 	if(t > 1.0f)
 		t = 1.0f;
 	MoveInfo mv;
-	mv.rot = mv_list[index].rot.interpolate(mv_list[index+1].rot,t);
+	mv.rot = glm::mix(mv_list[index].rot,mv_list[index+1].rot,t);
 	mv.pos = mv_list[index].pos;
 	mv.time = time;
 	return mv;
 }
-/*
-Animation* newAnim(Animation* anim,Object* obj)
+
+
+AnimationBone::AnimationBone(Bone* obj)
 {
-	int i;
-	if(!anim)
-		anim = (Animation*)malloc(sizeof(Animation));
-
-	anim->obj = obj;
-	anim->t = 0;
-	anim->mv_size = 0;
-	for(i = 0; i < 256; i++)
-		anim->mv_info[i].time = -1;
-
-	initAnim(anim);
-	return anim;
+	this->bone = obj;
+	addMoveInfoBone(MoveInfoBone(obj->posBase,obj->rotation,0));
 }
 
-void initAnim(Animation* anim)
+void AnimationBone::update(int time)
 {
-	anim->update = update;
-}
-void deleteAnim(Animation* anim)
-{
-	free(anim);
-}
-
-void update(Animation* anim,int value)
-{
-	Quat qt;
-	double t;
-	int i;
-	int time;
-	anim->t += value;
-
-	if(anim->mv_size < 2)
+	if(mv_set.size() < 2)
 		return;
 
-	for(i = 0; i < anim->mv_size-1; i++)
-	{
-		if(anim->t >= anim->mv_info[i].time && anim->t <= anim->mv_info[i+1].time)
-			break;
+	MoveInfoBone mv = getInterpolateFor(time);
+	bone->posBase = mv.pos;
+	bone->rotation = mv.rot;
+	bone->updateBoneMatrix();
+			
+}
+void AnimationBone::addMoveInfoBone(MoveInfoBone mi)
+{
+	//if(!checkMoveInfo(mi))
+		//return;
 
-		if(i+1 == anim->mv_size-1)
-			break;
+	mv_set[mi.time] = mi;
+}
+
+void AnimationBone::remMoveInfoBone(int time)
+{
+	if(mv_set.empty())
+		return;
+
+	mv_set.erase(time);
+}	
+
+bool AnimationBone::checkMoveInfoBone(MoveInfoBone mv)
+{
+	MoveInfoBone _mv;
+	if(mv_set.empty())
+		return true;
+
+	_mv = getInterpolateFor(mv.time);
+	       
+	return !(quatCompare(mv.rot,_mv.rot) && vectorCompare(mv.pos,_mv.pos));
+}
+
+glm::quat slerp(glm::quat begin, glm::quat end, float t)
+{
+	float sin1,sin2;
+	float a = glm::dot(begin,end);
+	if(a > 1.0f)
+		a = 1.0f;
+	else if(a < -1.0f) 
+		a = -1.0f;
+	a = acos(a);
+	sin1 = sin((1-t)*a)/sin(a);
+	sin2 = sin(t*a)/sin(a);
+	return (begin*sin1 + end*sin2);
+}
+AnimationBone::MoveInfoBone AnimationBone::getInterpolateFor(int time)
+{
+	if(mv_set.size() < 2)
+		return (mv_set.begin()->second);
+
+
+	MoveInfoBone before;
+	MoveInfoBone after;	
+	std::map<int,MoveInfoBone>::iterator test = mv_set.end();
+	test--;
+	if(time >= test->first)
+	{
+		return test->second;
 	}
-	time = anim->mv_info[i+1].time - anim->mv_info[i].time;
-	t = anim->t - anim->mv_info[i].time;
-	t = ((double)t)/((double)time);
-	if(t > 1.0f)
-		t = 1.0f;
-	qt = interpolQuat(anim->mv_info[i].rot,anim->mv_info[i+1].rot,t);
-	anim->obj->qtrot = qt;
-	
-}
-Quat getInterpolateFor(Animation* anim, int time)
-{
-	Quat qt;
-	double t;
-	int i;
-	int animtime;
 
-	if(anim->mv_size == 1)
-		return anim->mv_info[0].rot;
-	for(i = 0; i < anim->mv_size-1; i++)
+	for(std::map<int,MoveInfoBone>::iterator i = mv_set.begin(); i != mv_set.end(); i++)
 	{
-		if(anim->t >= anim->mv_info[i].time && anim->t <= anim->mv_info[i+1].time)
-			break;
-
-		if(i+1 == anim->mv_size-1)
-			break;
-	}
-	animtime = anim->mv_info[i+1].time - anim->mv_info[i].time;
-	t = time - anim->mv_info[i].time;
-	t = ((double)t)/((double)animtime);
-	if(t > 1.0f)
-		t = 1.0f;
-	qt = interpolQuat(anim->mv_info[i].rot,anim->mv_info[i+1].rot,t);
-	return qt;
-}
-
-int checkAnim(Animation* anim,Quat qt, int time)
-{
-	Quat _qt;
-	if(!anim->mv_size)
-		return 1;
-
-	_qt = getInterpolateFor(anim,time);
-
-	return !quatCompare(qt,_qt);
-}
-void addMoveInfo(Animation* anim,Quat qt,int time)
-{
-	if(anim->mv_size >= 256)
-		return;
-	
-	if(!checkAnim(anim,qt,time))
-		return;
-
-	remMoveInfo(anim,time);
-	anim->mv_info[anim->mv_size].rot = qt;
-	anim->mv_info[anim->mv_size].time = time;
-	
-	anim->mv_size++;
-	orderMoveInfo(anim);
-}
-
-void remMoveInfo(Animation*anim,int time)
-{
-	int i;
-	if(anim->mv_size <= 0)
-		return;
-
-	for(i = 0; i < anim->mv_size; i++)
-	{
-		if(anim->mv_info[i].time == time)
+		if(time < i->first) 
 		{
-			anim->mv_info[i].time = -1;
-			anim->mv_size--;
+			after = i->second;
+			i--;
+			if(i == mv_set.end())
+				return after;
+			before = (i)->second;
 			break;
 		}
 	}
-	orderMoveInfo(anim);
-	
+
+	int inter = after.time - before.time;
+	float t = time - before.time;
+	t = ((float)t)/((float)inter);
+	if(t > 1.0f)
+		t = 1.0f;
+	MoveInfoBone mv;
+	mv.rot = slerp(before.rot,after.rot,t);
+	mv.pos = glm::mix(before.pos,after.pos,t);
+	mv.time = time;
+	return mv;
 }
-
-void orderMoveInfo(Animation*anim)
-{
-	qsort(&anim->mv_info,anim->mv_size,sizeof(MoveInfo),compareMoveInfo);
-}
-int compareMoveInfo(const void *Param1, const void *Param2)
-{
-	MoveInfo *mv1, *mv2;
-	mv1 = (MoveInfo*)Param1;
-	mv2 = (MoveInfo*)Param2;
-	if(mv1->time != mv2->time && mv1->time < 0)
-		return 1;
-
-	if(mv1->time > mv2->time)
-		return 1;
-	else if(mv1->time < mv2->time)
-		return -1;
-	else return 0;
-}
-
-
-AnimScene* newAnimScene(AnimScene* anim)
-{
-	if(!anim)
-		anim = (AnimScene*)malloc(sizeof(AnimScene));
-
-	anim->l_anim = newListCh();
-	anim->t = 0;
-	anim->start = 0;
-	anim->reset = reset;
-	anim->update = updateAll;
-	return anim;
-}
-void deleteAnimScene(AnimScene* anim)
-{
-	deleteListCh(anim->l_anim);
-	free(anim);
-}
-void addAnim(AnimScene*anim,Animation* an)
-{
-	anim->l_anim->Append(anim->l_anim,an);
-}
-void delAnim(AnimScene*anim,Animation* an)
-{
-	anim->l_anim->Erase(anim->l_anim,an);
-}
-void updateAll(AnimScene* anim, int diff, int forceupdate)
-{
-	Pointer* itr;
-	Animation* an;
-	if(!anim->start && !forceupdate)
-		return;
-	anim->t += diff;
-	itr = anim->l_anim->begin;
-	while((itr = itr->nextpointer) != anim->l_anim->end)
-	{
-		an = (Animation*)itr->pointer;
-
-		an->update(an,diff);
-	}
-}
-
-void reset(AnimScene* anim)
-{
-	Pointer* itr;
-	Animation* an;
-	anim->start = 0;
-	anim->t = 0;
-	itr = anim->l_anim->begin;
-	while((itr = itr->nextpointer) != anim->l_anim->end)
-	{
-		an = (Animation*)itr->pointer;
-		an->t = 0;
-		an->update(an,anim->t);
-	}
-}
-
-Animation* getAnimFromObj(AnimScene* anim,Object* obj)
-{
-	Animation* an = NULL;
-	Pointer *itr, *end;
-
-	itr = anim->l_anim->begin;
-	end = anim->l_anim->end;
-
-	while((itr = itr->nextpointer) != end)
-	{
-		an = (Animation*)itr->pointer;
-		if(an->obj == obj)
-			return an;
-	}
-	return NULL;
-}*/

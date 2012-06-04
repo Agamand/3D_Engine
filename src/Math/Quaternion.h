@@ -5,6 +5,8 @@
 #ifndef MATHPLUS_H
 #define MATHPLUS_H
 #define _USE_MATH_DEFINES
+
+
 #include <math.h>
 #include "Vector.h"
 #include "Matrix.h"
@@ -18,9 +20,9 @@
 
 struct Rot
 {
-	Rot(double _a, Vector3D _v) 
+	Rot(float _a, Vector3D _v) 
 	{ a = _a; v = _v; v.normalise();}
-	double a;
+	float a;
 	Vector3D v;
 };
 
@@ -28,42 +30,47 @@ class Quat
 {
 public:
 	Quat();
-	Quat(double a, Vector3D v);
+	Quat(float a, Vector3D v);
 	Quat(Quat const &qt);
-	Quat(Matrix m);
+	Quat(Matrix4 m);
 	~Quat() {;}
 	Quat operator+(Quat const &a);
 	Quat operator-(Quat const &a);
 	Quat operator*(Quat const &a);
-	Quat operator*(double const &a);
-	Quat operator/(double const &a);
+	Quat operator*(float const &a);
+	Quat operator/(float const &a);
 	Quat operator+=(Quat const &a);
 	Quat operator-=(Quat const &a);
 	Quat operator*=(Quat const &a);
-	Quat operator*=(double const &a);
-	Quat operator/=(double const &a);
+	Quat operator*=(float const &a);
+	Quat operator/=(float const &a);
 
-	double ScaleProd(Quat q);
+	float ScaleProd(Quat q);
 	Quat inv();	
 	Quat conj();
-	Matrix toMatrix();
-	Quat interpolate(Quat q, double t);
+	Matrix4 toMatrix();
+	Quat interpolate(Quat q, float t);
 	void normalise();
 	Rot toRot();
-	double norm();
+	float norm();
+	bool isNull() { return a == 0.0f || vect.isNull();}
+	Vector3D rotatePoint(Vector3D v);
 
-	void setA(double a) { this->a = a; }
-	double getA() { return a; }
+	void setA(float a) { this->a = a; }
+	float getA() { return a; }
 	void setVector(Vector3D v) { vect = v; }
 	Vector3D getVector() { return vect; }
 private:
-	double a;
+	float a;
 	Vector3D vect;
 };
 
 
 
-int max3(double a, double b, double c);
+int max3(float a, float b, float c);
 
+ofstream& operator<<(ofstream &file, Quat q);
+
+ifstream& operator>>(ifstream &file, Quat q);
 
 #endif

@@ -1,0 +1,32 @@
+﻿La génération a démarré 08/05/2012 01:18:14.
+     1>Projet "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\glm-doc.vcxproj" sur le nœud 3 (build cible(s)).
+     1>PrepareForBuild:
+         Création du répertoire "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\".
+       InitializeBuildStatus:
+         Création de "glm-doc.dir\Debug\glm-doc.unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+       CustomBuild:
+         Building Custom Rule J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/doc/CMakeLists.txt
+         CMake does not need to re-run because J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\CMakeFiles\generate.stamp is up-to-date.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/." /I"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/dep/glmath/./test/external" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _CRT_SECURE_NO_WARNINGS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"glm-doc.dir\Debug\\" /Fd"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/doc/Debug/glm-doc.pdb" /Gd /TP /analyze- /errorReport:prompt "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\dep\glmath\doc\src\dummy.cpp"  /Zm1000 
+         dummy.cpp
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"glm-doc.dir\Debug\glm-doc.exe.embed.manifest.res" glm-doc.dir\Debug\glm-doc_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\glm-doc.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /ManifestFile:"glm-doc.dir\Debug\glm-doc.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\glm-doc.pdb" /SUBSYSTEM:CONSOLE /STACK:"10000000" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/doc/Debug/glm-doc.lib" /MACHINE:X86 "glm-doc.dir\Debug\glm-doc.exe.embed.manifest.res"
+         "glm-doc.dir\Debug\dummy.obj"  /machine:X86 /debug 
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"glm-doc.dir\Debug\glm-doc.exe.embed.manifest" /manifest "glm-doc.dir\Debug\glm-doc.exe.intermediate.manifest"
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"glm-doc.dir\Debug\glm-doc.exe.embed.manifest.res" glm-doc.dir\Debug\glm-doc_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\glm-doc.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /ManifestFile:"glm-doc.dir\Debug\glm-doc.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\glm-doc.pdb" /SUBSYSTEM:CONSOLE /STACK:"10000000" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"J:/Projet Infographie/Moteur3D/Engine(Cpp version)/bin/glmath/doc/Debug/glm-doc.lib" /MACHINE:X86 "glm-doc.dir\Debug\glm-doc.exe.embed.manifest.res"
+         "glm-doc.dir\Debug\dummy.obj"  /machine:X86 /debug 
+         glm-doc.vcxproj -> J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\Debug\glm-doc.exe
+       FinalizeBuildStatus:
+         Suppression du fichier "glm-doc.dir\Debug\glm-doc.unsuccessfulbuild".
+         Mise à jour de l'horodatage "glm-doc.dir\Debug\glm-doc.lastbuildstate".
+     1>Génération du projet "J:\Projet Infographie\Moteur3D\Engine(Cpp version)\bin\glmath\doc\glm-doc.vcxproj" terminée (build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:02.61

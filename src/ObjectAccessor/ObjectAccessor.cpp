@@ -4,6 +4,8 @@
 
 
 
+
+
 ObjectAccessor::ObjectAccessor()
 {
 	scene = NULL;
@@ -26,13 +28,25 @@ ObjectAccessor::~ObjectAccessor()
 
 }
 
-Texture* ObjectAccessor::getTexture(String name)
+Texture* ObjectAccessor::getTexture(String filepath)
 {
-	for(std::vector<Texture*>::iterator itr = texture_list.begin(); itr != texture_list.end(); itr++)
+	for(size_t i = 0 ; i > texture_list.size(); i++)
 	{
-		if(!name.compare((*itr)->getName()))
-			return (*itr);
+		if(!filepath.compare(texture_list[i]->getName()))
+			return (texture_list[i]);
 	}
+
+	//no found -> Create texture !
+
+	Texture* t = new Texture(filepath);
+
+	if(t && t->getTextureID() > 0)
+	{
+		addTexture(t);
+		return t;
+	}else if(t)	// filepath not correct
+		delete t;
+
 	return NULL;
 }
 
@@ -56,100 +70,5 @@ Object* ObjectAccessor::getObject(uint64 guid)
 	return NULL;
 }
 
+//init Singleton
 ObjectAccessor * ObjectAccessor::objmgr = 0;
-
-
-/*
-
-void addObject(ObjectAccessor* objmgr,void* p, char*name)
-{
-	ListCh* ls;
-	Object * obj;
-	if(!Objmgr)
-		return;
-	ls = objmgr->objectlist;
-	ls->Append(ls,p);
-}
-
-Object* getObjectFromP(void*p)
-{
-	ListCh* ls;
-	Pointer *itr;
-	if(!Objmgr)
-		return NULL;
-	ls = Objmgr->objectlist;
-	itr = ls->begin;
-	while((itr = itr->nextpointer) != ls->end)
-	{
-		if(((Object*)itr->pointer) == p)
-			return (Object*)itr->pointer;
-	}
-	return NULL;
-}
-
-void removeObjectFromP(void*p)
-{
-	ListCh* ls;
-	Object * obj;
-	if(!Objmgr)
-		return;
-	ls = Objmgr->objectlist;
-	if(obj = getObjectFromP(p))
-	{
-		ls->Erase(ls,obj);
-	}
-
-}
-
-void addTexture(void* p)
-{
-	ListCh* ls;
-	Object * obj;
-	if(!Objmgr)
-		return;
-	ls = Objmgr->texturelist;
-	ls->Append(ls,p);
-}
-
-Texture* getTextureFromP(void*p)
-{
-	ListCh* ls;
-	Pointer *itr;
-	if(!Objmgr)
-		return NULL;
-	ls = Objmgr->texturelist;
-	itr = ls->begin;
-	while((itr = itr->nextpointer) != ls->end)
-	{
-		if(((Texture*)itr->pointer) == p)
-			return (Texture*)itr->pointer;
-	}
-	return NULL;
-}
-Texture* getTextureFromName(char * name)
-{
-	ListCh* ls;
-	Pointer *itr;
-	if(!Objmgr)
-		return NULL;
-	ls = Objmgr->texturelist;
-	itr = ls->begin;
-	while((itr = itr->nextpointer) != ls->end)
-	{
-		if(!strcmp(((Texture*)itr->pointer)->textureName, name))
-			return (Texture*)itr->pointer;
-	}
-	return NULL;
-}
-void removeTextureFromP(void*p)
-{
-	ListCh* ls;
-	Texture * t;
-	if(!Objmgr)
-		return;
-	ls = Objmgr->objectlist;
-	if(t = getTextureFromP(p))
-	{
-		ls->Erase(ls,t);
-	}
-}*/

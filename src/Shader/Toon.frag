@@ -8,11 +8,14 @@
 // See 3Dlabs-License.txt for license information
 //
 
+#version 130
+
 uniform vec3 DiffuseColor;
 uniform vec3 PhongColor;
 uniform float Edge;
 uniform float Phong;
-varying vec3 Normal;
+
+in vec3 Normal;
 
 void main (void)
 {
